@@ -131,7 +131,6 @@
                             <th scope="col">Tanggal</th>
                             <th scope="col">Waktu</th>
                             <th scope="col">Jenis Pengajuan</th>
-                            <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody class="datatable-body">
@@ -180,10 +179,6 @@
                                     var jenisPengajuanText = pengajuan.id_jenis_pengajuan == 1 ? 'Kunjungan' : 'Pelatihan';
                                     var jenisPengajuanBadge = $('<span>').addClass('badge').addClass(jenisPengajuanClass).text(jenisPengajuanText);
                                     row.append($('<td>').append(jenisPengajuanBadge));
-                                    var statusBadgeClass = pengajuan.id_jenis_persetujuan == 1 ? 'bg-warning' : (pengajuan.id_jenis_persetujuan == 2 ? 'bg-success' : 'bg-danger');
-                                    var statusBadgeText = pengajuan.id_jenis_persetujuan == 1 ? 'Belum Disetujui' : (pengajuan.id_jenis_persetujuan == 2 ? 'Disetujui' : 'Ditolak');
-                                    var statusBadge = $('<span>').addClass('badge').addClass(statusBadgeClass).text(statusBadgeText);
-                                    row.append($('<td>').append(statusBadge));
                     
                                     // Menambahkan baris ke dalam tabel
                                     tableBody.append(row);
@@ -194,7 +189,7 @@
                             getDataPengajuan();
                     
                             // Melakukan polling data pengajuan setiap 5 detik
-                            setInterval(getDataPengajuan, 5000); // 5000 milidetik = 5 detik
+                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                         });
                     </script>
                 </div>
@@ -214,7 +209,6 @@
                             <th scope="col">Tanggal</th>
                             <th scope="col">Waktu</th>
                             <th scope="col">Jenis Pengajuan</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Alasan</th>
                             </tr>
                         </thead>
@@ -281,10 +275,6 @@
                                             var jenisPengajuanText = pengajuan.id_jenis_pengajuan == 1 ? 'Kunjungan' : 'Pelatihan';
                                             var jenisPengajuanBadge = $('<span>').addClass('badge').addClass(jenisPengajuanClass).text(jenisPengajuanText);
                                             row.append($('<td>').append(jenisPengajuanBadge));
-                                            var statusBadgeClass = pengajuan.id_jenis_persetujuan == 1 ? 'bg-warning' : (pengajuan.id_jenis_persetujuan == 2 ? 'bg-success' : 'bg-danger');
-                                            var statusBadgeText = pengajuan.id_jenis_persetujuan == 1 ? 'Belum Disetujui' : (pengajuan.id_jenis_persetujuan == 2 ? 'Disetujui' : 'Ditolak');
-                                            var statusBadge = $('<span>').addClass('badge').addClass(statusBadgeClass).text(statusBadgeText);
-                                            row.append($('<td>').append(statusBadge));
                                             row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalAlasan" data-ditolak="'+ dataDitolak.keterangan_ditolak +'"> Lihat Alasan </a>'));
                             
                                             // Menambahkan baris ke dalam tabel
@@ -297,7 +287,102 @@
                             getDataPengajuan();
                     
                             // Melakukan polling data pengajuan setiap 5 detik
-                            setInterval(getDataPengajuan, 5000); // 5000 milidetik = 5 detik
+                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Kunjungan & Pelatihan <span>| Disetujui</span></h5>
+
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                            <th scope="col">ID Pengajuan</th>
+                            <th scope="col">Deskripsi Pengajuan</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Waktu</th>
+                            <th scope="col">Jenis Pengajuan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="datatable-body-disetujui">
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Script untuk mengambil dan menampilkan data -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            function getDataPengajuan() {
+                                $.ajax({
+                                    url: "/FarmFlock/Controller/Pengajuan.php",
+                                    type: "GET",
+                                    data: { 
+                                        action: "getPengajuanByIdPeternakAndStatus",
+                                        id_peternak: 1,
+                                        id_jenis_persetujuan : 2
+                                    },
+                                    success: function(response) {
+                                        updateTable(response);
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                    }
+                                });
+                            }
+
+                            function getDataDitolak($idPengajuan, callback) {
+                                $.ajax({
+                                    url: "/FarmFlock/Controller/Ditolak.php",
+                                    type: "GET",
+                                    data: { 
+                                        action: "getDitolakByIdPengajuan",
+                                        id_pengajuan: $idPengajuan,
+                                    },
+                                    success: function(response) {
+                                        var ditolak = JSON.parse(response);
+
+                                        callback(ditolak[0]);
+                                    },
+                                });
+                            }
+                    
+                            // Fungsi untuk memperbarui tabel dengan data pengajuan
+                            function updateTable(data) {
+                                var tableBody = $('.datatable-body-disetujui');
+                                tableBody.empty(); // Menghapus semua baris yang ada dalam tabel
+                                
+                                var arrData = JSON.parse(data);
+                                
+                                // Mengisi tabel dengan data pengajuan
+                                arrData.forEach(function(pengajuan) {
+                                    var row = $('<tr>');
+                                        getDataDitolak(pengajuan.id_pengajuan, function(dataDitolak) {
+                                            row.append($('<th>').text('#' + pengajuan.id_pengajuan));
+                                            row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDeskripsi" data-deskripsi="' + pengajuan.deskripsi_pengajuan + '"> Lihat Deskripsi </a>'));
+                                            row.append($('<td>').text(pengajuan.tanggal_pengajuan));
+                                            row.append($('<td>').text(pengajuan.waktu_pengajuan));
+                                            var jenisPengajuanClass = pengajuan.id_jenis_pengajuan == 1 ? 'bg-custom-oranye' : 'bg-custom-pink';
+                                            var jenisPengajuanText = pengajuan.id_jenis_pengajuan == 1 ? 'Kunjungan' : 'Pelatihan';
+                                            var jenisPengajuanBadge = $('<span>').addClass('badge').addClass(jenisPengajuanClass).text(jenisPengajuanText);
+                                            row.append($('<td>').append(jenisPengajuanBadge));
+                                            // Menambahkan baris ke dalam tabel
+                                            tableBody.append(row);
+                                          });
+                                });
+                            }
+                    
+                            // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                            getDataPengajuan();
+                    
+                            // Melakukan polling data pengajuan setiap 5 detik
+                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                         });
                     </script>
                 </div>

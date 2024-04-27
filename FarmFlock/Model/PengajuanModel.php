@@ -18,8 +18,16 @@ class PengajuanModel {
         }
     }
 
-    public function updateStatusPengajuan($idPengajuan) {
+    public function updateStatusPengajuanTolak($idPengajuan) {
         $sql = "UPDATE tbl_pengajuan SET id_jenis_persetujuan = 3 WHERE id_pengajuan = $idPengajuan";
+        
+        if ($this->conn->query($sql) === TRUE) {
+            return true;
+        }
+    }
+
+    public function updateStatusPengajuanSetuju($idPengajuan) {
+        $sql = "UPDATE tbl_pengajuan SET id_jenis_persetujuan = 2 WHERE id_pengajuan = $idPengajuan";
         
         if ($this->conn->query($sql) === TRUE) {
             return true;
@@ -28,7 +36,7 @@ class PengajuanModel {
 
     public function getPengajuanByIdPeternakAndStatus($idPeternak, $idJenisPersetujuan) {
         // Query untuk mengambil data pengajuan berdasarkan id_peternak
-        $sql = "SELECT * FROM tbl_pengajuan WHERE id_peternak = $idPeternak AND id_jenis_persetujuan = $idJenisPersetujuan";
+        $sql = "SELECT * FROM tbl_pengajuan WHERE id_peternak = $idPeternak AND id_jenis_persetujuan = $idJenisPersetujuan ORDER BY id_pengajuan DESC";
 
         // Menjalankan query
         $result = $this->conn->query($sql);

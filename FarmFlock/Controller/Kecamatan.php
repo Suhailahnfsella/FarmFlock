@@ -1,6 +1,6 @@
 <?php
-include_once '../config/database.php';
-include_once '../model/KecamatanModel.php';
+include_once '../Config/database.php';
+include_once '../Model/KecamatanModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
     $conn = get_connection();

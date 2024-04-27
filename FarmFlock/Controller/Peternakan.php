@@ -1,6 +1,6 @@
 <?php
-include_once '../config/database.php';
-include_once '../model/PeternakanModel.php';
+include_once '../Config/database.php';
+include_once '../Model/PeternakanModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
     $conn = get_connection();

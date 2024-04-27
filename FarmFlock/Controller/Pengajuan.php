@@ -1,6 +1,6 @@
 <?php
-include_once '../config/database.php';
-include_once '../model/PengajuanModel.php';
+include_once '../Config/database.php';
+include_once '../Model/PengajuanModel.php';
 
 // Cek jika metode permintaan adalah POST dan aksi telah ditentukan
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             // Jika data tidak lengkap, kirim respons gagal
             echo json_encode(array('status' => 'error', 'message' => 'Data yang diperlukan tidak lengkap'));
         }
-    } elseif ($_POST['action'] === 'updateStatusPengajuan') {
+    } elseif ($_POST['action'] === 'updateStatusPengajuanSetuju') {
         // Periksa apakah data yang diperlukan tersedia
         if (
             isset($_POST['id_pengajuan'])
@@ -60,7 +60,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $pengajuanModel = new PengajuanModel($conn);
     
             // Panggil fungsi untuk menambahkan pengajuan baru
-            $result = $pengajuanModel->updateStatusPengajuan($id_pengajuan);
+            $result = $pengajuanModel->updateStatusPengajuanSetuju($id_pengajuan);
+
+        } else {
+            // Jika data tidak lengkap, kirim respons gagal
+            echo json_encode(array('status' => 'error', 'message' => 'Gagal'));
+        }
+    } elseif ($_POST['action'] === 'updateStatusPengajuanTolak') {
+        // Periksa apakah data yang diperlukan tersedia
+        if (
+            isset($_POST['id_pengajuan'])
+        ) {
+            // Ambil data dari form
+            $id_pengajuan = $_POST['id_pengajuan'];
+    
+            // Buat objek model
+            $pengajuanModel = new PengajuanModel($conn);
+    
+            // Panggil fungsi untuk menambahkan pengajuan baru
+            $result = $pengajuanModel->updateStatusPengajuanTolak($id_pengajuan);
 
         } else {
             // Jika data tidak lengkap, kirim respons gagal
@@ -78,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $pengajuanData = $pengajuanModel->getPengajuanByIdPeternakAndStatus($id_peternak, $id_jenis_persetujuan);
 
     echo json_encode($pengajuanData);
+    
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getPengajuanByJenisPengajuanAndStatus' && isset($_GET['id_jenis_pengajuan']) && isset($_GET['id_jenis_persetujuan'])) {
     $conn = get_connection();
 

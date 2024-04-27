@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 16, 2024 at 06:54 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.3.4
+-- Host: 127.0.0.1
+-- Generation Time: Apr 27, 2024 at 08:38 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbfarmflock`
+-- Database: `db_farmflock`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE `tbl_alasan_ditolak` (
 
 CREATE TABLE `tbl_antrian_pelatihan` (
   `id_antrian_pelatihan` int(11) NOT NULL,
-  `jenis_pelatihan` varchar(125) NOT NULL,
+  `id_jenis_pelatihan` int(11) NOT NULL,
   `id_status_antrian_pelatihan` int(11) NOT NULL,
   `id_pengajuan` int(11) NOT NULL,
   `id_desa` int(11) NOT NULL
@@ -64,7 +64,252 @@ CREATE TABLE `tbl_desa` (
 --
 
 INSERT INTO `tbl_desa` (`id_desa`, `desa`, `id_kecamatan`) VALUES
-(1, 'Sumbersari', 1);
+(1, 'Sumbersari', 1),
+(2, 'Antirogo', 1),
+(3, 'Karangrejo', 1),
+(4, 'Kebonsari', 1),
+(5, 'Keranjingan', 1),
+(6, 'Tegal Gede', 1),
+(7, 'Wirolegi', 1),
+(8, 'Darungan', 2),
+(9, 'Klatakan', 2),
+(10, 'Kramat Sukoharjo', 2),
+(11, 'Patemon', 2),
+(12, 'Manggisan', 2),
+(13, 'Selodakon', 2),
+(14, 'Tanggul Kulon', 2),
+(15, 'Tanggul Wetan', 2),
+(16, 'Ajung', 3),
+(17, 'Klompangan', 3),
+(18, 'Mangaran', 3),
+(19, 'Pancakarya', 3),
+(20, 'Rowo Indah', 3),
+(21, 'Sukamakmur', 3),
+(22, 'Wirowongso', 3),
+(23, 'Ambulu', 4),
+(24, 'Andongsari', 4),
+(25, 'Karang Anyar', 4),
+(26, 'Pontang', 4),
+(27, 'Sabrang', 4),
+(28, 'Sumberrejo', 4),
+(29, 'Tegalsari', 4),
+(30, 'Arjasa', 5),
+(31, 'Biting', 5),
+(32, 'Candijati', 5),
+(33, 'Darsono', 5),
+(34, 'Kamal', 5),
+(35, 'Kemuninglor', 5),
+(36, 'Bagorejo', 6),
+(37, 'Gumukmas', 6),
+(38, 'Karang Rejo', 6),
+(39, 'Kepanjen', 6),
+(40, 'Mayangan', 6),
+(41, 'Menampu', 6),
+(42, 'Purwosari', 6),
+(43, 'Tembokrejo', 6),
+(44, 'Jelbuk', 7),
+(45, 'Panduman', 7),
+(46, 'Suco Pangepok', 7),
+(47, 'Suger Kidul', 7),
+(48, 'Suko Jember', 7),
+(49, 'Sukowiryo', 7),
+(50, 'Cangkring', 8),
+(51, 'Jatimulyo', 8),
+(52, 'Jatisari', 8),
+(53, 'Jenggawah', 8),
+(54, 'Kemuning Sari Kidul', 8),
+(55, 'Kartonegoro', 8),
+(56, 'Seruni', 8),
+(57, 'Wonojati', 8),
+(58, 'Ajung Kalisat', 9),
+(59, 'Gambiran', 9),
+(60, 'Glagahwero', 9),
+(61, 'Gumuksari', 9),
+(62, 'Kalisat', 9),
+(63, 'Patempuran', 9),
+(64, 'Plalangan', 9),
+(65, 'Sebanen', 9),
+(66, 'Sukoreno', 9),
+(67, 'Sumber Jeruk', 9),
+(68, 'Sumber Kalong', 9),
+(69, 'Sumber Ketempah', 9),
+(70, 'Jember Kidul', 10),
+(71, 'Kaliwates', 10),
+(72, 'Kebon Agung', 10),
+(73, 'Kepatihan', 10),
+(74, 'Mangli', 10),
+(75, 'Sempusari', 10),
+(76, 'Tegal Besar', 10),
+(77, 'Karang Paiton', 11),
+(78, 'Ledokombo', 11),
+(79, 'Lembengan', 11),
+(80, 'Slateng', 11),
+(81, 'Sukogidri', 11),
+(82, 'Sumber Anget', 11),
+(83, 'Sumber Bulus', 11),
+(84, 'Sumber Lesung', 11),
+(85, 'Sumber Salak', 11),
+(86, 'Suren', 11),
+(87, 'Mayang', 12),
+(88, 'Mrawan', 12),
+(89, 'Seputih', 12),
+(90, 'Sidomukti', 12),
+(91, 'Sumber Kejayan', 12),
+(92, 'Tegal Waru', 12),
+(93, 'Tegalrejo', 12),
+(94, 'Karangkedawung', 13),
+(95, 'Kawangrejo', 13),
+(96, 'Lampeji', 13),
+(97, 'Lengkong', 13),
+(98, 'Mumbulsari', 13),
+(99, 'Suco', 13),
+(100, 'Tamansari', 13),
+(101, 'Bedadung', 14),
+(102, 'Jatian', 14),
+(103, 'Kertosari', 14),
+(104, 'Pakusari', 14),
+(105, 'Patemon Pakusari', 14),
+(106, 'Subo', 14),
+(107, 'Sumber Pinang', 14),
+(108, 'Banjar Sengon', 15),
+(109, 'Baratan', 15),
+(110, 'Bintoro', 15),
+(111, 'Gebang', 15),
+(112, 'Jember Lor', 15),
+(113, 'Jumerto', 15),
+(114, 'Patrang', 15),
+(115, 'Slawu', 15),
+(116, 'Garahan', 16),
+(117, 'Harjomulyo', 16),
+(118, 'Karangharjo', 16),
+(119, 'Mulyorejo', 16),
+(120, 'Pace', 16),
+(121, 'Sempolan', 16),
+(122, 'Sidomulyo', 16),
+(123, 'Silo', 16),
+(124, 'Sumberjati', 16),
+(125, 'Dukuh Mencek', 17),
+(126, 'Jubung', 17),
+(127, 'Karangpring', 17),
+(128, 'Kelungkung', 17),
+(129, 'Sukorambi', 17),
+(130, 'Arjasa Sukowono', 18),
+(131, 'Balet Baru', 18),
+(132, 'Dawuhan Mangli', 18),
+(133, 'Mojogeni', 18),
+(134, 'Pocangan', 18),
+(135, 'Sukokerto', 18),
+(136, 'Sukorejo', 18),
+(137, 'Sukosari', 18),
+(138, 'Sukowono', 18),
+(139, 'Sumber Wringin', 18),
+(140, 'Sumberdanti', 18),
+(141, 'Sumberwaru', 18),
+(142, 'Cumedak', 19),
+(143, 'Gunung Malang', 19),
+(144, 'Jambe Arum', 19),
+(145, 'Plereyan', 19),
+(146, 'Pringgondani', 19),
+(147, 'Randu Agung', 19),
+(148, 'Rowosari', 19),
+(149, 'Sumber Pakem', 19),
+(150, 'Sumberjambe', 19),
+(151, 'Andongrejo', 21),
+(152, 'Curahnongko', 21),
+(153, 'Curahtakir', 21),
+(154, 'Pondokrejo', 21),
+(155, 'Sanenrejo', 21),
+(156, 'Sidodadi', 21),
+(157, 'Tempurejo', 21),
+(158, 'Wonoasri', 21),
+(169, 'Gadingrejo', 22),
+(170, 'Gunungsari', 22),
+(171, 'Mundurejo', 22),
+(172, 'Paleran', 22),
+(173, 'Sidorejo', 22),
+(174, 'Sukoreno Umbulsari', 22),
+(175, 'Tanjungsari', 22),
+(176, 'Tegal Wangi', 22),
+(177, 'Umbulrejo', 22),
+(178, 'Umbulsari', 22),
+(179, 'Balung Kidul', 23),
+(180, 'Balung Kulon', 23),
+(181, 'Balung Lor', 23),
+(182, 'Curahlele', 23),
+(183, 'Gumelar', 23),
+(184, 'Karang Duren', 23),
+(185, 'Karang Semanding', 23),
+(186, 'Tutul', 23),
+(187, 'Badean', 24),
+(188, 'Bangsalsari', 24),
+(189, 'Banjarsari', 24),
+(190, 'Curah Kalong', 24),
+(191, 'Gambirono', 24),
+(192, 'Karangsono', 24),
+(193, 'Langkap', 24),
+(194, 'Petung', 24),
+(195, 'Sukorejo Bangsalsari', 24),
+(196, 'Tisnogambar', 24),
+(197, 'Tugusari', 24),
+(198, 'Jombang', 25),
+(199, 'Keting', 25),
+(200, 'Ngampelrejo', 25),
+(201, 'Padomasan', 25),
+(202, 'Wringin Agung', 25),
+(203, 'Cakru', 26),
+(204, 'Kencong', 26),
+(205, 'Kraton', 26),
+(206, 'Paseban', 26),
+(214, 'Glagahwero Panti', 27),
+(215, 'Kemiri', 27),
+(216, 'Kemungsari Lor', 27),
+(217, 'Pakis', 27),
+(218, 'Panti', 27),
+(219, 'Serut', 27),
+(220, 'Suci', 27),
+(221, 'Bagon', 28),
+(222, 'Grenden', 28),
+(223, 'Jambearum', 28),
+(224, 'Kasiyan', 28),
+(225, 'Kasiyan Timur', 28),
+(226, 'Mlokorejo', 28),
+(227, 'Mojomulyo', 28),
+(228, 'Mojosari', 28),
+(229, 'Puger Kulon', 28),
+(230, 'Puger Wetan', 28),
+(231, 'Wonosari', 28),
+(232, 'Wringin Telu', 28),
+(233, 'Curahmalang', 29),
+(234, 'Gugut', 29),
+(235, 'Kaliwining', 29),
+(236, 'Nogosari', 29),
+(237, 'Pecoro', 29),
+(238, 'Rambigundam', 29),
+(239, 'Rambipuji', 29),
+(240, 'Rowotamtu', 29),
+(241, 'Gelang', 30),
+(242, 'Jambesari', 30),
+(243, 'Jamintoro', 30),
+(244, 'Jatiroto', 30),
+(245, 'Kaliglagah', 30),
+(246, 'Karang Bayat', 30),
+(247, 'Pringgowirawan', 30),
+(248, 'Rowo Tengah', 30),
+(249, 'Sumber Agung', 30),
+(250, 'Yosorati', 30),
+(258, 'Ampel', 31),
+(259, 'Dukuh Dempok', 31),
+(260, 'Glundengan', 31),
+(261, 'Kesilir', 31),
+(262, 'Lojejer', 31),
+(263, 'Tamansari Wuluhan', 31),
+(264, 'Tanjung Rejo', 31),
+(271, 'Pondokdalem', 20),
+(272, 'Pondokjoyo', 20),
+(273, 'Rejoagung', 20),
+(274, 'Semboro', 20),
+(275, 'Sidomekar', 20),
+(276, 'Sidomulyo Semboro', 20);
 
 -- --------------------------------------------------------
 
@@ -85,6 +330,27 @@ CREATE TABLE `tbl_dinas_peternakan` (
 
 INSERT INTO `tbl_dinas_peternakan` (`id_dinas`, `email_dinas`, `password_dinas`, `foto_dinas`) VALUES
 (1, 'dptrjember@gmail.com', 'RahasiaNegara024', 'fotodinas.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_jenis_pelatihan`
+--
+
+CREATE TABLE `tbl_jenis_pelatihan` (
+  `id_jenis_pelatihan` int(11) NOT NULL,
+  `jenis_pelatihan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_jenis_pelatihan`
+--
+
+INSERT INTO `tbl_jenis_pelatihan` (`id_jenis_pelatihan`, `jenis_pelatihan`) VALUES
+(4, 'Penanganan Hewan Pasca Beranak'),
+(1, 'Pencegahan & Penanganan PMK'),
+(2, 'Takar Ransum Pakan Ternak'),
+(3, 'Vaksinasi');
 
 -- --------------------------------------------------------
 
@@ -121,8 +387,9 @@ CREATE TABLE `tbl_jenis_penyakit` (
 --
 
 INSERT INTO `tbl_jenis_penyakit` (`id_jenis_penyakit`, `jenis_penyakit`) VALUES
-(2, '(LSD) Lumpy Skin Disease'),
-(1, 'PMK (Penyakit Mulut dan Kuku)'),
+(2, 'Lumpy Skin Disease (LSD)'),
+(1, 'Penyakit Mulut dan Kuku (PMK)'),
+(4, 'Radang Ambing (Masitis)'),
 (3, 'Septichaemia Epizootica (SE)');
 
 -- --------------------------------------------------------
@@ -161,7 +428,37 @@ CREATE TABLE `tbl_kecamatan` (
 --
 
 INSERT INTO `tbl_kecamatan` (`id_kecamatan`, `kecamatan`) VALUES
-(1, 'Sumbersari');
+(3, 'Ajung'),
+(4, 'Ambulu'),
+(5, 'Arjasa'),
+(23, 'Balung'),
+(24, 'Bangsalsari'),
+(6, 'Gumuk Mas'),
+(7, 'Jelbuk'),
+(8, 'Jenggawah'),
+(25, 'Jombang'),
+(9, 'Kalisat'),
+(10, 'Kaliwates'),
+(26, 'Kencong'),
+(11, 'Ledokombo'),
+(12, 'Mayang'),
+(13, 'Mumbulsari'),
+(14, 'Pakusari'),
+(27, 'Panti'),
+(15, 'Patrang'),
+(28, 'Puger'),
+(29, 'Rambipuji'),
+(20, 'Semboro'),
+(16, 'Silo'),
+(17, 'Sukorambi'),
+(18, 'Sukowono'),
+(30, 'Sumber Baru'),
+(19, 'Sumber Jambe'),
+(1, 'Sumber Sari'),
+(2, 'Tanggul'),
+(21, 'Tempurejo'),
+(22, 'Umbulsari'),
+(31, 'Wuluhan');
 
 -- --------------------------------------------------------
 
@@ -215,17 +512,6 @@ CREATE TABLE `tbl_pengajuan` (
   `id_jenis_persetujuan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_pengajuan`
---
-
-INSERT INTO `tbl_pengajuan` (`id_pengajuan`, `deskripsi_pengajuan`, `tanggal_pengajuan`, `waktu_pengajuan`, `id_jenis_pengajuan`, `id_peternak`, `id_jenis_persetujuan`) VALUES
-(15, 'Sapi saya mengalami gejala struk sehingga dia tidak dapat berdiri sendiri karena bukan makhluk individu seperti manusia, hidungnya mengeluarkan banyak ingus dan perlu ditangani dengan segera, mohon bantuannya.', '2024-04-16', '11:18:30', 1, 1, 1),
-(17, 'Sapi saya terkena radang, tolong kesini ceffat', '2024-04-16', '14:11:46', 2, 1, 1),
-(18, 'Coba lagi', '2024-04-16', '14:22:36', 1, 2, 1),
-(19, 'Tes 123', '2024-04-16', '21:05:06', 2, 1, 1),
-(20, 'asdfghjkl;', '2024-04-16', '21:08:08', 1, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -272,7 +558,7 @@ CREATE TABLE `tbl_peternakan` (
 
 INSERT INTO `tbl_peternakan` (`id_peternakan`, `nama_peternakan`, `jalan_peternakan`, `id_desa`, `id_peternak`) VALUES
 (1, 'Farm Town', 'Jl. Kalimantan 2 No.100', 1, 1),
-(2, 'Sapi Gemilang Kuat', 'Jl. Jawa 2B No.32', 1, 2);
+(2, 'Sapi Gemilang Kuat', 'Jl. Jawa 2B No.32', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -297,7 +583,8 @@ CREATE TABLE `tbl_ptl` (
 --
 
 INSERT INTO `tbl_ptl` (`id_ptl`, `nama_ptl`, `nik_ptl`, `email_ptl`, `username_ptl`, `password_ptl`, `no_telp_ptl`, `foto_ptl`, `id_status_aktif`) VALUES
-(1, 'Agus Prihandi', '3515062202910001', 'agusprihandi22@gmail.com', 'agusprihandi_', 'Handi2202#', '083198761234', 'fotoagus.jpg', 1);
+(1, 'Agus Prihandi', '3515062202910001', 'agusprihandi22@gmail.com', 'agusprihandi_', 'Handi2202#', '083198761234', 'fotoagus.jpg', 1),
+(2, 'Hendra Pratama', '3515061203890002', 'hendrapratama12@gmail.com', 'hendrapr12', 'Hendra1203*', '083188763134', 'Hendra.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -335,7 +622,7 @@ CREATE TABLE `tbl_status_antrian_pelatihan` (
 
 INSERT INTO `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`, `status_antrian_pelatihan`) VALUES
 (1, 'Dalam Antrian'),
-(2, 'Sudah Dibuatkan Pelatiha');
+(2, 'Sudah Dibuatkan');
 
 -- --------------------------------------------------------
 
@@ -395,7 +682,8 @@ ALTER TABLE `tbl_antrian_pelatihan`
   ADD PRIMARY KEY (`id_antrian_pelatihan`),
   ADD KEY `id_desa` (`id_desa`),
   ADD KEY `id_pengajuan` (`id_pengajuan`),
-  ADD KEY `id_status_antrian_pelatihan` (`id_status_antrian_pelatihan`);
+  ADD KEY `id_status_antrian_pelatihan` (`id_status_antrian_pelatihan`),
+  ADD KEY `id_jenis_pelatihan` (`id_jenis_pelatihan`) USING BTREE;
 
 --
 -- Indexes for table `tbl_desa`
@@ -411,6 +699,13 @@ ALTER TABLE `tbl_desa`
 ALTER TABLE `tbl_dinas_peternakan`
   ADD PRIMARY KEY (`id_dinas`),
   ADD UNIQUE KEY `email_dinas` (`email_dinas`);
+
+--
+-- Indexes for table `tbl_jenis_pelatihan`
+--
+ALTER TABLE `tbl_jenis_pelatihan`
+  ADD PRIMARY KEY (`id_jenis_pelatihan`),
+  ADD UNIQUE KEY `jenis_pelatihan` (`jenis_pelatihan`);
 
 --
 -- Indexes for table `tbl_jenis_pengajuan`
@@ -528,25 +823,31 @@ ALTER TABLE `tbl_tingkat_keparahan`
 -- AUTO_INCREMENT for table `tbl_alasan_ditolak`
 --
 ALTER TABLE `tbl_alasan_ditolak`
-  MODIFY `id_alasan_ditolak` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_alasan_ditolak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_antrian_pelatihan`
 --
 ALTER TABLE `tbl_antrian_pelatihan`
-  MODIFY `id_antrian_pelatihan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_antrian_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_desa`
 --
 ALTER TABLE `tbl_desa`
-  MODIFY `id_desa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_desa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `tbl_dinas_peternakan`
 --
 ALTER TABLE `tbl_dinas_peternakan`
   MODIFY `id_dinas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_jenis_pelatihan`
+--
+ALTER TABLE `tbl_jenis_pelatihan`
+  MODIFY `id_jenis_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_pengajuan`
@@ -558,7 +859,7 @@ ALTER TABLE `tbl_jenis_pengajuan`
 -- AUTO_INCREMENT for table `tbl_jenis_penyakit`
 --
 ALTER TABLE `tbl_jenis_penyakit`
-  MODIFY `id_jenis_penyakit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jenis_penyakit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_persetujuan`
@@ -570,13 +871,13 @@ ALTER TABLE `tbl_jenis_persetujuan`
 -- AUTO_INCREMENT for table `tbl_kecamatan`
 --
 ALTER TABLE `tbl_kecamatan`
-  MODIFY `id_kecamatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kecamatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_kunjungan`
 --
 ALTER TABLE `tbl_kunjungan`
-  MODIFY `id_kunjungan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kunjungan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_pelatihan`
@@ -588,7 +889,7 @@ ALTER TABLE `tbl_pelatihan`
 -- AUTO_INCREMENT for table `tbl_pengajuan`
 --
 ALTER TABLE `tbl_pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_peternak`
@@ -601,6 +902,12 @@ ALTER TABLE `tbl_peternak`
 --
 ALTER TABLE `tbl_peternakan`
   MODIFY `id_peternakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_ptl`
+--
+ALTER TABLE `tbl_ptl`
+  MODIFY `id_ptl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_aktif`
@@ -643,7 +950,8 @@ ALTER TABLE `tbl_antrian_pelatihan`
   ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_1` FOREIGN KEY (`id_status_antrian_pelatihan`) REFERENCES `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`),
   ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_2` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`),
   ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_3` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`),
-  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_4` FOREIGN KEY (`id_status_antrian_pelatihan`) REFERENCES `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`);
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_4` FOREIGN KEY (`id_status_antrian_pelatihan`) REFERENCES `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`),
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_5` FOREIGN KEY (`id_jenis_pelatihan`) REFERENCES `tbl_jenis_pelatihan` (`id_jenis_pelatihan`);
 
 --
 -- Constraints for table `tbl_desa`

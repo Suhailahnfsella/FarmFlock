@@ -1,6 +1,6 @@
 <?php
-include_once '../config/database.php';
-include_once '../model/StatusModel.php';
+include_once '../Config/database.php';
+include_once '../Model/StatusModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
     $conn = get_connection();
