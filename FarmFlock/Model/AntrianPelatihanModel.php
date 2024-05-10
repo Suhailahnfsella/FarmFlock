@@ -15,6 +15,14 @@ class AntrianPelatihanModel {
         }
     }
 
+    public function updateAntrianPelatihan($idJenisPelatihan, $idDesa) {
+        $sql = "UPDATE tbl_antrian_pelatihan SET id_status_antrian_pelatihan = 2 WHERE id_desa = $idDesa AND id_jenis_pelatihan = $idJenisPelatihan;";
+        
+        if ($this->conn->query($sql) === TRUE) {
+            return true;
+        }
+    }
+
     public function getAntrianPelatihanByStatus() {
         $sql = "SELECT * FROM tbl_antrian_pelatihan WHERE id_status_antrian_pelatihan = 1";
         $result = $this->conn->query($sql);

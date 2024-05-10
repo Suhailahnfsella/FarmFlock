@@ -107,5 +107,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $pengajuanData = $pengajuanModel->getPengajuanByJenisPengajuanAndStatus($id_jenis_pengajuan, $id_jenis_persetujuan);
 
     echo json_encode($pengajuanData);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getPengajuanById' && isset($_GET['id_pengajuan'])) {
+    $conn = get_connection();
+
+    $id_pengajuan = $_GET['id_pengajuan'];
+
+    $pengajuanModel = new PengajuanModel($conn);
+    $pengajuanData = $pengajuanModel->getPengajuanById($id_pengajuan);
+
+    echo json_encode($pengajuanData);
 }
 ?>

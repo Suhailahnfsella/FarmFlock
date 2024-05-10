@@ -126,7 +126,7 @@
           <li class="nav-item">
               <a class="nav-link collapsed" href="../index.html">
               <i class="bi bi-box-arrow-right"></i>
-              <span>LogOut</span>
+              <span>Keluar</span>
               </a>
           </li>
       </ul>
@@ -148,34 +148,107 @@
                       <thead>
                           <tr>
                           <th scope="col">ID Pelatihan</th>
-                          <th scope="col">ID Pengajuan</th>
                           <th scope="col">Detail Pelatihan</th>
                           <th scope="col">Desa</th>
                           <th scope="col">Kecamatan</th>
                           <th scope="col">Tanggal</th>
                           <th scope="col">Waktu</th>
-                          <th scope="col">Status Berjalan</th>
                           <th scope="col">Aksi</th>
                           </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="datatable-body-antri">
                           <tr>
-                          <th scope="row">#52</th>
-                          <th scope="row">#2460</th>
-                          <td><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDetailPelatihan">Klik Disini</a></td>
-                          <td>Panduman</td>
-                          <td>Jelbuk</td>
-                          <td>08/05/2024</td>
-                          <td>09.00</td>
-                          <td><span class="badge bg-primary">Dalam Antrian</span></td>
-                          <td>
-                              <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#ModalUbahPelatihan">Ubah</button>
-                              <button class="btn btn-primary" disabled>Mulai</button>
-                          </td>
                           </tr>
                       </tbody>
                       </table>
                   </div>
+                  <!-- Script untuk mengambil dan menampilkan data -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      $(document).ready(function() {
+                          function getDataPelatihan() {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Pelatihan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPelatihanByIdStatusBerjalan",
+                                      id_status_berjalan: 1
+                                  },
+                                  success: function(response) {
+                                      updateTable(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                  }
+                              });
+                          }
+
+                          function getDataDesa($idDesa, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Desa.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getDesaById",
+                                      id_desa: $idDesa,
+                                  },
+                                  success: function(response) {
+                                    var desa = JSON.parse(response);
+
+                                    callback(desa[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataKecamatan($idKecamatan, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kecamatan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKecamatanById",
+                                      id_kecamatan: $idKecamatan,
+                                  },
+                                  success: function(response) {
+                                    var kecamatan = JSON.parse(response);
+
+                                    callback(kecamatan[0]);
+                                  },
+                              });
+                          }
+                  
+                          function updateTable(data) {
+                              var tableBody = $('.datatable-body-antri');
+                              tableBody.empty();
+                              
+                              var arrData = JSON.parse(data);
+                              var now = new Date();
+                              
+                              // Mengisi tabel dengan data pengajuan
+                              arrData.forEach(function(pelatihan) {
+                                  var row = $('<tr>');
+                                    getDataDesa(pelatihan.id_desa, function(dataDesa) {
+                                        getDataKecamatan(dataDesa.id_kecamatan, function(dataKecamatan) {
+                                            row.append($('<th>').text('#' + pelatihan.id_pelatihan));
+                                            row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDetailPelatihan" data-judul="' + pelatihan.judul_pelatihan + '" data-deskripsi="' + pelatihan.deskripsi_pelatihan + '" data-tempat="' + pelatihan.tempat_pelatihan + '"> Lihat Detail </a>'));              
+                                            row.append($('<td>').text(dataDesa.desa));
+                                            row.append($('<td>').text(dataKecamatan.kecamatan));
+                                            row.append($('<td>').text(pelatihan.tanggal_pelatihan));
+                                            row.append($('<td>').text(pelatihan.waktu_pelatihan));
+                                            if (pelatihan.tanggal_pelatihan == (now.getFullYear()+'-0'+(now.getMonth()+1)+'-'+now.getDate())) {
+                                                row.append($('<td>').html('<button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ModalUbahPelatihan" data-pelatihan="'+ pelatihan.id_pelatihan +'" data-tempat="'+ pelatihan.tempat_pelatihan +'" data-tanggal="'+ pelatihan.tanggal_pelatihan +'" data-waktu="'+ pelatihan.waktu_pelatihan +'">Ubah</button> <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalDimulai" data-pelatihan="'+ pelatihan.id_pelatihan +'">Mulai</button>'));
+                                            } else {
+                                                row.append($('<td>').html('<button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ModalUbahPelatihan" data-pelatihan="'+ pelatihan.id_pelatihan +'" data-tempat="'+ pelatihan.tempat_pelatihan +'" data-tanggal="'+ pelatihan.tanggal_pelatihan +'" data-waktu="'+ pelatihan.waktu_pelatihan +'">Ubah</button> <button class="btn btn-primary" disabled>Mulai</button>'));
+                                            }
+                                            
+                                            tableBody.append(row);
+                                        });
+                                    });
+                              });
+                          }
+                  
+                          // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                          getDataPelatihan();
+                      });
+                  </script>
               </div>
           </div>
 
@@ -188,39 +261,107 @@
                       <thead>
                           <tr>
                           <th scope="col">ID Pelatihan</th>
-                          <th scope="col">ID Pengajuan</th>
                           <th scope="col">Detail Pelatihan</th>
                           <th scope="col">Desa</th>
                           <th scope="col">Kecamatan</th>
                           <th scope="col">Tanggal</th>
                           <th scope="col">Waktu</th>
-                          <th scope="col">Status Berjalan</th>
                           <th scope="col">Laporan</th>
                           </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="datatable-body-berjalan">
                           <tr>
-                          <th scope="row">#51</th>
-                          <th scope="row">#2450</th>
-                          <td><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDetailPelatihan">Klik Disini</a></td>
-                          <td>Arjasa</td>
-                          <td>Sukowono</td>
-                          <td>18/04/2024</td>
-                          <td>10.00</td>
-                          <td><span class="badge bg-warning">Berjalan</span></td>
-                          <td>
-                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalTambahGambar">
-                                  <i class="bi bi-file-earmark-image"></i>
-                              </button>
-                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalTambahText">
-                                  <i class="bi bi-file-earmark-text"></i>
-                              </button>
-                              <button class="btn btn-success" disabled>Selesai</button>
-                          </td>
                           </tr>
                       </tbody>
                       </table>
                   </div>
+                  <!-- Script untuk mengambil dan menampilkan data -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      $(document).ready(function() {
+                          function getDataPelatihan() {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Pelatihan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPelatihanByIdStatusBerjalan",
+                                      id_status_berjalan: 2
+                                  },
+                                  success: function(response) {
+                                      updateTable(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                  }
+                              });
+                          }
+
+                          function getDataDesa($idDesa, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Desa.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getDesaById",
+                                      id_desa: $idDesa,
+                                  },
+                                  success: function(response) {
+                                    var desa = JSON.parse(response);
+
+                                    callback(desa[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataKecamatan($idKecamatan, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kecamatan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKecamatanById",
+                                      id_kecamatan: $idKecamatan,
+                                  },
+                                  success: function(response) {
+                                    var kecamatan = JSON.parse(response);
+
+                                    callback(kecamatan[0]);
+                                  },
+                              });
+                          }
+                  
+                          function updateTable(data) {
+                              var tableBody = $('.datatable-body-berjalan');
+                              tableBody.empty();
+                              
+                              var arrData = JSON.parse(data);
+                              var now = new Date();
+                              
+                              // Mengisi tabel dengan data pengajuan
+                              arrData.forEach(function(pelatihan) {
+                                  var row = $('<tr>');
+                                    getDataDesa(pelatihan.id_desa, function(dataDesa) {
+                                        getDataKecamatan(dataDesa.id_kecamatan, function(dataKecamatan) {
+                                            row.append($('<th>').text('#' + pelatihan.id_pelatihan));
+                                            row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDetailPelatihan" data-judul="' + pelatihan.judul_pelatihan + '" data-deskripsi="' + pelatihan.deskripsi_pelatihan + '" data-tempat="' + pelatihan.tempat_pelatihan + '"> Lihat Detail </a>'));              
+                                            row.append($('<td>').text(dataDesa.desa));
+                                            row.append($('<td>').text(dataKecamatan.kecamatan));
+                                            row.append($('<td>').text(pelatihan.tanggal_pelatihan));
+                                            row.append($('<td>').text(pelatihan.waktu_pelatihan));
+                                            if (pelatihan.bukti_pelatihan != null && pelatihan.laporan_pelatihan != null) {
+                                                row.append($('<td>').html('<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalTambahLaporan" data-pelatihan="' +pelatihan.id_pelatihan +'" data-bukti="' +pelatihan.bukti_pelatihan +'" data-laporan="' +pelatihan.laporan_pelatihan +'"><i class="bi bi-file-earmark-text"></i></button> <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalSelesai" data-pelatihan="' +pelatihan.id_pelatihan +'">Selesai</button>'));
+                                            } else {
+                                                row.append($('<td>').html('<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalTambahLaporan" data-pelatihan="' +pelatihan.id_pelatihan +'"><i class="bi bi-file-earmark-text"></i></button> <button class="btn btn-success" disabled>Selesai</button>'));
+                                            }
+
+                                            tableBody.append(row);
+                                        });
+                                    });
+                              });
+                          }
+                  
+                          // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                          getDataPelatihan();
+                      });
+                  </script>
               </div>
           </div>
 
@@ -233,38 +374,102 @@
                       <thead>
                           <tr>
                           <th scope="col">ID Pelatihan</th>
-                          <th scope="col">ID Pengajuan</th>
                           <th scope="col">Detail Pelatihan</th>
                           <th scope="col">Desa</th>
                           <th scope="col">Kecamatan</th>
                           <th scope="col">Tanggal</th>
                           <th scope="col">Waktu</th>
-                          <th scope="col">Status Berjalan</th>
                           <th scope="col">Laporan</th>
                           </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="datatable-body-selesai">
                           <tr>
-                          <th scope="row">#49</th>
-                          <th scope="row">#2438</th>
-                          <td><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDetailPelatihan">Klik Disini</a></td>
-                          <td>Gambiran</td>
-                          <td>Kalisat</td>
-                          <td>18/04/2024</td>
-                          <td>10.00</td>
-                          <td><span class="badge bg-success">Selesai</span></td>
-                          <td>
-                              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalLaporanGambar">
-                                  <i class="bi bi-file-earmark-image"></i>
-                              </button>
-                              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalLaporanText">
-                                  <i class="bi bi-file-earmark-text"></i>
-                              </button>
-                          </td>
                           </tr>
                       </tbody>
                       </table>
                   </div>
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      $(document).ready(function() {
+                          function getDataPelatihan() {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Pelatihan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPelatihanByIdStatusBerjalan",
+                                      id_status_berjalan: 3
+                                  },
+                                  success: function(response) {
+                                      updateTable(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                  }
+                              });
+                          }
+
+                          function getDataDesa($idDesa, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Desa.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getDesaById",
+                                      id_desa: $idDesa,
+                                  },
+                                  success: function(response) {
+                                    var desa = JSON.parse(response);
+
+                                    callback(desa[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataKecamatan($idKecamatan, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kecamatan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKecamatanById",
+                                      id_kecamatan: $idKecamatan,
+                                  },
+                                  success: function(response) {
+                                    var kecamatan = JSON.parse(response);
+
+                                    callback(kecamatan[0]);
+                                  },
+                              });
+                          }
+                  
+                          function updateTable(data) {
+                              var tableBody = $('.datatable-body-selesai');
+                              tableBody.empty();
+                              
+                              var arrData = JSON.parse(data);
+                              var now = new Date();
+                              
+                              // Mengisi tabel dengan data pengajuan
+                              arrData.forEach(function(pelatihan) {
+                                  var row = $('<tr>');
+                                    getDataDesa(pelatihan.id_desa, function(dataDesa) {
+                                        getDataKecamatan(dataDesa.id_kecamatan, function(dataKecamatan) {
+                                            row.append($('<th>').text('#' + pelatihan.id_pelatihan));
+                                            row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDetailPelatihan" data-judul="' + pelatihan.judul_pelatihan + '" data-deskripsi="' + pelatihan.deskripsi_pelatihan + '" data-tempat="' + pelatihan.tempat_pelatihan + '"> Lihat Detail </a>'));              
+                                            row.append($('<td>').text(dataDesa.desa));
+                                            row.append($('<td>').text(dataKecamatan.kecamatan));
+                                            row.append($('<td>').text(pelatihan.tanggal_pelatihan));
+                                            row.append($('<td>').text(pelatihan.waktu_pelatihan));
+                                            row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalLaporanText" data-bukti="'+ pelatihan.bukti_pelatihan +'" data-laporan="'+ pelatihan.laporan_pelatihan +'"><i class="bi bi-file-earmark-text"></i>'));
+
+                                            tableBody.append(row);
+                                        });
+                                    });
+                              });
+                          }
+                  
+                          // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                          getDataPelatihan();
+                      });
+                  </script>
               </div>
           </div>
       </section>
@@ -289,13 +494,32 @@
                               </thead>
                               <tbody>
                                   <tr>
-                                      <td>Pelatihan Pencegahan dan Penanganan Pertama Gejala PMK</td>
-                                      <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, expedita dolores quod in doloremque molestiae molestias commodi a distinctio sunt blanditiis, perspiciatis omnis ab laboriosam repellendus? Dicta labore assumenda asperiores? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae quas illo omnis cum alias id eveniet. Animi alias similique magni doloremque cumque, nihil assumenda unde harum voluptatem ad quisquam dignissimos.</td>
-                                      <td>Balai Desa</td>
+                                      <td id="td-judul"></td>
+                                      <td id="td-deskripsi"></td>
+                                      <td id="td-tempat"></td>
                                   </tr>
                               </tbody>
                           </table>
                       </div>
+                      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                        $(document).ready(function() {
+                            $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+                                var targetModal = $(this).data('bs-target');
+
+                                if (targetModal === '#ModalDetailPelatihan') {
+                                    var judul_pelatihan = $(this).data('judul');
+                                    $('#td-judul').html(judul_pelatihan);
+
+                                    var deskripsi_pelatihan = $(this).data('deskripsi');
+                                    $('#td-deskripsi').html(deskripsi_pelatihan);
+
+                                    var tempat_pelatihan = $(this).data('tempat');
+                                    $('#td-tempat').html(tempat_pelatihan);
+                                }
+                            })
+                        })
+                        </script>
                   </div>
               </div>
           </div>
@@ -313,173 +537,263 @@
                 <form>
                   <div class="mb-3">
                       <label for="message-text" class="col-form-label">Ganti Tempat Pelatihan : </label>
-                      <textarea class="form-control" id="message-text" placeholder="Balai Desa"></textarea>
+                      <textarea class="form-control" id="tempat" value=""></textarea>
                   </div>
                   <div class="mb-3">
                       <label for="tanggal" class="col-form-label">Ganti Tanggal :</label>
-                      <input type="date" class="form-control" id="tanggal" value="2024-05-08">
+                      <input type="date" class="form-control" id="tanggal" value="">
                   </div>                
                   <div class="mb-3">
                       <label for="waktu" class="col-form-label">Ganti Waktu :</label>
-                      <input type="time" class="form-control" id="waktu" value="09:00">
+                      <input type="time" class="form-control" id="waktu" value="">
                   </div>                
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                <button type="button" class="btn btn-primary">Ubah</button>
+                <button type="button" class="btn btn-primary" id="btnUpdatePelatihan" data-bs-dismiss="modal">Ubah</button>
               </div>
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                $(document).ready(function() {
+                    $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+                        var targetModal = $(this).data('bs-target');
+
+                        if (targetModal === '#ModalUbahPelatihan') {
+                            var tempat_pelatihan = $(this).data('tempat');
+                            $('#tempat').val(tempat_pelatihan);
+
+                            var tanggal_pelatihan = $(this).data('tanggal');
+                            $('#tanggal').val(tanggal_pelatihan);
+
+                            var waktu_pelatihan = $(this).data('waktu');
+                            $('#waktu').val(waktu_pelatihan);
+                        }
+
+                        var id_pelatihan = $(this).data('pelatihan');
+
+                        $('#btnUpdatePelatihan').click(function() {
+                            var tempat = $('#tempat').val();
+                            var tanggal = $('#tanggal').val();
+                            var waktu = $('#waktu').val();
+
+                            if (tempat.trim() == '') {
+                                alert('Tempat tidak boleh kosong!');
+                            } else if (tanggal.trim() == '') {
+                                alert('Tanggal harus terisi!')
+                            } else {                                
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/FarmFlock/Controller/Pelatihan.php',
+                                    data: {
+                                        action: 'updateTempatTanggalWaktu',
+                                        idPelatihan: id_pelatihan, 
+                                        tempatPelatihan: tempat,
+                                        tanggalPelatihan: tanggal, 
+                                        waktuPelatihan: waktu+':00'
+                                    },
+                                    dataType: 'json',
+                                });
+                                alert('Data Pelatihan dengan ID : '+ id_pelatihan +' Berhasil Diubah!');
+                            }
+                        });
+                    })
+                })
+                </script>
             </div>
           </div>
       </div>
 
-
-      <!-- Modal Tambah Gambar -->
-      <div class="modal fade" id="ModalTambahGambar" tabindex="-1" aria-labelledby="ModalTambahGambar" aria-hidden="true" data-bs-backdrop="false">
-          <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="ModalTambahGambar">Unggah Bukti Laporan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <div class="mb-3">
-                      <input class="form-control" type="file" id="formFile">
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                  <button class="btn btn-primary">Tambah</button>
-              </div>
-          </div>
-          </div>
-      </div>
-
-      <!-- Modal Tambah Text -->
-      <div class="modal fade" id="ModalTambahText" tabindex="-1" aria-labelledby="ModalTambahText" aria-hidden="true" data-bs-backdrop="false">
-          <div class="modal-dialog modal-xl modal-dialog-scrollable">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="ModalTambahText">Tambah Laporan Pelatihan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <textarea class="form-control form-control-xl" id="message-text" style="height: 300px;"></textarea>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                  <button class="btn btn-primary">Tambah</button>
-              </div>
-          </div>
-          </div>
-      </div>
-
-      <!-- Modal Laporan Gambar -->
-      <div class="modal fade" id="ModalLaporanGambar" tabindex="-1" aria-labelledby="ModalLaporanGambar" aria-hidden="true" data-bs-backdrop="false">
-          <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="ModalLaporanGambar">Bukti Laporan Pelatihan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <img src="../assets/img/pelatihan.jpeg" alt="" style="width: 470px;">
-              </div>
-          </div>
-          </div>
-      </div>
-
-      <!-- Modal Laporan Text -->
-      <div class="modal fade" id="ModalLaporanText" tabindex="-1" aria-labelledby="ModalLaporanText" aria-hidden="true" data-bs-backdrop="false">
-          <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="ModalLaporanText">Laporan Pelatihan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti tempora placeat sint incidunt deleniti amet tenetur labore quae id architecto autem asperiores facilis laudantium facere enim dolorum, tempore dolore voluptatibus! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam aut soluta id perspiciatis enim minima eum neque autem asperiores nisi, modi voluptatem eveniet adipisci, dolorum, in excepturi blanditiis fugit porro. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut adipisci obcaecati quisquam, nam velit error quas inventore dolorum soluta odit autem iure aut, unde earum ea fugiat corrupti delectus modi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut totam quas reiciendis, quis, mollitia asperiores beatae repellat aliquid aperiam odio qui, provident nisi iure labore numquam ratione. Ipsa, eius quisquam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime illum distinctio commodi impedit, dolorem minus sint dignissimos quasi molestias non laudantium! Asperiores modi, quod quaerat itaque odit quam blanditiis eligendi. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa dolores rem, numquam veritatis soluta quasi molestias eum blanditiis sequi officiis culpa, quidem suscipit voluptate, repellendus velit ad nisi illum. Dolorum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam sapiente repudiandae optio voluptas hic? Animi eum rerum accusantium ipsa? Soluta aliquam ea aperiam mollitia ullam. Alias ipsam enim vel quasi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Non officiis amet nam sint? Vel sit enim, officia eius repudiandae esse officiis vitae excepturi commodi itaque architecto, aliquam corporis vero voluptate.</p>
-              </div>
-          </div>
-          </div>
-      </div>
-
-      <!-- Modal Disetujui -->
-      <div class="modal fade" id="ModalSetuju" tabindex="-1" aria-labelledby="ModalSetuju" aria-hidden="true" data-bs-backdrop="false">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="ModalSetuju">Setujui Pengajuan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                      <label for="message-text" class="col-form-label">Kategorikan jenis penyakit</label>
-                      <div class="input-group">
-                        <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                          <option disabled selected>Pilih jenis penyakit</option>
-                          <option>PMK</option>
-                          <option>Lumpy Skin</option>
-                          <option>Pink Eye</option>
-                        </select>
-                        <button class="btn btn-outline-primary" type="button" data-bs-target="#ModalTambahPenyakit" data-bs-toggle="modal" data-bs-dismiss="modal">Tambah</button>
-                      </div>
-                  </div>
-                  <div class="mb-3">
-                      <label for="message-text" class="col-form-label">Tentukan Tingkat Keparahan</label>
-                      <div class="form-group">
-                          <select class="form-control" id="exampleFormControlSelect1">
-                              <option disabled selected>Pilih tingkat keparahan</option>
-                              <option>Ringan</option>
-                              <option>Sedang</option>
-                              <option>Berat</option>
-                          </select>
-                        </div>
-                  </div>
-                  <div class="mb-3">
-                      <label for="message-text" class="col-form-label">Pilih PTL</label>
-                      <div class="form-group">
-                          <select class="form-control" id="exampleFormControlSelect1">
-                              <option disabled selected>Pilih PTL yang akan ditugaskan</option>
-                              <option>Sari Mumtasya</option>
-                              <option>Legio Andaru</option>
-                              <option>Agus Prihandi</option>
-                          </select>
-                        </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                <button type="button" class="btn btn-success">Setujui</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-      <!-- Modal Tambah Penyakit -->
-      <div class="modal fade" id="ModalTambahPenyakit" aria-hidden="true" aria-labelledby="ModalTambahPenyakit" tabindex="-1" data-bs-backdrop="false">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
+      <!-- Modal Tambah Laporan -->
+    <div class="modal fade" id="ModalTambahLaporan" tabindex="-1" aria-labelledby="ModalTambahLaporan" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="ModalTambahPenyakit">Tambah Jenis Penyakit</h5>
+            <h5 class="modal-title" id="ModalTambahLaporan">Unggah Bukti Laporan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Jenis Penyakit : </label>
-                    <textarea class="form-control" id="message-text"></textarea>
-                  </div>
-                </form>
-              </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-target="#ModalSetuju" data-bs-toggle="modal" data-bs-dismiss="modal">Kembali</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
+                <div class="mb-3">
+                    <img width="450px" id="img_bukti" hidden>
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" name="foto" type="file" id="formFileLaporan">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control form-control-xl" id="formTextLaporan" style="height: 300px;"></textarea>
+                </div>
             </div>
-          </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                <button class="btn btn-primary" id="btnUpdateLaporan" data-bs-dismiss="modal">Simpan</button>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            $(document).ready(function() {
+              $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+              var targetModal = $(this).data('bs-target');
+
+              if (targetModal === '#ModalTambahLaporan') {
+                if ($(this).data('bukti') && $(this).data('laporan')) {
+                    var buktiData = $(this).data('bukti');
+                    $('#img_bukti').attr('src', '../assets/img/gambar_laporan_pelatihan/' + buktiData).removeAttr('hidden');
+
+                    var laporanData = $(this).data('laporan');
+                    $('#formTextLaporan').val(laporanData);
+                }
+
+                var id_pelatihan = $(this).data('pelatihan');
+
+                $('#btnUpdateLaporan').click(function() {
+                    var bukti_pelatihan = $('#formFileLaporan').val();
+                    var laporan_pelatihan = $('#formTextLaporan').val();
+
+                    if (bukti_pelatihan.trim() == '') {
+                      alert('Tambahkan foto bukti laporan pelatihan!');
+                    } else if (laporan_pelatihan.trim() == '') {
+                      alert('Tambahkan keterangan laporan pelatihan!');
+                    } else {
+                        var formData = new FormData();
+                        formData.append('id_pelatihan',id_pelatihan);
+                        formData.append('bukti_pelatihan', $('#formFileLaporan')[0].files[0]);
+                        formData.append('laporan_pelatihan', $('#formTextLaporan').val());
+                        formData.append('action', 'updateLaporanPelatihan');
+                        
+                        $.ajax({
+                            url: '/FarmFlock/Controller/Pelatihan.php',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(data){
+                                alert("Bukti laporan berhasil ditambahkan!");
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Kesalahan saat mengunggah file:', error);
+                            }
+                        });
+                    }
+                });
+              }})
+            });
+            </script>
         </div>
-      </div>
+        </div>
+    </div>
+
+    <!-- Modal Laporan -->
+    <div class="modal fade" id="ModalLaporanText" tabindex="-1" aria-labelledby="ModalLaporanText" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="ModalLaporanText">Laporan Pelatihan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                  <img alt="" width="470px" id="laporanBuktiPelatihan">
+                  <p id="laporanTextPelatihan"></p>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            $(document).ready(function() {
+              $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+              var targetModal = $(this).data('bs-target');
+
+              if (targetModal === '#ModalLaporanText') {
+                var buktiData = $(this).data('bukti');
+                $('#laporanBuktiPelatihan').attr('src', '../assets/img/gambar_laporan_pelatihan/' + buktiData);
+
+                var laporanData = $(this).data('laporan');
+                $('#laporanTextPelatihan').html(laporanData);
+              }
+             })
+            })
+            </script>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Dimulai -->
+    <div class="modal fade" id="ModalDimulai" aria-hidden="true" aria-labelledby="ModalDimulai" tabindex="-1" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalDimulai">Yakin akan memulai?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="btnMulai">Yakin</button>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            $(document).ready(function() {
+            $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+            var targetModal = $(this).data('bs-target');
+
+            if (targetModal === '#ModalDimulai') {
+                var id_pelatihan = $(this).data('pelatihan');
+
+                $('#btnMulai').click(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/FarmFlock/Controller/Pelatihan.php',
+                        data: {
+                            action: 'updateStatusBerjalan',
+                            id_pelatihan: id_pelatihan, 
+                            id_status_berjalan: 2
+                        },
+                        dataType: 'json',
+                    });
+                    alert('Pelatihan dengan ID : '+ id_pelatihan +' Dimulai');
+                });
+            }})
+            });
+            </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Selesai -->
+    <div class="modal fade" id="ModalSelesai" aria-hidden="true" aria-labelledby="ModalSelesai" tabindex="-1" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalSelesai">Yakin untuk menyelesaikan?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-success" data-bs-dismiss="modal" id="btnSelesai">Yakin</button>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            $(document).ready(function() {
+              $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+              var targetModal = $(this).data('bs-target');
+
+              if (targetModal === '#ModalSelesai') {
+                var id_pelatihan = $(this).data('pelatihan');
+
+                $('#btnSelesai').click(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/FarmFlock/Controller/Pelatihan.php',
+                        data: {
+                            action: 'updateStatusBerjalan',
+                            id_pelatihan: id_pelatihan, 
+                            id_status_berjalan: 3
+                        },
+                        dataType: 'json',
+                    });
+                    alert('Pelatihan dengan ID : '+ id_pelatihan +' Selesai!');
+                });
+              }})
+            });
+            </script>
+            </div>
+        </div>
+    </div>
 
     </main><!-- End #main -->
 

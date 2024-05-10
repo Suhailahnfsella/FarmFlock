@@ -38,30 +38,6 @@
   <body>
     <a href="peternak/dashboard_peternak.html">Peternak</a>
     <a href="dinas/dashboard_dinas.html">Dinas</a>
-    <a href="">PTL</a>
-
-    <button id="btnShowStatus">Tampilkan Status Aktif</button>
-    <div id="statusContainer"></div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $("#btnShowStatus").click(function () {
-          $.ajax({
-            url: "../Controller/Pengajuan.php",
-            type: "POST",
-            data: { action: "updateStatusPengajuan",
-          id_pengajuan:17},
-            success: function (response) {
-              alert(response);
-              $("#statusContainer").html(response);
-            },
-            error: function (xhr, status, error) {
-              console.error(error);
-            },
-          });
-        });
-      });
-    </script>
+    <a href="ptl/dashboard_ptl.html">PTL</a>
   </body>
 </html>

@@ -45,5 +45,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
             $result = $antrianPelatihanModel->addAntrianPel($idJenisPelatihan, $idStatusAntrianPelatihan, $idPengajuan, $idDesa);
         }
     }
+
+    if ($_POST['action'] === 'updateAntrianPelatihan') {
+        // Periksa apakah data yang diperlukan tersedia
+        if (
+            isset($_POST['idDesa']) && 
+            isset($_POST['idJenisPelatihan'])
+        ) {
+            $idJenisPelatihan = $_POST['idJenisPelatihan'];
+            $idDesa = $_POST['idDesa'];
+
+            // Buat objek model
+            $antrianPelatihanModel = new AntrianPelatihanModel($conn);
+
+            // Panggil fungsi untuk menambahkan pengajuan baru
+            $result = $antrianPelatihanModel->updateAntrianPelatihan($idJenisPelatihan, $idDesa);
+        }
+    }
 }
 ?>

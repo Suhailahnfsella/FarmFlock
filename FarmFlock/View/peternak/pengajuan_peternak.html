@@ -88,21 +88,33 @@
             <ul id="gembalacerdas" class="nav-content" data-bs-parent="#sidebar-nav">
                 <li>
                   <a href="pengajuan_peternak.html">
-                    <i class="bi bi-circle"></i><span>Pengajuan</span>
+                    <span>Pengajuan</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                  <a href="penjadwalan_peternak.html">
-                    <i class="bi bi-circle"></i><span>Penjadwalan</span>
-                    </a>
-                </li>
+                  <a class="nav-link collapsed" data-bs-target="#penjadwalan" data-bs-toggle="collapse" href="#">
+                      <span>Penjadwalan</span>
+                  </a>
+                  <ul id="penjadwalan" class="nav-content-2 collapse" data-bs-parent="#nav-content">
+                      <li>
+                          <a href="penjadwalankunjungan_peternak.html">
+                          <i class="bi bi-circle"></i><span>Kunjungan</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="penjadwalanpelatihan_peternak.html">
+                          <i class="bi bi-circle"></i><span>Pelatihan</span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
             </ul>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="../index.html">
             <i class="bi bi-box-arrow-right"></i>
-            <span>LogOut</span>
+            <span>Keluar</span>
             </a>
         </li>
     </ul>
@@ -187,9 +199,6 @@
                     
                             // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                             getDataPengajuan();
-                    
-                            // Melakukan polling data pengajuan setiap 5 detik
-                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                         });
                     </script>
                 </div>
@@ -285,9 +294,6 @@
                     
                             // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                             getDataPengajuan();
-                    
-                            // Melakukan polling data pengajuan setiap 5 detik
-                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                         });
                     </script>
                 </div>
@@ -380,9 +386,6 @@
                     
                             // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                             getDataPengajuan();
-                    
-                            // Melakukan polling data pengajuan setiap 5 detik
-                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                         });
                     </script>
                 </div>

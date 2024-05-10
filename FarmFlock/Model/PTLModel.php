@@ -20,6 +20,21 @@ class PTLModel {
         }
         return $ptlArray; // Mengembalikan array asosiatif
     }
+
+    public function getPTLById($idPTL) {
+        $sql = "SELECT * FROM tbl_ptl WHERE id_ptl = $idPTL";
+        $result = $this->conn->query($sql);
+    
+        $ptlArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $ptlArray[] = $row;
+            }
+        }
+        return $ptlArray; // Mengembalikan array asosiatif
+    }
 }
 
 ?>

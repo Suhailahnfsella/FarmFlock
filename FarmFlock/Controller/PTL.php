@@ -11,5 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
     
         echo json_encode($ptlData);
     }
+
+    if ($_GET['action'] === 'getPTLById' && isset($_GET['id_ptl'])) {
+        $id_ptl = $_GET['id_ptl'];
+    
+        $ptlModel = new PTLModel($conn);
+        $ptlData = $ptlModel->getPTLById($id_ptl);
+    
+        echo json_encode($ptlData);
+    }
 }
 ?>

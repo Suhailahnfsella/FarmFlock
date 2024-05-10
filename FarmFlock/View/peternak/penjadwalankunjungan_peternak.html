@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>FarmFlock</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/FarmFlock.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- FILE CSS -->
+  <link href="../assets/style/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header_peternak" class="header fixed-top d-flex">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between">
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+    
+        <div class="d-flex justify-content-between align-items-end">
+            <a href="#" class="logo d-flex">
+                <span class="d-none d-lg-block mr-3">Farm</span>
+                <span class="d-none d-lg-block">
+                    <img src="../assets/img/FarmFlock.png" alt="" style="margin-left: 5px; margin-right: 5px; margin-top: -10px;">
+                </span>
+                <span class="d-none d-lg-block">Flock</span>
+            </a>
+        </div>
+        
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        
+        <div class="d-flex flex-column align-items-center mb-3 mt-2">
+            <img src="../assets/img/pp.jpg" alt="" width="80px" class="rounded-circle">
+            <h4 class="mt-3"><b>Toni Sapto</b></h4>
+            <p class="px-2 py-1 bg-custom-brown">Peternak</p>
+        </div>               
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="dashboard_peternak.html">
+            <i class="bi bi-grid"></i>
+            <span>Beranda</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+            <i class="bi bi-person"></i>
+            <span>Profil</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+            <i class="bi bi-house-heart"></i>
+            <span>Hewan Ternak</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person-check"></i><span>Gembala Cerdas</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="gembalacerdas" class="nav-content" data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="pengajuan_peternak.html">
+                    <span>Pengajuan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-target="#penjadwalan" data-bs-toggle="collapse" href="#">
+                      <span>Penjadwalan</span>
+                  </a>
+                  <ul id="penjadwalan" class="nav-content-2" data-bs-parent="#nav-content">
+                      <li>
+                          <a href="penjadwalankunjungan_peternak.html">
+                          <i class="bi bi-circle"></i><span>Kunjungan</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="penjadwalanpelatihan_peternak.html">
+                          <i class="bi bi-circle"></i><span>Pelatihan</span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="../index.html">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Keluar</span>
+            </a>
+        </li>
+    </ul>
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Penjadwalan</h1>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Kunjungan <span>| Dalam Antrian</span></h5>
+
+                    <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID Kunjungan</th>
+                        <th scope="col">ID Pengajuan</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">PTL Bertugas</th>
+                        <th scope="col">Jenis Penyakit</th>
+                        <th scope="col">Tingkat Keparahan</th>
+                        <th scope="col">Deskripsi Pengajuan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="datatable-body-antri">
+                        <tr>
+                        </tr>
+                    </tbody>
+                    </table>
+
+                    <!-- Script untuk mengambil dan menampilkan data -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      $(document).ready(function() {
+                          function getDataKunjungan() {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Kunjungan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKunjunganByIdStatusBerjalanIdPeternak",
+                                      id_status_berjalan: 1, 
+                                      id_peternak : 1
+                                  },
+                                  success: function(response) {
+                                      updateTable(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                  }
+                              });
+                          }
+
+                          function getDataPengajuan($idPengajuan, callback) {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Pengajuan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPengajuanById",
+                                      id_pengajuan: $idPengajuan
+                                  },
+                                  success: function(response) {
+                                      var pengajuan = JSON.parse(response);
+
+                                      callback(pengajuan[0]);
+                                  }
+                              });
+                          }
+
+                          function getDataPeternak($idPeternak, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Peternak.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPeternakById",
+                                      id_peternak: $idPeternak,
+                                  },
+                                  success: function(response) {
+                                    var peternak = JSON.parse(response);
+
+                                    callback(peternak[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPeternakan($idPeternak, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Peternakan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPeternakanById",
+                                      id_peternak: $idPeternak,
+                                  },
+                                  success: function(response) {
+                                    var peternakan = JSON.parse(response);
+
+                                    callback(peternakan[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataDesa($idDesa, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Desa.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getDesaById",
+                                      id_desa: $idDesa,
+                                  },
+                                  success: function(response) {
+                                    var desa = JSON.parse(response);
+
+                                    callback(desa[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataKecamatan($idKecamatan, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kecamatan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKecamatanById",
+                                      id_kecamatan: $idKecamatan,
+                                  },
+                                  success: function(response) {
+                                    var kecamatan = JSON.parse(response);
+
+                                    callback(kecamatan[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPTL($idPTL, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/PTL.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPTLById",
+                                      id_ptl: $idPTL,
+                                  },
+                                  success: function(response) {
+                                    var ptl = JSON.parse(response);
+
+                                    callback(ptl[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPenyakit($idJenisPenyakit, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Jenis_Penyakit.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getJenisPenyakitById",
+                                      id_jenis_penyakit: $idJenisPenyakit,
+                                  },
+                                  success: function(response) {
+                                    var penyakit = JSON.parse(response);
+
+                                    callback(penyakit[0]);
+                                  },
+                              });
+                          }
+                  
+                          function updateTable(data) {
+                              var tableBody = $('.datatable-body-antri');
+                              tableBody.empty();
+                              
+                              var arrData = JSON.parse(data);
+                              
+                              // Mengisi tabel dengan data pengajuan
+                              arrData.forEach(function(kunjungan) {
+                                  var row = $('<tr>');
+                                  getDataPengajuan(kunjungan.id_pengajuan, function(dataPengajuan){
+                                      getDataPeternak(dataPengajuan.id_peternak, function(dataPeternak) {
+                                          getDataPeternakan(dataPeternak.id_peternak, function(dataPeternakan) {
+                                              getDataDesa(dataPeternakan.id_desa, function(dataDesa) {
+                                                  getDataKecamatan(dataDesa.id_kecamatan, function(dataKecamatan) {
+                                                      getDataPTL(kunjungan.id_ptl, function(dataPTL){
+                                                          getDataPenyakit(kunjungan.id_jenis_penyakit, function(dataPenyakit){
+                                                              row.append($('<th>').text('#' + kunjungan.id_kunjungan));
+                                                              row.append($('<th>').text('#' + kunjungan.id_pengajuan));
+                                                              row.append($('<td>').text(dataPengajuan.tanggal_pengajuan));
+                                                              row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDataPTL" data-ptl="{&quot;nama_ptl&quot;: &quot;'+ dataPTL.nama_ptl +'&quot;, &quot;no_telp&quot;: &quot;'+ dataPTL.no_telp_ptl +'&quot;}">'+ dataPTL.nama_ptl + ' </a>'));
+                                                              row.append($('<td>').text(dataPenyakit.jenis_penyakit));
+                                                              var TingkatKeparahanClass = kunjungan.id_tingkat_keparahan == 1 ? 'bg-success' : (kunjungan.id_tingkat_keparahan == 2 ? 'bg-warning' : 'bg-danger');
+                                                              var TingkatKeparahanText = kunjungan.id_tingkat_keparahan == 1 ? 'Ringan' : (kunjungan.id_tingkat_keparahan == 2 ? 'Sedang' : 'Berat');
+                                                              var TingkatKeparahanBadge = $('<span>').addClass('badge').addClass(TingkatKeparahanClass).text(TingkatKeparahanText);
+                                                              row.append($('<td>').append(TingkatKeparahanBadge));
+                                                              row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDeskripsi" data-deskripsi="' + dataPengajuan.deskripsi_pengajuan + '"> Lihat Deskripsi </a>'));
+
+                                                              // Menambahkan baris ke dalam tabel
+                                                              tableBody.append(row);
+                                                          })
+                                                      })
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  })
+                              });
+                          }
+                  
+                          // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                          getDataKunjungan();
+                      });
+                  </script>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Kunjungan <span>| Berjalan</span></h5>
+
+                    <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID Kunjungan</th>
+                        <th scope="col">ID Pengajuan</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">PTL Bertugas</th>
+                        <th scope="col">Jenis Penyakit</th>
+                        <th scope="col">Tingkat Keparahan</th>
+                        <th scope="col">Deskripsi Pengajuan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="datatable-body-jalan">
+                        <tr>
+                        </tr>
+                    </tbody>
+                    </table>
+
+                     <!-- Script untuk mengambil dan menampilkan data -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      $(document).ready(function() {
+                          function getDataKunjungan() {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kunjungan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKunjunganByIdStatusBerjalanIdPeternak",
+                                      id_status_berjalan: 2, 
+                                      id_peternak : 1
+                                  },
+                                  success: function(response) {
+                                      updateTable(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                  }
+                              });
+                          }
+
+                          function getDataPengajuan($idPengajuan, callback) {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Pengajuan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPengajuanById",
+                                      id_pengajuan: $idPengajuan
+                                  },
+                                  success: function(response) {
+                                      var pengajuan = JSON.parse(response);
+
+                                      callback(pengajuan[0]);
+                                  }
+                              });
+                          }
+
+                          function getDataPeternak($idPeternak, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Peternak.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPeternakById",
+                                      id_peternak: $idPeternak,
+                                  },
+                                  success: function(response) {
+                                    var peternak = JSON.parse(response);
+
+                                    callback(peternak[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPeternakan($idPeternak, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Peternakan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPeternakanById",
+                                      id_peternak: $idPeternak,
+                                  },
+                                  success: function(response) {
+                                    var peternakan = JSON.parse(response);
+
+                                    callback(peternakan[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataDesa($idDesa, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Desa.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getDesaById",
+                                      id_desa: $idDesa,
+                                  },
+                                  success: function(response) {
+                                    var desa = JSON.parse(response);
+
+                                    callback(desa[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataKecamatan($idKecamatan, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kecamatan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKecamatanById",
+                                      id_kecamatan: $idKecamatan,
+                                  },
+                                  success: function(response) {
+                                    var kecamatan = JSON.parse(response);
+
+                                    callback(kecamatan[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPTL($idPTL, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/PTL.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPTLById",
+                                      id_ptl: $idPTL,
+                                  },
+                                  success: function(response) {
+                                    var ptl = JSON.parse(response);
+
+                                    callback(ptl[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPenyakit($idJenisPenyakit, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Jenis_Penyakit.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getJenisPenyakitById",
+                                      id_jenis_penyakit: $idJenisPenyakit,
+                                  },
+                                  success: function(response) {
+                                    var penyakit = JSON.parse(response);
+
+                                    callback(penyakit[0]);
+                                  },
+                              });
+                          }
+                  
+                          function updateTable(data) {
+                              var tableBody = $('.datatable-body-jalan');
+                              tableBody.empty();
+                              
+                              var arrData = JSON.parse(data);
+                              
+                              // Mengisi tabel dengan data pengajuan
+                              arrData.forEach(function(kunjungan) {
+                                  var row = $('<tr>');
+                                  getDataPengajuan(kunjungan.id_pengajuan, function(dataPengajuan){
+                                      getDataPeternak(dataPengajuan.id_peternak, function(dataPeternak) {
+                                          getDataPeternakan(dataPeternak.id_peternak, function(dataPeternakan) {
+                                              getDataDesa(dataPeternakan.id_desa, function(dataDesa) {
+                                                  getDataKecamatan(dataDesa.id_kecamatan, function(dataKecamatan) {
+                                                      getDataPTL(kunjungan.id_ptl, function(dataPTL){
+                                                          getDataPenyakit(kunjungan.id_jenis_penyakit, function(dataPenyakit){
+                                                              row.append($('<th>').text('#' + kunjungan.id_kunjungan));
+                                                              row.append($('<th>').text('#' + kunjungan.id_pengajuan));
+                                                              row.append($('<td>').text(dataPengajuan.tanggal_pengajuan));
+                                                              row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDataPTL" data-ptl="{&quot;nama_ptl&quot;: &quot;'+ dataPTL.nama_ptl +'&quot;, &quot;nik&quot;: &quot;'+ dataPTL.nik_ptl +'&quot;, &quot;no_telp&quot;: &quot;'+ dataPTL.no_telp_ptl +'&quot;}">'+ dataPTL.nama_ptl + ' </a>'));
+                                                              row.append($('<td>').text(dataPenyakit.jenis_penyakit));
+                                                              var TingkatKeparahanClass = kunjungan.id_tingkat_keparahan == 1 ? 'bg-success' : (kunjungan.id_tingkat_keparahan == 2 ? 'bg-warning' : 'bg-danger');
+                                                              var TingkatKeparahanText = kunjungan.id_tingkat_keparahan == 1 ? 'Ringan' : (kunjungan.id_tingkat_keparahan == 2 ? 'Sedang' : 'Berat');
+                                                              var TingkatKeparahanBadge = $('<span>').addClass('badge').addClass(TingkatKeparahanClass).text(TingkatKeparahanText);
+                                                              row.append($('<td>').append(TingkatKeparahanBadge));
+                                                              row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDeskripsi" data-deskripsi="' + dataPengajuan.deskripsi_pengajuan + '"> Lihat Deskripsi </a>'));
+                                                              
+                                                              // Menambahkan baris ke dalam tabel
+                                                              tableBody.append(row);
+                                                          })
+                                                      })
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  })
+                              });
+                          }
+                  
+                          // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                          getDataKunjungan();
+                      });
+                  </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Kunjungan <span>| Selesai</span></h5>
+
+                    <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                          <th scope="col">ID Kunjungan</th>
+                          <th scope="col">ID Pengajuan</th>
+                          <th scope="col">Tanggal</th>
+                          <th scope="col">PTL Bertugas</th>
+                          <th scope="col">Jenis Penyakit</th>
+                          <th scope="col">Tingkat Keparahan</th>
+                          <th scope="col">Deskripsi Pengajuan</th>
+                      </tr>
+                    </thead>
+                    <tbody class="datatable-body-selesai">
+                        <tr>
+                        </tr>
+                    </tbody>
+                    </table>
+                    <!-- Script untuk mengambil dan menampilkan data -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      $(document).ready(function() {
+                          function getDataKunjungan() {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kunjungan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKunjunganByIdStatusBerjalanIdPeternak",
+                                      id_status_berjalan: 3, 
+                                      id_peternak : 1
+                                  },
+                                  success: function(response) {
+                                      updateTable(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error);
+                                  }
+                              });
+                          }
+
+                          function getDataPengajuan($idPengajuan, callback) {
+                              $.ajax({
+                                  url: "/FarmFlock/Controller/Pengajuan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPengajuanById",
+                                      id_pengajuan: $idPengajuan
+                                  },
+                                  success: function(response) {
+                                      var pengajuan = JSON.parse(response);
+
+                                      callback(pengajuan[0]);
+                                  }
+                              });
+                          }
+
+                          function getDataPeternak($idPeternak, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Peternak.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPeternakById",
+                                      id_peternak: $idPeternak,
+                                  },
+                                  success: function(response) {
+                                    var peternak = JSON.parse(response);
+
+                                    callback(peternak[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPeternakan($idPeternak, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Peternakan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPeternakanById",
+                                      id_peternak: $idPeternak,
+                                  },
+                                  success: function(response) {
+                                    var peternakan = JSON.parse(response);
+
+                                    callback(peternakan[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataDesa($idDesa, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Desa.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getDesaById",
+                                      id_desa: $idDesa,
+                                  },
+                                  success: function(response) {
+                                    var desa = JSON.parse(response);
+
+                                    callback(desa[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataKecamatan($idKecamatan, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Kecamatan.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getKecamatanById",
+                                      id_kecamatan: $idKecamatan,
+                                  },
+                                  success: function(response) {
+                                    var kecamatan = JSON.parse(response);
+
+                                    callback(kecamatan[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPTL($idPTL, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/PTL.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getPTLById",
+                                      id_ptl: $idPTL,
+                                  },
+                                  success: function(response) {
+                                    var ptl = JSON.parse(response);
+
+                                    callback(ptl[0]);
+                                  },
+                              });
+                          }
+
+                          function getDataPenyakit($idJenisPenyakit, callback) {
+                            $.ajax({
+                                  url: "/FarmFlock/Controller/Jenis_Penyakit.php",
+                                  type: "GET",
+                                  data: { 
+                                      action: "getJenisPenyakitById",
+                                      id_jenis_penyakit: $idJenisPenyakit,
+                                  },
+                                  success: function(response) {
+                                    var penyakit = JSON.parse(response);
+
+                                    callback(penyakit[0]);
+                                  },
+                              });
+                          }
+                  
+                          function updateTable(data) {
+                              var tableBody = $('.datatable-body-selesai');
+                              tableBody.empty();
+                              
+                              var arrData = JSON.parse(data);
+                              
+                              // Mengisi tabel dengan data pengajuan
+                              arrData.forEach(function(kunjungan) {
+                                  var row = $('<tr>');
+                                  getDataPengajuan(kunjungan.id_pengajuan, function(dataPengajuan){
+                                      getDataPeternak(dataPengajuan.id_peternak, function(dataPeternak) {
+                                          getDataPeternakan(dataPeternak.id_peternak, function(dataPeternakan) {
+                                              getDataDesa(dataPeternakan.id_desa, function(dataDesa) {
+                                                  getDataKecamatan(dataDesa.id_kecamatan, function(dataKecamatan) {
+                                                      getDataPTL(kunjungan.id_ptl, function(dataPTL){
+                                                          getDataPenyakit(kunjungan.id_jenis_penyakit, function(dataPenyakit){
+                                                              row.append($('<th>').text('#' + kunjungan.id_kunjungan));
+                                                              row.append($('<th>').text('#' + kunjungan.id_pengajuan));
+                                                              row.append($('<td>').text(dataPengajuan.tanggal_pengajuan));
+                                                              row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDataPTL" data-ptl="{&quot;nama_ptl&quot;: &quot;'+ dataPTL.nama_ptl +'&quot;, &quot;nik&quot;: &quot;'+ dataPTL.nik_ptl +'&quot;, &quot;no_telp&quot;: &quot;'+ dataPTL.no_telp_ptl +'&quot;}">'+ dataPTL.nama_ptl + ' </a>'));
+                                                              row.append($('<td>').text(dataPenyakit.jenis_penyakit));
+                                                              var TingkatKeparahanClass = kunjungan.id_tingkat_keparahan == 1 ? 'bg-success' : (kunjungan.id_tingkat_keparahan == 2 ? 'bg-warning' : 'bg-danger');
+                                                              var TingkatKeparahanText = kunjungan.id_tingkat_keparahan == 1 ? 'Ringan' : (kunjungan.id_tingkat_keparahan == 2 ? 'Sedang' : 'Berat');
+                                                              var TingkatKeparahanBadge = $('<span>').addClass('badge').addClass(TingkatKeparahanClass).text(TingkatKeparahanText);
+                                                              row.append($('<td>').append(TingkatKeparahanBadge));
+                                                              row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDeskripsi" data-deskripsi="' + dataPengajuan.deskripsi_pengajuan + '"> Lihat Deskripsi </a>'));
+                                                              
+                                                              // Menambahkan baris ke dalam tabel
+                                                              tableBody.append(row);
+                                                          })
+                                                      })
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  })
+                              });
+                          }
+                  
+                          // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
+                          getDataKunjungan();
+                      });
+                  </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Data PTL -->
+    <div class="modal fade" id="ModalDataPTL" tabindex="-1" aria-labelledby="ModalDataPTL" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="ModalDataPTL">Data PTL</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <table>
+                <tr>
+                    <th style="width: 120px;">Nama</th>
+                    <td style="width: 20px;">:</td>
+                    <td id="nama_ptl"></td>
+                </tr>
+                <tr>
+                    <th style="width: 120px;">No Telp</th>
+                    <td style="width: 20px;">:</td>
+                    <td id="no_telp_ptl"></td>
+                </tr>
+            </table>
+            </div>
+            <!-- Script yang akan mengisi data dari modal -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+              $(document).ready(function() {
+                  $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+                      var targetModal = $(this).data('bs-target');
+                      var ptl = $(this).data('ptl');
+
+                      if (targetModal === '#ModalDataPTL') {
+                        $('#nama_ptl').text(ptl.nama_ptl);
+                        $('#nik_ptl').text(ptl.nik);
+                        $('#no_telp_ptl').text(ptl.no_telp);
+                      }
+                  });
+              });
+            </script>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Deskripsi Pengajuan -->
+    <div class="modal fade" id="ModalDeskripsi" tabindex="-1" aria-labelledby="ModalDeskripsi" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Deskripsi Pengajuan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    // Event listener untuk menangani klik pada elemen dengan atribut data-deskripsi
+                    // Event listener untuk menangani klik pada tautan "Lihat Deskripsi"
+                    $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+                        // Ambil deskripsi dari atribut data-deskripsi pada tautan yang diklik
+                        var deskripsi = $(this).data('deskripsi');
+                        
+                        // Masukkan deskripsi ke dalam elemen modal
+                        $('#deskripsi-pengajuan').text(deskripsi);
+                    });
+                });
+            </script>
+            <div class="modal-body">
+                <p id="deskripsi-pengajuan"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>FarmFlock</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed by <a href="">B6 PPL for AGROINDUSTRI MODERN</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../assets/vendor/quill/quill.min.js"></script>
+  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>

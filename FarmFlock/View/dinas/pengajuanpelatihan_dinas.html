@@ -126,7 +126,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="../index.html">
             <i class="bi bi-box-arrow-right"></i>
-            <span>LogOut</span>
+            <span>Keluar</span>
             </a>
         </li>
     </ul>
@@ -732,7 +732,7 @@
                 </form>
               </div>
             <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-target="#ModalDitolak" data-bs-toggle="modal" data-bs-dismiss="modal">Kembali</button>
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnAddDitolak">Simpan</button>
             </div>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -1114,9 +1114,9 @@
                                                         row.append($('<td>').text(dataJenisPelatihan.jenis_pelatihan));
                                                         row.append($('<td>').text(pasangan[key][0]));
                                                         if (pasangan[key][0] >= 15) {
-                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalAntri" data-desa="'+ dataDesa.id_desa +'"><i class="bi bi-clipboard-plus-fill"></i>'));
+                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTambahPelatihan" data-desa="'+ dataDesa.id_desa +'"><i class="bi bi-clipboard-plus-fill"></i>'));
                                                         } else {
-                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalAntri" data-desa="'+ dataDesa.id_desa +'" disabled><i class="bi bi-clipboard-plus-fill"></i>'));
+                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTambahPelatihan" data-desa="'+ dataDesa.id_desa +'" data-jenispelatihan="'+dataJenisPelatihan.id_jenis_pelatihan+'" disabled><i class="bi bi-clipboard-plus-fill"></i>'));
                                                         }
                                                         tableBody.append(row);
                                                     });
@@ -1148,30 +1148,89 @@
               <form>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Judul Pelatihan : </label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    <textarea class="form-control" id="formJudulPelatihan"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Deskripsi Pelatihan : </label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    <textarea class="form-control" id="formDeskripsiPelatihan"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Tempat Pelatihan (Desa & Kecamatan menyesuaikan data antrian) : </label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    <textarea class="form-control" id="formTempatPelatihan"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="tanggal" class="col-form-label">Pilih Tanggal :</label>
-                    <input type="date" class="form-control" id="tanggal">
+                    <input type="date" class="form-control" id="tanggalPelatihan">
                 </div>                
                 <div class="mb-3">
                     <label for="waktu" class="col-form-label">Pilih Waktu :</label>
-                    <input type="time" class="form-control" id="waktu">
+                    <input type="time" class="form-control" id="waktuPelatihan">
                 </div>                
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-              <button type="button" class="btn btn-primary">Tambahkan</button>
+              <button type="button" class="btn btn-primary" id="btnTambahPelatihan" data-bs-dismiss="modal">Tambahkan</button>
             </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script>
+            $(document).ready(function() {
+              $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+                  var targetModal = $(this).data('bs-target');
+                  var idDesa = $(this).data('desa');
+                  var idJenisPelatihan = $(this).data('jenispelatihan');
+
+                  if (targetModal === '#ModalTambahPelatihan') {
+                    $('#btnTambahPelatihan').click(function() {
+                      var judulPelatihan = $('#formJudulPelatihan').val();
+                      var deskripsiPelatihan = $('#formDeskripsiPelatihan').val();
+                      var tempatPelatihan = $('#formTempatPelatihan').val();
+                      var tanggalPelatihan = $('#tanggalPelatihan').val();
+                      var waktuPelatihan = $('#waktuPelatihan').val();
+                      
+                      if (judulPelatihan.trim() == '') {
+                        alert('Judul pelatihan tidak boleh kosong');
+                      } else if (deskripsiPelatihan.trim() == '') {
+                        alert('Deskripsi pelatihan tidak boleh kosong');
+                      } else if (tempatPelatihan.trim() == '') {
+                        alert('Tempat pelatihan tidak boleh kosong');
+                      } else if (tanggalPelatihan.trim() == '') {
+                        alert("Tanggal pelatihan tidak boleh kosong!");
+                      } else if (waktuPelatihan.trim() == '') {
+                        alert("Waktu pelatihan tidak boleh kosong!");
+                      } 
+                      else {
+                          $.ajax({
+                              type: 'POST',
+                              url: '/FarmFlock/Controller/Pelatihan.php',
+                              data: {
+                                  action: 'addPelatihan',
+                                  judulPelatihan: judulPelatihan,
+                                  deskripsiPelatihan: deskripsiPelatihan,
+                                  tempatPelatihan: tempatPelatihan,
+                                  tanggalPelatihan: tanggalPelatihan,
+                                  waktuPelatihan: waktuPelatihan+':00',
+                                  idDesa: idDesa,
+                                  idStatusBerjalan: 1
+                              },
+                              dataType: 'json',
+                          });
+                          $.ajax({
+                              type: 'POST',
+                              url: '/FarmFlock/Controller/Antrian_Pelatihan.php',
+                              data: {
+                                  action: 'updateAntrianPelatihan',
+                                  idJenisPelatihan: idJenisPelatihan,
+                                  idDesa: idDesa
+                              },
+                              dataType: 'json',
+                          });
+                          alert('Pelatihan berhasil ditambahkan');
+                      }
+                    })
+                  }})
+            });
+          </script> 
           </div>
         </div>
       </div>

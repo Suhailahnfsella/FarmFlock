@@ -126,7 +126,7 @@
           <li class="nav-item">
               <a class="nav-link collapsed" href="../index.html">
               <i class="bi bi-box-arrow-right"></i>
-              <span>LogOut</span>
+              <span>Keluar</span>
               </a>
           </li>
       </ul>
@@ -279,9 +279,6 @@
                     
                             // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                             getDataPengajuan();
-                    
-                            // Melakukan polling data pengajuan setiap 5 detik
-                            setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                         });
                     </script>
                 </div>
@@ -444,9 +441,6 @@
                   
                           // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                           getDataPengajuan();
-                  
-                          // Melakukan polling data pengajuan setiap 5 detik
-                          setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                       });
                   </script>
               </div>
@@ -589,9 +583,6 @@
                   
                           // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                           getDataPengajuan();
-                  
-                          // Melakukan polling data pengajuan setiap 5 detik
-                          setInterval(getDataPengajuan, 60000); // 5000 milidetik = 5 detik
                       });
                   </script>
               </div>
@@ -734,7 +725,7 @@
               </form>
             </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-target="#ModalDitolak" data-bs-toggle="modal" data-bs-dismiss="modal">Kembali</button>
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnAddDitolak">Simpan</button>
           </div>
           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

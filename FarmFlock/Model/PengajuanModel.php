@@ -51,9 +51,43 @@ class PengajuanModel {
         return $pengajuanArray;
     }
 
+    public function getIdPengajuanByIdPeternak($idPeternak) {
+        // Query untuk mengambil data pengajuan berdasarkan id_peternak
+        $sql = "SELECT id_pengajuan FROM tbl_pengajuan WHERE id_peternak = $idPeternak";
+
+        // Menjalankan query
+        $result = $this->conn->query($sql);
+
+        // Menyimpan hasil query ke dalam array
+        $pengajuanArray = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pengajuanArray[] = $row['id_pengajuan'];
+            }
+        }
+        return $pengajuanArray;
+    }
+
     public function getPengajuanByJenisPengajuanAndStatus($idJenisPengajuan, $idJenisPersetujuan) {
         // Query untuk mengambil data pengajuan berdasarkan id_peternak
         $sql = "SELECT * FROM tbl_pengajuan WHERE id_jenis_pengajuan = $idJenisPengajuan AND id_jenis_persetujuan = $idJenisPersetujuan";
+
+        // Menjalankan query
+        $result = $this->conn->query($sql);
+
+        // Menyimpan hasil query ke dalam array
+        $pengajuanArray = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pengajuanArray[] = $row;
+            }
+        }
+        return $pengajuanArray;
+    }
+
+    public function getPengajuanById($idPengajuan) {
+        // Query untuk mengambil data pengajuan berdasarkan id_peternak
+        $sql = "SELECT * FROM tbl_pengajuan WHERE id_pengajuan = $idPengajuan";
 
         // Menjalankan query
         $result = $this->conn->query($sql);

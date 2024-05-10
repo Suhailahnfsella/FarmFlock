@@ -10,7 +10,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         $penyakitData = $penyakitModel->getAllJenisPenyakit();
     
         echo json_encode($penyakitData);
+    } 
+    
+    if ($_GET['action'] === 'getJenisPenyakitById' && isset($_GET['id_jenis_penyakit'])) {
+        $idJenisPenyakit = $_GET['id_jenis_penyakit'];
+
+        $penyakitModel = new JenisPenyakitModel($conn);
+        $penyakitData = $penyakitModel->getJenisPenyakitById($idJenisPenyakit);
+    
+        echo json_encode($penyakitData);
     }
+    
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $conn = get_connection();
 

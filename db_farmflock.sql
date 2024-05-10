@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 27, 2024 at 08:38 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: May 10, 2024 at 01:43 PM
+-- Server version: 8.0.35-0ubuntu0.22.04.1
+-- PHP Version: 8.1.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_farmflock`
+-- Database: `dbfarmflock`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_alasan_ditolak` (
-  `id_alasan_ditolak` int(11) NOT NULL,
-  `keterangan_ditolak` text NOT NULL,
-  `id_pengajuan` int(11) NOT NULL
+  `id_alasan_ditolak` int NOT NULL,
+  `keterangan_ditolak` text COLLATE utf8mb4_general_ci NOT NULL,
+  `id_pengajuan` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -40,11 +40,11 @@ CREATE TABLE `tbl_alasan_ditolak` (
 --
 
 CREATE TABLE `tbl_antrian_pelatihan` (
-  `id_antrian_pelatihan` int(11) NOT NULL,
-  `id_jenis_pelatihan` int(11) NOT NULL,
-  `id_status_antrian_pelatihan` int(11) NOT NULL,
-  `id_pengajuan` int(11) NOT NULL,
-  `id_desa` int(11) NOT NULL
+  `id_antrian_pelatihan` int NOT NULL,
+  `id_jenis_pelatihan` int NOT NULL,
+  `id_status_antrian_pelatihan` int NOT NULL,
+  `id_pengajuan` int NOT NULL,
+  `id_desa` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -54,9 +54,9 @@ CREATE TABLE `tbl_antrian_pelatihan` (
 --
 
 CREATE TABLE `tbl_desa` (
-  `id_desa` int(11) NOT NULL,
-  `desa` varchar(125) NOT NULL,
-  `id_kecamatan` int(11) NOT NULL
+  `id_desa` int NOT NULL,
+  `desa` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_kecamatan` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -318,10 +318,10 @@ INSERT INTO `tbl_desa` (`id_desa`, `desa`, `id_kecamatan`) VALUES
 --
 
 CREATE TABLE `tbl_dinas_peternakan` (
-  `id_dinas` int(11) NOT NULL,
-  `email_dinas` varchar(125) NOT NULL,
-  `password_dinas` varchar(64) NOT NULL,
-  `foto_dinas` varchar(255) DEFAULT NULL
+  `id_dinas` int NOT NULL,
+  `email_dinas` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `password_dinas` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_dinas` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -338,8 +338,8 @@ INSERT INTO `tbl_dinas_peternakan` (`id_dinas`, `email_dinas`, `password_dinas`,
 --
 
 CREATE TABLE `tbl_jenis_pelatihan` (
-  `id_jenis_pelatihan` int(11) NOT NULL,
-  `jenis_pelatihan` varchar(255) NOT NULL
+  `id_jenis_pelatihan` int NOT NULL,
+  `jenis_pelatihan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -359,8 +359,8 @@ INSERT INTO `tbl_jenis_pelatihan` (`id_jenis_pelatihan`, `jenis_pelatihan`) VALU
 --
 
 CREATE TABLE `tbl_jenis_pengajuan` (
-  `id_jenis_pengajuan` int(11) NOT NULL,
-  `jenis_pengajuan` varchar(24) NOT NULL
+  `id_jenis_pengajuan` int NOT NULL,
+  `jenis_pengajuan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -378,8 +378,8 @@ INSERT INTO `tbl_jenis_pengajuan` (`id_jenis_pengajuan`, `jenis_pengajuan`) VALU
 --
 
 CREATE TABLE `tbl_jenis_penyakit` (
-  `id_jenis_penyakit` int(11) NOT NULL,
-  `jenis_penyakit` varchar(125) NOT NULL
+  `id_jenis_penyakit` int NOT NULL,
+  `jenis_penyakit` varchar(125) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -399,8 +399,8 @@ INSERT INTO `tbl_jenis_penyakit` (`id_jenis_penyakit`, `jenis_penyakit`) VALUES
 --
 
 CREATE TABLE `tbl_jenis_persetujuan` (
-  `id_jenis_persetujuan` int(11) NOT NULL,
-  `jenis_persetujuan` varchar(24) NOT NULL
+  `id_jenis_persetujuan` int NOT NULL,
+  `jenis_persetujuan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -419,8 +419,8 @@ INSERT INTO `tbl_jenis_persetujuan` (`id_jenis_persetujuan`, `jenis_persetujuan`
 --
 
 CREATE TABLE `tbl_kecamatan` (
-  `id_kecamatan` int(11) NOT NULL,
-  `kecamatan` varchar(125) NOT NULL
+  `id_kecamatan` int NOT NULL,
+  `kecamatan` varchar(125) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -467,15 +467,22 @@ INSERT INTO `tbl_kecamatan` (`id_kecamatan`, `kecamatan`) VALUES
 --
 
 CREATE TABLE `tbl_kunjungan` (
-  `id_kunjungan` int(11) NOT NULL,
-  `id_tingkat_keparahan` int(11) NOT NULL,
-  `bukti_kunjungan` varchar(125) DEFAULT NULL,
-  `laporan_kunjungan` text DEFAULT NULL,
-  `id_pengajuan` int(11) NOT NULL,
-  `id_ptl` int(11) NOT NULL,
-  `id_status_berjalan` int(11) NOT NULL,
-  `id_jenis_penyakit` int(11) NOT NULL
+  `id_kunjungan` int NOT NULL,
+  `id_tingkat_keparahan` int NOT NULL,
+  `bukti_kunjungan` text COLLATE utf8mb4_general_ci,
+  `laporan_kunjungan` text COLLATE utf8mb4_general_ci,
+  `id_pengajuan` int NOT NULL,
+  `id_ptl` int NOT NULL,
+  `id_status_berjalan` int NOT NULL,
+  `id_jenis_penyakit` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_kunjungan`
+--
+
+INSERT INTO `tbl_kunjungan` (`id_kunjungan`, `id_tingkat_keparahan`, `bukti_kunjungan`, `laporan_kunjungan`, `id_pengajuan`, `id_ptl`, `id_status_berjalan`, `id_jenis_penyakit`) VALUES
+(17, 3, '663e06259ce62_4284_sapipmk.jpg', 'Sapinya sudah tertangani, namun perlu ditinjau kembali dalam beberapa hari.', 40, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -484,16 +491,16 @@ CREATE TABLE `tbl_kunjungan` (
 --
 
 CREATE TABLE `tbl_pelatihan` (
-  `id_pelatihan` int(11) NOT NULL,
-  `judul_pelatihan` varchar(255) NOT NULL,
-  `deskripsi_pelatihan` text NOT NULL,
-  `tempat_pelatihan` varchar(255) NOT NULL,
+  `id_pelatihan` int NOT NULL,
+  `judul_pelatihan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi_pelatihan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `tempat_pelatihan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_pelatihan` date NOT NULL,
-  `waktu_pelatihan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `bukti_pelatihan` varchar(255) DEFAULT NULL,
-  `laporan_pelatihan` text DEFAULT NULL,
-  `id_desa` int(11) NOT NULL,
-  `id_status_berjalan` int(11) NOT NULL
+  `waktu_pelatihan` time NOT NULL,
+  `bukti_pelatihan` text COLLATE utf8mb4_general_ci,
+  `laporan_pelatihan` text COLLATE utf8mb4_general_ci,
+  `id_desa` int NOT NULL,
+  `id_status_berjalan` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -503,14 +510,21 @@ CREATE TABLE `tbl_pelatihan` (
 --
 
 CREATE TABLE `tbl_pengajuan` (
-  `id_pengajuan` int(11) NOT NULL,
-  `deskripsi_pengajuan` text NOT NULL,
+  `id_pengajuan` int NOT NULL,
+  `deskripsi_pengajuan` text COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_pengajuan` date NOT NULL,
   `waktu_pengajuan` time NOT NULL,
-  `id_jenis_pengajuan` int(11) NOT NULL,
-  `id_peternak` int(11) NOT NULL,
-  `id_jenis_persetujuan` int(11) NOT NULL
+  `id_jenis_pengajuan` int NOT NULL,
+  `id_peternak` int NOT NULL,
+  `id_jenis_persetujuan` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_pengajuan`
+--
+
+INSERT INTO `tbl_pengajuan` (`id_pengajuan`, `deskripsi_pengajuan`, `tanggal_pengajuan`, `waktu_pengajuan`, `id_jenis_pengajuan`, `id_peternak`, `id_jenis_persetujuan`) VALUES
+(40, 'Sapi saya terkena PMK, tolong segera tangani', '2024-05-10', '18:31:21', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -519,15 +533,15 @@ CREATE TABLE `tbl_pengajuan` (
 --
 
 CREATE TABLE `tbl_peternak` (
-  `id_peternak` int(11) NOT NULL,
-  `nama_peternak` varchar(125) NOT NULL,
-  `nik_peternak` varchar(18) NOT NULL,
-  `email_peternak` varchar(125) NOT NULL,
-  `username_peternak` varchar(64) NOT NULL,
-  `password_peternak` varchar(64) NOT NULL,
-  `no_telp_peternak` varchar(13) NOT NULL,
-  `foto_peternak` varchar(255) DEFAULT NULL,
-  `id_status_aktif` int(11) NOT NULL
+  `id_peternak` int NOT NULL,
+  `nama_peternak` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `nik_peternak` varchar(18) COLLATE utf8mb4_general_ci NOT NULL,
+  `email_peternak` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `username_peternak` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `password_peternak` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_telp_peternak` varchar(13) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_peternak` text COLLATE utf8mb4_general_ci,
+  `id_status_aktif` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -545,11 +559,11 @@ INSERT INTO `tbl_peternak` (`id_peternak`, `nama_peternak`, `nik_peternak`, `ema
 --
 
 CREATE TABLE `tbl_peternakan` (
-  `id_peternakan` int(11) NOT NULL,
-  `nama_peternakan` varchar(125) NOT NULL,
-  `jalan_peternakan` varchar(255) NOT NULL,
-  `id_desa` int(11) NOT NULL,
-  `id_peternak` int(11) NOT NULL
+  `id_peternakan` int NOT NULL,
+  `nama_peternakan` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `jalan_peternakan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_desa` int NOT NULL,
+  `id_peternak` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -567,15 +581,15 @@ INSERT INTO `tbl_peternakan` (`id_peternakan`, `nama_peternakan`, `jalan_peterna
 --
 
 CREATE TABLE `tbl_ptl` (
-  `id_ptl` int(11) NOT NULL,
-  `nama_ptl` varchar(125) NOT NULL,
-  `nik_ptl` varchar(18) NOT NULL,
-  `email_ptl` varchar(125) NOT NULL,
-  `username_ptl` varchar(64) NOT NULL,
-  `password_ptl` varchar(64) NOT NULL,
-  `no_telp_ptl` varchar(13) NOT NULL,
-  `foto_ptl` varchar(255) DEFAULT NULL,
-  `id_status_aktif` int(11) NOT NULL
+  `id_ptl` int NOT NULL,
+  `nama_ptl` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `nik_ptl` varchar(18) COLLATE utf8mb4_general_ci NOT NULL,
+  `email_ptl` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `username_ptl` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `password_ptl` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_telp_ptl` varchar(13) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_ptl` text COLLATE utf8mb4_general_ci,
+  `id_status_aktif` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -593,8 +607,8 @@ INSERT INTO `tbl_ptl` (`id_ptl`, `nama_ptl`, `nik_ptl`, `email_ptl`, `username_p
 --
 
 CREATE TABLE `tbl_status_aktif` (
-  `id_status_aktif` int(11) NOT NULL,
-  `status_aktif` varchar(24) NOT NULL
+  `id_status_aktif` int NOT NULL,
+  `status_aktif` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -612,8 +626,8 @@ INSERT INTO `tbl_status_aktif` (`id_status_aktif`, `status_aktif`) VALUES
 --
 
 CREATE TABLE `tbl_status_antrian_pelatihan` (
-  `id_status_antrian_pelatihan` int(11) NOT NULL,
-  `status_antrian_pelatihan` varchar(24) NOT NULL
+  `id_status_antrian_pelatihan` int NOT NULL,
+  `status_antrian_pelatihan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -631,8 +645,8 @@ INSERT INTO `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`, `stat
 --
 
 CREATE TABLE `tbl_status_berjalan` (
-  `id_status_berjalan` int(11) NOT NULL,
-  `status_berjalan` varchar(24) NOT NULL
+  `id_status_berjalan` int NOT NULL,
+  `status_berjalan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -651,8 +665,8 @@ INSERT INTO `tbl_status_berjalan` (`id_status_berjalan`, `status_berjalan`) VALU
 --
 
 CREATE TABLE `tbl_tingkat_keparahan` (
-  `id_tingkat_keparahan` int(11) NOT NULL,
-  `tingkat_keparahan` varchar(24) NOT NULL
+  `id_tingkat_keparahan` int NOT NULL,
+  `tingkat_keparahan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -823,115 +837,115 @@ ALTER TABLE `tbl_tingkat_keparahan`
 -- AUTO_INCREMENT for table `tbl_alasan_ditolak`
 --
 ALTER TABLE `tbl_alasan_ditolak`
-  MODIFY `id_alasan_ditolak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_alasan_ditolak` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_antrian_pelatihan`
 --
 ALTER TABLE `tbl_antrian_pelatihan`
-  MODIFY `id_antrian_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_antrian_pelatihan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_desa`
 --
 ALTER TABLE `tbl_desa`
-  MODIFY `id_desa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id_desa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `tbl_dinas_peternakan`
 --
 ALTER TABLE `tbl_dinas_peternakan`
-  MODIFY `id_dinas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_dinas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_pelatihan`
 --
 ALTER TABLE `tbl_jenis_pelatihan`
-  MODIFY `id_jenis_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_jenis_pelatihan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_pengajuan`
 --
 ALTER TABLE `tbl_jenis_pengajuan`
-  MODIFY `id_jenis_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jenis_pengajuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_penyakit`
 --
 ALTER TABLE `tbl_jenis_penyakit`
-  MODIFY `id_jenis_penyakit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jenis_penyakit` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_persetujuan`
 --
 ALTER TABLE `tbl_jenis_persetujuan`
-  MODIFY `id_jenis_persetujuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jenis_persetujuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_kecamatan`
 --
 ALTER TABLE `tbl_kecamatan`
-  MODIFY `id_kecamatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_kecamatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_kunjungan`
 --
 ALTER TABLE `tbl_kunjungan`
-  MODIFY `id_kunjungan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kunjungan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_pelatihan`
 --
 ALTER TABLE `tbl_pelatihan`
-  MODIFY `id_pelatihan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelatihan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_pengajuan`
 --
 ALTER TABLE `tbl_pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_pengajuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_peternak`
 --
 ALTER TABLE `tbl_peternak`
-  MODIFY `id_peternak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_peternak` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_peternakan`
 --
 ALTER TABLE `tbl_peternakan`
-  MODIFY `id_peternakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_peternakan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_ptl`
 --
 ALTER TABLE `tbl_ptl`
-  MODIFY `id_ptl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ptl` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_aktif`
 --
 ALTER TABLE `tbl_status_aktif`
-  MODIFY `id_status_aktif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_status_aktif` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_antrian_pelatihan`
 --
 ALTER TABLE `tbl_status_antrian_pelatihan`
-  MODIFY `id_status_antrian_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_status_antrian_pelatihan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_berjalan`
 --
 ALTER TABLE `tbl_status_berjalan`
-  MODIFY `id_status_berjalan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_status_berjalan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_tingkat_keparahan`
 --
 ALTER TABLE `tbl_tingkat_keparahan`
-  MODIFY `id_tingkat_keparahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tingkat_keparahan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

@@ -1,6 +1,7 @@
 <?php
 include_once '../Config/database.php';
 include_once '../Model/KunjunganModel.php';
+include_once '../Model/PengajuanModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
     $conn = get_connection();
@@ -20,6 +21,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
     
         echo json_encode($kunjunganData);
     }
+
+    if ($_GET['action'] === 'getKunjunganByIdPtlIdStatusBerjalan' && isset($_GET['id_ptl']) && isset($_GET['id_status_berjalan'])) {
+        $idPtl = $_GET['id_ptl'];
+        $idStatusBerjalan = $_GET['id_status_berjalan'];
+
+        $kunjunganModel = new KunjunganModel($conn);
+        $kunjunganData = $kunjunganModel->getKunjunganByIdPtlIdStatusBerjalan($idPtl, $idStatusBerjalan);
+    
+        echo json_encode($kunjunganData);
+    }
+
+    if ($_GET['action'] === 'getKunjunganByIdStatusBerjalanIdPeternak' && isset($_GET['id_peternak']) && isset($_GET['id_status_berjalan'])) {
+        $idPeternak = $_GET['id_peternak'];
+        $idStatusBerjalan = $_GET['id_status_berjalan'];
+
+        $pengajuanModel = new PengajuanModel($conn);
+        $pengajuanData = $pengajuanModel->getIdPengajuanByIdPeternak($idPeternak);
+
+        $pengajuanData = array_map('intval', $pengajuanData);
+        $pengajuanDataFiks = implode(', ', $pengajuanData);
+
+        $kunjunganModel = new KunjunganModel($conn);
+        $kunjunganData = $kunjunganModel->getKunjunganByIdStatusBerjalanIdPengajuan($idStatusBerjalan, $pengajuanDataFiks);
+    
+        echo json_encode($kunjunganData);
+    }
+
+    if ($_GET['action'] === 'getKunjunganByIdStatusBerjalan' && isset($_GET['id_status_berjalan'])) {
+        $idStatusBerjalan = $_GET['id_status_berjalan'];
+
+        $kunjunganModel = new KunjunganModel($conn);
+        $kunjunganData = $kunjunganModel->getKunjunganByIdStatusBerjalan($idStatusBerjalan);
+    
+        echo json_encode($kunjunganData);
+    }
+    
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $conn = get_connection();
 
@@ -45,6 +82,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
             // Panggil fungsi untuk menambahkan pengajuan baru
             $result = $kunjunganModel->addKunjungan($id_jenis_penyakit, $id_tingkat_keparahan, $id_ptl, $id_status_berjalan, $id_pengajuan);
         }
+    } 
+    
+    if ($_POST['action'] === 'updateLaporanKunjungan') {
+        
+        $uploadDir = '../View/assets/img/gambar_laporan_kunjungan/';
+
+        $originalName = $_FILES['bukti_kunjungan']['name'];
+        $tmpName = $_FILES['bukti_kunjungan']['tmp_name'];
+
+        $randomName = uniqid() . '_' . mt_rand(1000, 9999) . '_' . $originalName;
+
+        $destination = $uploadDir . $randomName;
+
+        if (move_uploaded_file($tmpName, $destination)) {
+            $id_kunjungan = $_POST['id_kunjungan'];
+            $bukti_kunjungan = $randomName;
+            $laporan_kunjungan = $_POST['laporan_kunjungan'];
+    
+            $kunjunganModel = new KunjunganModel($conn);
+
+            $result = $kunjunganModel->updateLaporanKunjungan($id_kunjungan, $bukti_kunjungan, $laporan_kunjungan);
+        } 
     }
+
+    if ($_POST['action'] === 'updateStatusBerjalan') {
+        if (
+            isset($_POST['id_kunjungan']) &&
+            isset($_POST['id_status_berjalan']) 
+        ) {
+            // Ambil data dari form
+            $id_kunjungan = $_POST['id_kunjungan'];
+            $id_status_berjalan = $_POST['id_status_berjalan'];
+    
+            // Buat objek model
+            $kunjunganModel = new KunjunganModel($conn);
+
+            $result = $kunjunganModel->updateStatusBerjalan($id_kunjungan, $id_status_berjalan);
+        }
+    }
+
+    
 }
 ?>

@@ -17,6 +17,11 @@
     color: #59482e;
     }
 
+  .bg-custom-blue {
+    background-color: rgba(79, 109, 183, 0.358);
+    color: #6477DB;
+    }
+
   .bg-custom-oranye {
     background-color: rgb(255, 136, 0);
     }
@@ -416,7 +421,7 @@
     z-index: 997;
     height: 60px;
     box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-    background-color: #596B39;
+    background-color: #6477DB;
     padding-left: 20px;
     /* Toggle Sidebar Button */
     /* Search Bar */
