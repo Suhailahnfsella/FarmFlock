@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmFlock</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="icon" href="../assets/img/FarmFlock.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- FILE CSS -->
+    <link href="../assets/style/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"/>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header_dinas" class="header fixed-top d-flex">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between">
+              <i class="bi bi-list toggle-sidebar-btn"></i>
+          </div>
+      
+          <div class="d-flex justify-content-between align-items-end">
+              <a href="#" class="logo d-flex">
+                  <span class="d-none d-lg-block mr-3">Farm</span>
+                  <span class="d-none d-lg-block">
+                      <img src="../assets/img/FarmFlock.png" alt="" style="margin-left: 5px; margin-right: 5px; margin-top: -10px;">
+                  </span>
+                  <span class="d-none d-lg-block">Flock</span>
+              </a>
+          </div>
+          
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+          
+        <div class="d-flex flex-column align-items-center mb-3 mt-2">
+          <img id="ppdinas" alt="" height="80px" width="80px" class="rounded-circle">
+          <b><h4 class="mt-3">Admin Dinas</h4></b>
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: '/FarmFlock/Controller/sesiLogin.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.id_dinas) {
+                            if (response.foto_dinas == null) {
+                                $('#ppdinas').attr('src', '../assets/img/gambar_profil_dinas/ppdinas.png');
+                            } else {
+                                $('#ppdinas').attr('src', '../assets/img/gambar_profil_dinas/' + response.foto_dinas);
+                            }
+                        } else {
+                            alert('Error: ' + response.error);
+                        }
+                    },
+                    error: function() {
+                        alert('Failed to retrieve Dinas');
+                    }
+                });
+            });
+          </script>
+          <p class="px-2 py-1 bg-custom-green">Dinas Peternakan</p>
+        </div>                
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="dashboard_dinas.html">
+              <i class="bi bi-grid"></i>
+              <span>Beranda</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link" href="profil_dinas.html">
+              <i class="bi bi-person"></i>
+              <span>Profil</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="tambahptl_dinas.html">
+              <i class="bi bi-person-plus"></i>
+              <span>Akun PTL</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
+                  <i class="bi bi-person-check"></i><span>Gembala Cerdas</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="gembalacerdas" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                  <li>
+                      <a class="nav-link collapsed" data-bs-target="#pengajuan" data-bs-toggle="collapse" href="#">
+                          <span>Pengajuan</span>
+                      </a>
+                      <ul id="pengajuan" class="nav-content-2 collapse" data-bs-parent="#nav-content">
+                          <li>
+                              <a href="pengajuankunjungan_dinas.html">
+                              <i class="bi bi-circle"></i><span>Kunjungan</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="pengajuanpelatihan_dinas.html">
+                              <i class="bi bi-circle"></i><span>Pelatihan</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link collapsed" data-bs-target="#penjadwalan" data-bs-toggle="collapse" href="#">
+                          <span>Penjadwalan</span>
+                      </a>
+                      <ul id="penjadwalan" class="nav-content-2 collapse " data-bs-parent="#nav-content">
+                          <li>
+                              <a href="penjadwalankunjungan_dinas.html">
+                              <i class="bi bi-circle"></i><span>Kunjungan</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="penjadwalanpelatihan_dinas.html">
+                              <i class="bi bi-circle"></i><span>Pelatihan</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="../index.html">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Keluar</span>
+              </a>
+          </li>
+      </ul>
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+      <div class="row-12 bg-hijau-profil">
+      </div>
+      <div class="row-12 d-flex card_profdinas">
+        <div class="col-6 cardfoto_profdinas">
+            <img id="ppprofdinas" alt="" height="200px" width="200px" class="rounded-circle">
+            <b><h4 class="mt-4" id="h4NamaprofDinas">Admin Dinas</h4></b>
+            <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#ModalUbahFoto">Ubah Foto</button>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: '/FarmFlock/Controller/sesiLogin.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                      if (response.foto_dinas == null) {
+                        $('#ppprofdinas').attr('src', '../assets/img/gambar_profil_dinas/ppdinas.png');
+                      } else {
+                        $('#ppprofdinas').attr('src', '../assets/img/gambar_profil_dinas/' + response.foto_dinas);
+                      }
+                    },
+                    error: function() {
+                        alert('Failed to retrieve Dinas');
+                    }
+                });
+            });
+            </script>
+        </div>
+        <div class="col-6 carddata_profdinas">
+            <div class="row carddata_profdinas2">
+                <table id="tblprofildinas">
+                    <tr>
+                        <td id="tdprofil1">Email</td>
+                        <td id="tdprofil2"> : </td>
+                        <th id="thEmail"></th>
+                    </tr>
+                </table>
+                <div class="col-12 d-flex justify-content-end align-items-end" id="btnUbahProfil">
+                    <button id="btnEditProfil" type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#ModalUbahProfil">Ubah Profil</button>
+                </div>                
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        $.ajax({
+                            url: '/FarmFlock/Controller/sesiLogin.php',
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function(response) {
+                                $('#thEmail').text(response.email_dinas);
+                            },
+                            error: function() {
+                                alert('Failed to retrieve Dinas');
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+      </div>
+
+      <!-- Modal Ubah Foto -->
+    <div class="modal fade" id="ModalUbahFoto" tabindex="-1" aria-labelledby="ModalUbahFoto" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalUbahFoto">Unggah Foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input class="form-control" name="foto" type="file" id="formFileUbahFoto">
+                    </div>
+                    <div>
+                        <img id="image" src="" alt="Image for cropping" width="100%">
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h6>Preview Hasil Crop:</h6>
+                        <img id="preview" src="" alt="Preview" width="100%">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-danger" id="btnHapusFoto" data-bs-dismiss="modal">Hapus</button>
+                    <button class="btn btn-warning" id="cropButton">Pangkas</button>
+                    <button class="btn btn-primary" id="btnUbahFoto" data-bs-dismiss="modal">Ubah</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                let cropper;
+                let croppedImage;
+
+                $('#formFileUbahFoto').change(function(e) {
+                    const files = e.target.files;
+                    if (files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            $('#image').attr('src', event.target.result).show();
+                            if (cropper) {
+                                cropper.destroy();
+                            }
+                            cropper = new Cropper(document.getElementById('image'), {
+                                aspectRatio: 1,
+                                viewMode: 1,
+                            });
+                        };
+                        reader.readAsDataURL(files[0]);
+                    }
+                });
+
+                $('#btnHapusFoto').click(function() {
+                    $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogin.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            const id_dinas = response.id_dinas;
+                            const formData = new FormData();
+                            formData.append('id_dinas', id_dinas);
+                            formData.append('action', 'hapusFoto');
+                            
+                            $.ajax({
+                                url: '/FarmFlock/Controller/Dinas.php',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(data) {
+                                    alert("Foto berhasil dihapus! Keluar dan kembali masuk untuk melihat perubahannya!");
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Kesalahan saat mengunggah file:', error);
+                                }
+                            });
+                        },
+                        error: function() {
+                            alert('Failed to retrieve Dinas');
+                        }
+                    });
+                });
+
+                $('#cropButton').click(function() {
+                    if (cropper) {
+                        const canvas = cropper.getCroppedCanvas({
+                            width: 300,
+                            height: 300,
+                        });
+                        canvas.toBlob(function(blob) {
+                            croppedImage = blob;
+                            const url = URL.createObjectURL(blob);
+                            $('#preview').attr('src', url).show();
+                        });
+                    }
+                });
+
+                $('#btnUbahFoto').click(function() {
+                    if (!croppedImage) {
+                        alert('Pilih dan crop gambar terlebih dahulu!');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogin.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            const id_dinas = response.id_dinas;
+                            const formData = new FormData();
+                            formData.append('id_dinas', id_dinas);
+                            formData.append('fotoDinas', croppedImage);
+                            formData.append('action', 'updateFotoDinas');
+                            
+                            $.ajax({
+                                url: '/FarmFlock/Controller/Dinas.php',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(data) {
+                                    alert("Foto berhasil diubah! Keluar dan kembali masuk untuk melihat perubahannya!");
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Kesalahan saat mengunggah file:', error);
+                                }
+                            });
+                        },
+                        error: function() {
+                            alert('Failed to retrieve Dinas');
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>  
+
+    <!-- Modal Ubah Profil -->
+    <div class="modal fade" id="ModalUbahProfil" tabindex="-1" aria-labelledby="ModalUbahProfil" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalUbahProfil">Ubah Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" oninput="enableConfirmPassword()"></input>
+                        </div>  
+                        <div class="mb-3">
+                            <label for="konfirmPassword">konfirmPassword</label>
+                            <input type="password" class="form-control" id="konfirmPassword" name="konfirmPassword" disabled></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-primary" id="btnUpdateProfil" data-bs-dismiss="modal" type="submit">Simpan</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function enableConfirmPassword() {
+            var passwordInput = document.getElementById('Password');
+            var confirmPasswordInput = document.getElementById('konfirmPassword');
+
+            if (passwordInput.value.trim() !== '') {
+                confirmPasswordInput.disabled = false;
+            } else {
+                confirmPasswordInput.disabled = true;
+                confirmPasswordInput.value = '';
+            }
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '/FarmFlock/Controller/sesiLogin.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#Email').val(response.email_dinas);
+                    var id_dinas = response.id_dinas;
+
+                    $('#btnUpdateProfil').off('click').on('click', function() {
+                        var emailDinas = $('#Email').val();
+                        var passwordDinas = $('#Password').val(); 
+                        var konfirmPasswordDinas = $('#konfirmPassword').val(); 
+
+                        function isValidEmail(email) {
+                            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            return emailPattern.test(email);
+                        }
+
+                        if (emailDinas.trim() == '' || !isValidEmail(emailDinas)) {
+                            alert('Masukkan Email dengan benar!');
+                        } else {
+                            if (passwordDinas.trim() != '') {
+                                if(passwordDinas.trim().length >= 8 && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(passwordDinas))  {
+                                    if (passwordDinas != konfirmPasswordDinas) {
+                                        alert("Konfirmasi Password Salah!")
+                                    } else {
+                                        var formData = new FormData();
+                                        formData.append('id_dinas', id_dinas);
+                                        formData.append('email_dinas', emailDinas);
+                                        formData.append('password_dinas', passwordDinas);
+                                        formData.append('action', 'updateProfilDinas');
+                                        
+                                        $.ajax({
+                                            url: '/FarmFlock/Controller/Dinas.php',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function(data) {
+                                                alert(data);
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    alert("Password minimal 8 karakter dengan variasi huruf kapital, kecil, angka, dan regex!")
+                                }
+                            } else {
+                                var formData = new FormData();
+                                formData.append('id_dinas', id_dinas);
+                                formData.append('email_dinas', emailDinas);
+                                formData.append('password_dinas', response.password_dinas);
+                                formData.append('action', 'updateProfilDinas');
+                                
+                                $.ajax({
+                                    url: '/FarmFlock/Controller/Dinas.php',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(data) {
+                                        alert(data);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },
+                error: function() {
+                    alert('Failed to retrieve Dinas');
+                }
+            });
+        })
+    </script>
+    </div>  
+
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="../assets/vendor/echarts/echarts.min.js"></script>
+    <script src="../assets/vendor/quill/quill.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main.js"></script>
+
+  </body>
+</html>

@@ -3,6 +3,696 @@
     scroll-behavior: smooth;
   }
 
+  * {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .statusAktifPtl {
+    width: auto;
+    color: white;
+    border-radius: 5px;
+    margin: 10px 10px 10px 10px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  .rowTambahPTL {
+    background-color: #f4f4f4;
+    margin: 20px 5px 20px 5px;
+    padding: 30px;
+  }
+
+  .rowHewanTernak {
+    background-color: #f4f4f4;
+    margin: 20px 5px 20px 5px;
+    padding: 30px;
+  }
+
+  .cardAkunPtl {
+    max-width: 280px;
+    height: 280px;
+    margin-right: 70px;
+  }
+
+  .rowBgBiruTop {
+    background-color: #6477DB;
+    padding: 20px;
+    color: white;
+    border-radius: 10px 40px 0px 0px;
+  }
+
+  .rowBgBiruTop h5 {
+    width: auto;
+  }
+
+  .iconAkunPtl img {
+    width: 50px;
+    height: 35px;
+  }
+
+  .isiAkunPtl {
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px 0px 10px 10px;
+    position: relative;
+  }
+
+  .tblAkunPtl {
+    max-width: 280px;
+    margin: 10px 10px 45px 10px;
+    padding: 10px;
+    border: 1px solid rgb(191, 191, 191);
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  #td1 {
+    width: 100px;
+  }
+
+  #td2 {
+    width: 10px;
+  }
+
+  #th3 {
+    width: max-content;
+  }
+
+  #btnUbahProfil {
+    position: relative;
+  }
+
+  #btnEditProfil {
+    width: 115px;
+    height: 38px;
+  }
+
+  #btnEditPeternakan {
+    width: 170px;
+    height: 38px;
+  }
+
+  #tblprofil {
+    width: max-content;
+    max-height: 230px;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  #tblprofildinas {
+    width: max-content;
+    max-height: 50px;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  
+  #tblprofil tr {
+    padding: 0;
+    margin: 0;
+  }
+
+  #tdprofil1 {
+    width: 135px;
+  }
+
+  #tdprofil2 {
+    width: 50px;
+    text-align: center;
+  }
+
+  #tblprofil th {
+    width: max-content;
+  }
+
+  .card_profptl {
+    margin: -100px 20px 20px 20px;
+    justify-content: center;
+  }
+
+  .cardfoto_profptl {
+    height: 500px;
+    width: 350px;
+    background-color: #ffffff;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+  }
+
+  .carddata_profptl {
+    width: 500px;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+  }
+
+  .carddata_profptl2 {
+    border : 2px solid #D9D9D9;
+    border-radius: 10px;
+    height: 420px;
+    padding: 20px;
+  }
+
+  .card_profdinas {
+    margin: -100px 20px 20px 20px;
+    justify-content: center;
+  }
+
+  .cardfoto_profdinas {
+    height: 500px;
+    width: 350px;
+    background-color: #ffffff;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+  }
+
+  .carddata_profdinas {
+    width: 500px;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+  }
+
+  .carddata_profdinas2 {
+    border : 2px solid #D9D9D9;
+    border-radius: 10px;
+    height: 420px;
+    padding: 20px;
+  }
+
+  .card_profpeternak {
+    margin: -100px 20px 20px 20px;
+    justify-content: center;
+  }
+
+  .cardfoto_profpeternak {
+    height: 500px;
+    width: 350px;
+    background-color: #ffffff;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+  }
+
+  .carddata_profpeternak {
+    width: 500px;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+  }
+
+  .carddata_profpeternak2 {
+    border : 2px solid #D9D9D9;
+    border-radius: 10px;
+    height: 420px;
+    padding: 20px;
+  }
+
+  .card_profpeternak2 {
+    margin: 30px 20px 20px 20px;
+    justify-content: center;
+  }
+
+  .carddata_profpeternakan {
+    height: 500px;
+    width: 350px;
+    margin-right: 20px;
+  }
+
+  .carddata_profpeternakan2 {
+    width: 500px;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+  }
+
+  .bg-biru-profil {
+    background-color: #6477DB;
+    height: 200px;
+    margin: 20px;
+    border-radius: 10px;
+  }
+
+  .bg-coklat-profil {
+    background-color: #6B5B23;
+    height: 200px;
+    margin: 20px;
+    border-radius: 10px;
+  }
+
+  .bg-hijau-profil {
+    background-color: #596B39;
+    height: 200px;
+    margin: 20px;
+    border-radius: 10px;
+  }
+
+  .colCardLogPeternak {
+    background-color: #ffffff;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-top: 130px;
+    height: 600px;
+    margin-bottom: -450px;
+  }
+
+  .colCardLogDinas {
+    background-color: #ffffff;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-top: 130px;
+    height: 600px;
+    margin-bottom: -450px;
+  }
+
+  .colCardLogPtl {
+    background-color: #ffffff;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-top: 130px;
+    height: 600px;
+    margin-bottom: -450px;
+  }
+
+  .colCardRegPeternak {
+    background-color: #ffffff;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-top: 130px;
+    height: 800px;
+    margin-bottom: -450px;
+  }
+
+  #bodyLogPeternak {
+    background-color: #F3F3F3;
+  }
+
+  #bgLogPeternak {
+    height: 517px;
+    background-image: url('../img/BG_LogPeternak.png');
+    background-size: 100%;
+  }
+
+  #bodyLogDinas {
+    background-color: #F3F3F3;
+  }
+
+  #bgLogDinas {
+    height: 517px;
+    background-image: url('../img/BG_LogDinas.png');
+    background-size: 100%;
+  }
+
+  #bodyLogPtl {
+    background-color: #F3F3F3;
+  }
+
+  #bgLogPtl {
+    height: 517px;
+    background-image: url('../img/BG_LogPtl.png');
+    background-size: 100%;
+  }
+
+  #LogPeternak1 {
+    margin-top: 120px;
+  }
+
+  #LogPeternak1 img {
+    width: 300px;
+  }
+
+  #LogPeternak1 h2 {
+    border-radius: 10px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #6b5b239e;
+    margin-left: 120px;
+    margin-right: 120px;
+    height: 95px;
+    padding-top: 8px;
+  }
+
+  #LogDinas1 {
+    margin-top: 120px;
+  }
+
+  #LogDinas1 img {
+    width: 300px;
+  }
+
+  #LogDinas1 h2 {
+    border-radius: 10px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #596b39a7;
+    margin-left: 120px;
+    margin-right: 120px;
+    height: 95px;
+    padding-top: 8px;
+  }
+
+  #LogPtl1 {
+    margin-top: 120px;
+  }
+
+  #LogPtl1 img {
+    width: 300px;
+  }
+
+  #LogPtl1 h2 {
+    border-radius: 10px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #6478db9e;
+    margin-left: 120px;
+    margin-right: 120px;
+    height: 95px;
+    padding-top: 8px;
+  }
+
+  #LogPeternak2 {
+    margin-top: 75px;
+  }
+
+  #LogPeternak2 img {
+    width: 250px;
+  }
+
+  #LogPeternak2 form {
+    margin-top: 50px;
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+
+  #LogPeternak2 form input {
+    height: 50px;
+  }
+
+  #LogPeternak2 p#daftar {
+    margin-top: 50px;
+  }
+
+  #LogPeternak2 p#daftar a {
+    color: #6B5B23;
+    font-weight: 700;
+  }
+
+  #LogPeternak2 p#masuk a {
+    color: #6B5B23;
+    font-weight: 700;
+  }
+
+  .btnLoginPeternak {
+    font-weight: 600;
+    font-size: large;
+    background: #6B5B23;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+
+  .btnLoginPeternak:hover {
+    background: #56491c;
+    color: white;
+  }
+
+  #LogDinas2 {
+    margin-top: 75px;
+  }
+
+  #LogDinas2 img {
+    width: 250px;
+  }
+
+  #LogDinas2 form {
+    margin-top: 50px;
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+
+  #LogDinas2 form input {
+    height: 50px;
+  }
+
+  .btnLoginDinas {
+    font-weight: 600;
+    font-size: large;
+    background: #596B39;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+
+  .btnLoginDinas:hover {
+    background: #43512b;
+    color: white;
+  }
+
+  #LogPtl2 {
+    margin-top: 75px;
+  }
+
+  #LogPtl2 img {
+    width: 250px;
+  }
+
+  #LogPtl2 form {
+    margin-top: 50px;
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+
+  #LogPtl2 form input {
+    height: 50px;
+  }
+
+  .btnLoginPtl {
+    font-weight: 600;
+    font-size: large;
+    background: #6477DB;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+
+  .btnLoginPtl:hover {
+    background: #48569e;
+    color: white;
+  }
+
+  .btnRegistPeternak {
+    font-weight: 600;
+    font-size: large;
+    background: #6B5B23;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+
+  .btnRegistPeternak:hover {
+    background: #56491c;
+    color: white;
+  }
+
+  #gambar_sapi {
+    margin-top: 200px;
+    margin-left: 50px;
+    width: 650px;
+  }
+
+  #FarmFlockWarna {
+    width: 600px;
+    margin-top: 200px;
+    margin-right: 80px;
+    float: right;
+  }
+
+  #DeskripsiFarmFlock {
+    color: #1F5940;
+    float: right;
+    margin-right: 50px;
+    font-size: 22px;
+    margin-top: 15px;
+    width: 625px;
+  }
+
+  .btn_mulaifitur {
+    font-weight: 600;
+    font-size: x-large;
+    float: right;
+    background: #86C4B7;
+    color: white;
+    width: 200px;
+    height: 50px;
+    margin-right: 480px;
+    margin-top: 15px;
+    border: none;
+    outline: none;
+  }
+  
+  .btn_mulaifitur:hover {
+    background: #57988a;
+    color: white;
+  }
+
+  #bg_index {
+    height: 1200px;
+    margin-top: 100px;
+    background-image: url('../img/BG_Index.png');
+    background-size: 100%;
+  }
+
+  .judulLogin {
+    padding-top: 300px;
+    font-weight: 700;
+    font-size: 56px;
+    color: white;
+  }
+
+  .cardLogin {
+    padding-top: 50px;
+  }
+
+  #cardPeternak {
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #cardPeternak .card-title {
+    color: #6B5B23;
+    font-size: x-large;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+
+  .btnPeternak {
+    font-weight: 600;
+    font-size: large;
+    background: #6B5B23;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+  
+  .btnPeternak:hover {
+    background: #4d4119;
+    color: white;
+  }
+
+  #cardDinas {
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #cardDinas .card-title {
+    color: #596B39;
+    font-size: x-large;
+    font-weight: 700;
+    margin-bottom: 17px;
+    margin-top: 8px;
+  }
+
+  .btnDinas {
+    font-weight: 600;
+    font-size: large;
+    background: #596B39;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+  
+  .btnDinas:hover {
+    background: #4a5732;
+    color: white;
+  }
+
+  #cardPTL {
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #cardPTL .card-title {
+    color: #6477DB;
+    font-size: x-large;
+    font-weight: 700;
+    margin-bottom: 17px;
+    margin-top: 8px;
+  }
+
+  .btnPTL {
+    font-weight: 600;
+    font-size: large;
+    background: #6477DB;
+    color: white;
+    width: 180px;
+    height: 40px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+  
+  .btnPTL:hover {
+    background: #4f5da2;
+    color: white;
+  }
+
   .modal-backdrop {
     opacity: 1;
   }
@@ -32,7 +722,7 @@
   
   body {
     font-family: "Open Sans", sans-serif;
-    background: #f6f9ff;
+    background: #ffffff;
     color: #444444;
     zoom: 0.75;
   }

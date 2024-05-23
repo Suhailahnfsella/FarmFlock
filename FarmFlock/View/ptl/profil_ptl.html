@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmFlock</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="icon" href="../assets/img/FarmFlock.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- FILE CSS -->
+    <link rel="stylesheet" href="../assets/style/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"/>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header_ptl" class="header fixed-top d-flex">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between">
+              <i class="bi bi-list toggle-sidebar-btn"></i>
+          </div>
+      
+          <div class="d-flex justify-content-between align-items-end">
+              <a href="#" class="logo d-flex">
+                  <span class="d-none d-lg-block mr-3">Farm</span>
+                  <span class="d-none d-lg-block">
+                      <img src="../assets/img/FarmFlock.png" alt="" style="margin-left: 5px; margin-right: 5px; margin-top: -10px;">
+                  </span>
+                  <span class="d-none d-lg-block">Flock</span>
+              </a>
+          </div>
+          
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+          
+          <div class="d-flex flex-column align-items-center mb-3 mt-2">
+              <img id="ppptl" alt="" height="80px" width="80px" class="rounded-circle">
+              <b><h4 class="mt-3" id="h4NamaPTL"></h4></b>
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                $(document).ready(function() {
+                    $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogin.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.nama_ptl) {
+                                $('#h4NamaPTL').text(response.nama_ptl);
+                                if (response.foto_ptl == null) {
+                                    $('#ppptl').attr('src', '../assets/img/gambar_profil_ptl/ppptl.png');
+                                } else {
+                                    $('#ppptl').attr('src', '../assets/img/gambar_profil_ptl/' + response.foto_ptl);
+                                }
+                            } else {
+                                alert('Error: ' + response.error);
+                            }
+                        },
+                        error: function() {
+                            alert('Failed to retrieve PTL name');
+                        }
+                    });
+                });
+              </script>
+              <p class="px-2 py-1 bg-custom-blue">Petugas Lapangan</p>
+          </div>               
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="dashboard_ptl.html">
+              <i class="bi bi-grid"></i>
+              <span>Beranda</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link" href="profil_ptl.html">
+              <i class="bi bi-person"></i>
+              <span>Profil</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
+                  <i class="bi bi-person-check"></i><span>Gembala Cerdas</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="gembalacerdas" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                  <li class="nav-item">
+                    <a href="penjadwalan_ptl.html">
+                      <i class="bi bi-circle"></i><span>Penjadwalan</span>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link collapsed" id="logout" href="#">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Keluar</span>
+              </a>
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                $(document).ready(function() {
+                    $('#logout').click(function(event) {
+                        event.preventDefault(); // Mencegah tautan agar tidak diarahkan ulang
+        
+                        $.ajax({
+                          url: '/FarmFlock/Controller/sesiLogout.php',
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    // Redirect ke halaman login atau halaman lainnya
+                                    window.location.href = '../index.html';
+                                } else {
+                                    alert('Gagal logout. Silakan coba lagi.');
+                                }
+                            },
+                            error: function() {
+                                alert('Terjadi kesalahan. Silakan coba lagi.');
+                            }
+                        });
+                    });
+                });
+            </script>
+          </li>
+      </ul>
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+      <div class="row-12 bg-biru-profil">
+      </div>
+      <div class="row-12 d-flex card_profptl">
+        <div class="col-6 cardfoto_profptl">
+            <img id="pprofptl" alt="" height="200px" width="200px" class="rounded-circle">
+            <b><h4 class="mt-4" id="h4NamaprofPTL"></h4></b>
+            <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#ModalUbahFoto">Ubah Foto</button>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: '/FarmFlock/Controller/sesiLogin.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.nama_ptl) {
+                            if (response.foto_ptl == null) {
+                                $('#pprofptl').attr('src', '../assets/img/gambar_profil_ptl/ppptl.png');
+                            } else {
+                                $('#pprofptl').attr('src', '../assets/img/gambar_profil_ptl/' + response.foto_ptl);
+                            }
+                            $('#h4NamaprofPTL').text(response.nama_ptl);
+                        } else {
+                            alert('Error: ' + response.error);
+                        }
+                    },
+                    error: function() {
+                        alert('Failed to retrieve PTL name');
+                    }
+                });
+            });
+            </script>
+        </div>
+        <div class="col-6 carddata_profptl">
+            <div class="row carddata_profptl2">
+                <table id="tblprofil">
+                    <tr>
+                        <td id="tdprofil1">Nama Lengkap</td>
+                        <td id="tdprofil2"> : </td>
+                        <th id="thNama"></th>
+                    </tr>
+                    <tr>
+                        <td id="tdprofil1">NIK</td>
+                        <td id="tdprofil2"> : </td>
+                        <th id="thNIK"></th>
+                    </tr>
+                    <tr>
+                        <td id="tdprofil1">Email</td>
+                        <td id="tdprofil2"> : </td>
+                        <th id="thEmail"></th>
+                    </tr>
+                    <tr>
+                        <td id="tdprofil1">Nomor Telepon</td>
+                        <td id="tdprofil2"> : </td>
+                        <th id="thNoTelp"></th>
+                    </tr>
+                    <tr>
+                        <td id="tdprofil1">Username</td>
+                        <td id="tdprofil2"> : </td>
+                        <th id="thUsername"></th>
+                    </tr>
+                </table>
+                <div class="col-12 d-flex justify-content-end align-items-end" id="btnUbahProfil">
+                    <button id="btnEditProfil" type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#ModalUbahProfil">Ubah Profil</button>
+                </div>                
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        $.ajax({
+                            url: '/FarmFlock/Controller/sesiLogin.php',
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function(response) {
+                                $('#thNama').text(response.nama_ptl);
+                                $('#thNIK').text(response.nik_ptl);
+                                $('#thEmail').text(response.email_ptl);
+                                $('#thNoTelp').text(response.no_telp_ptl);
+                                $('#thUsername').text(response.username_ptl);
+                            },
+                            error: function() {
+                                alert('Failed to retrieve PTL name');
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+      </div>
+
+      <!-- Modal Ubah Foto -->
+    <div class="modal fade" id="ModalUbahFoto" tabindex="-1" aria-labelledby="ModalUbahFoto" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalUbahFoto">Unggah Foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input class="form-control" name="foto" type="file" id="formFileUbahFoto">
+                    </div>
+                    <div>
+                        <img id="image" src="" alt="Image for cropping" width="100%">
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h6>Preview Hasil Crop:</h6>
+                        <img id="preview" src="" alt="Preview" width="100%">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-danger" id="btnHapusFoto" data-bs-dismiss="modal">Hapus</button>
+                    <button class="btn btn-warning" id="cropButton">Pangkas</button>
+                    <button class="btn btn-primary" id="btnUbahFoto" data-bs-dismiss="modal">Ubah</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                let cropper;
+                let croppedImage;
+
+                $('#formFileUbahFoto').change(function(e) {
+                    const files = e.target.files;
+                    if (files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            $('#image').attr('src', event.target.result).show();
+                            if (cropper) {
+                                cropper.destroy();
+                            }
+                            cropper = new Cropper(document.getElementById('image'), {
+                                aspectRatio: 1,
+                                viewMode: 1,
+                            });
+                        };
+                        reader.readAsDataURL(files[0]);
+                    }
+                });
+
+                $('#btnHapusFoto').click(function() {
+                    $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogin.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            const id_ptl = response.id_ptl;
+                            const formData = new FormData();
+                            formData.append('id_ptl', id_ptl);
+                            formData.append('action', 'hapusFoto');
+                            
+                            $.ajax({
+                                url: '/FarmFlock/Controller/PTL.php',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(data) {
+                                    alert("Foto berhasil dihapus! Keluar dan kembali masuk untuk melihat perubahannya!");
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Kesalahan saat mengunggah file:', error);
+                                }
+                            });
+                        },
+                        error: function() {
+                            alert('Failed to retrieve PTL name');
+                        }
+                    });
+                });
+
+                $('#cropButton').click(function() {
+                    if (cropper) {
+                        const canvas = cropper.getCroppedCanvas({
+                            width: 300,
+                            height: 300,
+                        });
+                        canvas.toBlob(function(blob) {
+                            croppedImage = blob;
+                            const url = URL.createObjectURL(blob);
+                            $('#preview').attr('src', url).show();
+                        });
+                    }
+                });
+
+                $('#btnUbahFoto').click(function() {
+                    if (!croppedImage) {
+                        alert('Pilih dan crop gambar terlebih dahulu!');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogin.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            const id_ptl = response.id_ptl;
+                            const formData = new FormData();
+                            formData.append('id_ptl', id_ptl);
+                            formData.append('fotoPtl', croppedImage);
+                            formData.append('action', 'updateFotoPTL');
+                            
+                            $.ajax({
+                                url: '/FarmFlock/Controller/PTL.php',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(data) {
+                                    alert("Foto berhasil diubah! Keluar dan kembali masuk untuk melihat perubahannya!");
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Kesalahan saat mengunggah file:', error);
+                                }
+                            });
+                        },
+                        error: function() {
+                            alert('Failed to retrieve PTL name');
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>  
+
+    <!-- Modal Ubah Profil -->
+    <div class="modal fade" id="ModalUbahProfil" tabindex="-1" aria-labelledby="ModalUbahProfil" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalUbahProfil">Ubah Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="NoTelp">Nomor Telepon</label>
+                            <input type="number" class="form-control" id="NoTelp" name="NoTelp"></input>
+                        </div> 
+                        <div class="mb-3">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" id="Username" name="Username"></input>
+                        </div>    
+                        <div class="mb-3">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" oninput="enableConfirmPassword()"></input>
+                        </div>  
+                        <div class="mb-3">
+                            <label for="konfirmPassword">konfirmPassword</label>
+                            <input type="password" class="form-control" id="konfirmPassword" name="konfirmPassword" disabled></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-primary" id="btnUpdateProfil" data-bs-dismiss="modal" type="submit">Simpan</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function enableConfirmPassword() {
+            var passwordInput = document.getElementById('Password');
+            var confirmPasswordInput = document.getElementById('konfirmPassword');
+
+            if (passwordInput.value.trim() !== '') {
+                confirmPasswordInput.disabled = false;
+            } else {
+                confirmPasswordInput.disabled = true;
+                confirmPasswordInput.value = '';
+            }
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '/FarmFlock/Controller/sesiLogin.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#Email').val(response.email_ptl);
+                    $('#NoTelp').val(response.no_telp_ptl);
+                    $('#Username').val(response.username_ptl);
+
+                    var id_ptl = response.id_ptl;
+
+                    $('#btnUpdateProfil').off('click').on('click', function() {
+                        var emailPtl = $('#Email').val();
+                        var noTelpPtl = $('#NoTelp').val();
+                        var usernamePtl = $('#Username').val(); 
+                        var passwordPtl = $('#Password').val(); 
+                        var konfirmPasswordPtl = $('#konfirmPassword').val(); 
+
+                        function isValidEmail(email) {
+                            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            return emailPattern.test(email);
+                        }
+
+                        function isValidPhoneNumber(phoneNumber) {
+                            var phonePattern = /^\d{10,13}$/;
+                            return phonePattern.test(phoneNumber);
+                        }
+
+                        if (emailPtl.trim() == '' || !isValidEmail(emailPtl)) {
+                            alert('Masukkan Email dengan benar!');
+                        } else if (noTelpPtl.trim() == '' || !isValidPhoneNumber(noTelpPtl)) {
+                            alert('Jumlah nomor telepon tidak sesuai!')
+                        } else if (usernamePtl.trim().length < 8) {
+                            alert('Karakter minimal username harus 8!')
+                        } else {
+                            if (passwordPtl.trim() != '') {
+                                if(passwordPtl.trim().length >= 8 && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(passwordPtl))  {
+                                    if (passwordPtl != konfirmPasswordPtl) {
+                                        alert("Konfirmasi Password Salah!")
+                                    } else {
+                                        var formData = new FormData();
+                                        formData.append('id_ptl', id_ptl);
+                                        formData.append('email_ptl', emailPtl);
+                                        formData.append('no_telp_ptl', noTelpPtl);
+                                        formData.append('username_ptl', usernamePtl);
+                                        formData.append('password_ptl', passwordPtl);
+                                        formData.append('action', 'updateProfilPtl');
+                                        
+                                        $.ajax({
+                                            url: '/FarmFlock/Controller/PTL.php',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function(data) {
+                                                alert(data);
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    alert("Password minimal 8 karakter dengan variasi huruf kapital, kecil, angka, dan regex!")
+                                }
+                            } else {
+                                var formData = new FormData();
+                                formData.append('id_ptl', id_ptl);
+                                formData.append('email_ptl', emailPtl);
+                                formData.append('no_telp_ptl', noTelpPtl);
+                                formData.append('username_ptl', usernamePtl);
+                                formData.append('password_ptl', response.password_ptl);
+                                formData.append('action', 'updateProfilPtl');
+                                
+                                $.ajax({
+                                    url: '/FarmFlock/Controller/PTL.php',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(data) {
+                                        alert(data);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },
+                error: function() {
+                    alert('Failed to retrieve PTL name');
+                }
+            });
+        })
+    </script>
+    </div>  
+
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="../assets/vendor/echarts/echarts.min.js"></script>
+    <script src="../assets/vendor/quill/quill.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main.js"></script>
+
+  </body>
+</html>

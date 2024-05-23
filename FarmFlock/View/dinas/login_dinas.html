@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmFlock</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="../assets/img/FarmFlock.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- FILE CSS -->
+    <link rel="stylesheet" href="../assets/style/style.css">
+  </head>
+  <body id="bodyLogDinas">
+    <!-- ======= Header ======= -->
+    <header id="header_dinas" class="header fixed-top d-flex">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <div class="d-flex justify-content-between align-items-end">
+                <a href="#" class="logo d-flex">
+                    <span class="d-none d-lg-block mr-3">Farm</span>
+                    <span class="d-none d-lg-block">
+                        <img src="../assets/img/FarmFlock.png" alt="" style="margin-left: 5px; margin-right: 5px; margin-top: -10px;">
+                    </span>
+                    <span class="d-none d-lg-block">Flock</span>
+                </a>
+            </div>
+            
+        </div>
+    </header>
+    <!-- End Header -->
+    <div class="section">
+      <div class="row-12 d-flex justify-content-center text-center">
+        <div class="col-8 colCardLogDinas">
+            <div class="row-12 d-flex">
+                <div class="col-6" id="LogDinas1">
+                    <img src="../assets/img/DinasLog.png" alt="">
+                    <h2>MASUK SEBAGAI DINAS</h2>
+                </div>
+                <div class="col-6" id="LogDinas2">
+                    <img src="../assets/img/FarmFlockWarna.png" alt="">
+                    <form id="loginFormDinas">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="Email" name="Email" placeholder="Email"></input>
+                        </div>     
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password"></input>
+                        </div>
+                        <button class="btn btnLoginDinas btn-vertical-align" id="btnLoginDinas" type="submit">Masuk</button>
+                    </form>
+                </div>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#loginFormDinas').submit(function(event) {
+                        event.preventDefault();
+                        var Email = $('#Email').val();
+                        var Password = $('#Password').val();
+        
+                        $.ajax({
+                            type: 'GET',
+                            url: '/FarmFlock/Controller/Dinas.php',
+                            data: {
+                                action: 'getLoginDinas',
+                                Email: Email,
+                                Password: Password
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    window.location.href = 'dashboard_dinas.html';
+                                } else {
+                                    $('#error-message').text(response.message);
+                                    alert(response.message);
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+      </div>
+      <div class="row-12" id="bgLogDinas">
+      </div>
+    </div>
+  </body>
+</html>

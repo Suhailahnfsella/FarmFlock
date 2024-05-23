@@ -54,11 +54,35 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
         
-        <div class="d-flex flex-column align-items-center mb-3 mt-2">
-            <img src="../assets/img/pp.jpg" alt="" width="80px" class="rounded-circle">
-            <h4 class="mt-3"><b>Admin Dinas</b></h4>
-            <p class="px-2 py-1 bg-custom-green">Dinas Pertanian</p>
-        </div>               
+      <div class="d-flex flex-column align-items-center mb-3 mt-2">
+        <img id="ppdinas" alt="" height="80px" width="80px" class="rounded-circle">
+        <b><h4 class="mt-3">Admin Dinas</h4></b>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          $(document).ready(function() {
+              $.ajax({
+                  url: '/FarmFlock/Controller/sesiLogin.php',
+                  method: 'GET',
+                  dataType: 'json',
+                  success: function(response) {
+                      if (response.id_dinas) {
+                          if (response.foto_dinas == null) {
+                              $('#ppdinas').attr('src', '../assets/img/gambar_profil_dinas/ppdinas.png');
+                          } else {
+                              $('#ppdinas').attr('src', '../assets/img/gambar_profil_dinas/' + response.foto_dinas);
+                          }
+                      } else {
+                          alert('Error: ' + response.error);
+                      }
+                  },
+                  error: function() {
+                      alert('Failed to retrieve Dinas');
+                  }
+              });
+          });
+        </script>
+        <p class="px-2 py-1 bg-custom-green">Dinas Peternakan</p>
+      </div>               
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="dashboard_dinas.html">
@@ -68,14 +92,14 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="profil_dinas.html">
             <i class="bi bi-person"></i>
             <span>Profil</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="tambahptl_dinas.html">
             <i class="bi bi-person-plus"></i>
             <span>Akun PTL</span>
             </a>
@@ -1114,9 +1138,9 @@
                                                         row.append($('<td>').text(dataJenisPelatihan.jenis_pelatihan));
                                                         row.append($('<td>').text(pasangan[key][0]));
                                                         if (pasangan[key][0] >= 15) {
-                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTambahPelatihan" data-desa="'+ dataDesa.id_desa +'"><i class="bi bi-clipboard-plus-fill"></i>'));
+                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTambahPelatihan" data-desa="'+ dataDesa.id_desa +'" data-jenispelatihan="'+dataJenisPelatihan.id_jenis_pelatihan+'"><i class="bi bi-clipboard-plus-fill"></i>'));
                                                         } else {
-                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTambahPelatihan" data-desa="'+ dataDesa.id_desa +'" data-jenispelatihan="'+dataJenisPelatihan.id_jenis_pelatihan+'" disabled><i class="bi bi-clipboard-plus-fill"></i>'));
+                                                          row.append($('<td>').html('<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTambahPelatihan" disabled><i class="bi bi-clipboard-plus-fill"></i>'));
                                                         }
                                                         tableBody.append(row);
                                                     });
@@ -1179,6 +1203,8 @@
                   var targetModal = $(this).data('bs-target');
                   var idDesa = $(this).data('desa');
                   var idJenisPelatihan = $(this).data('jenispelatihan');
+                  alert(idDesa);
+                  alert(idJenisPelatihan);
 
                   if (targetModal === '#ModalTambahPelatihan') {
                     $('#btnTambahPelatihan').click(function() {

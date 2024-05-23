@@ -84,22 +84,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         
         $uploadDir = '../View/assets/img/gambar_laporan_pelatihan/';
 
-        $originalName = $_FILES['bukti_pelatihan']['name'];
-        $tmpName = $_FILES['bukti_pelatihan']['tmp_name'];
+        if (isset($_FILES['bukti_pelatihan'])) {
+            $originalName = $_FILES['bukti_pelatihan']['name'];
+            $tmpName = $_FILES['bukti_pelatihan']['tmp_name'];
 
-        $randomName = uniqid() . '_' . mt_rand(1000, 9999) . '_' . $originalName;
+            $randomName = uniqid() . '_' . mt_rand(1000, 9999) . '_' . $originalName;
 
-        $destination = $uploadDir . $randomName;
+            $destination = $uploadDir . $randomName;
 
-        if (move_uploaded_file($tmpName, $destination)) {
+            if (move_uploaded_file($tmpName, $destination)) {
+                $id_pelatihan = $_POST['id_pelatihan'];
+                $bukti_pelatihan = $randomName;
+                $laporan_pelatihan = $_POST['laporan_pelatihan'];
+        
+                $pelatihanModel = new PelatihanModel($conn);
+    
+                $result = $pelatihanModel->updateLaporanPelatihan($id_pelatihan, $bukti_pelatihan, $laporan_pelatihan);
+            } 
+            
+        } else {
             $id_pelatihan = $_POST['id_pelatihan'];
-            $bukti_pelatihan = $randomName;
+            $bukti_pelatihan = $_POST['bukti_data'];
             $laporan_pelatihan = $_POST['laporan_pelatihan'];
     
             $pelatihanModel = new PelatihanModel($conn);
 
             $result = $pelatihanModel->updateLaporanPelatihan($id_pelatihan, $bukti_pelatihan, $laporan_pelatihan);
-        } 
+        }
     }
 
     if ($_POST['action'] === 'updateStatusBerjalan') {

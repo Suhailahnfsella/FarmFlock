@@ -88,22 +88,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         
         $uploadDir = '../View/assets/img/gambar_laporan_kunjungan/';
 
-        $originalName = $_FILES['bukti_kunjungan']['name'];
-        $tmpName = $_FILES['bukti_kunjungan']['tmp_name'];
+        if (isset($_FILES['bukti_kunjungan'])) {
+            $originalName = $_FILES['bukti_kunjungan']['name'];
+            $tmpName = $_FILES['bukti_kunjungan']['tmp_name'];
 
-        $randomName = uniqid() . '_' . mt_rand(1000, 9999) . '_' . $originalName;
+            $randomName = uniqid() . '_' . mt_rand(1000, 9999) . '_' . $originalName;
 
-        $destination = $uploadDir . $randomName;
+            $destination = $uploadDir . $randomName;
 
-        if (move_uploaded_file($tmpName, $destination)) {
+            if (move_uploaded_file($tmpName, $destination)) {
+                $bukti_kunjungan = $randomName;
+                $id_kunjungan = $_POST['id_kunjungan'];
+                $laporan_kunjungan = $_POST['laporan_kunjungan'];
+
+                $kunjunganModel = new KunjunganModel($conn);
+
+                $result = $kunjunganModel->updateLaporanKunjungan($id_kunjungan, $bukti_kunjungan, $laporan_kunjungan);
+            } 
+            
+        } else {
             $id_kunjungan = $_POST['id_kunjungan'];
-            $bukti_kunjungan = $randomName;
             $laporan_kunjungan = $_POST['laporan_kunjungan'];
-    
+            $bukti_kunjungan = $_POST['bukti_data'];
+
             $kunjunganModel = new KunjunganModel($conn);
 
             $result = $kunjunganModel->updateLaporanKunjungan($id_kunjungan, $bukti_kunjungan, $laporan_kunjungan);
-        } 
+        }
+        
     }
 
     if ($_POST['action'] === 'updateStatusBerjalan') {

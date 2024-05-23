@@ -55,8 +55,33 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         
         <div class="d-flex flex-column align-items-center mb-3 mt-2">
-            <img src="../assets/img/pp.jpg" alt="" width="80px" class="rounded-circle">
-            <h4 class="mt-3"><b>Agus Prihandi</b></h4>
+            <img id="ppptl" alt="" height="80px" width="80px" class="rounded-circle">
+            <b><h4 class="mt-3" id="h4NamaPTL"></h4></b>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+              $(document).ready(function() {
+                  $.ajax({
+                      url: '/FarmFlock/Controller/sesiLogin.php',
+                      method: 'GET',
+                      dataType: 'json',
+                      success: function(response) {
+                          if (response.nama_ptl) {
+                              $('#h4NamaPTL').text(response.nama_ptl);
+                              if (response.foto_ptl == null) {
+                                    $('#ppptl').attr('src', '../assets/img/gambar_profil_ptl/ppptl.png');
+                                } else {
+                                    $('#ppptl').attr('src', '../assets/img/gambar_profil_ptl/' + response.foto_ptl);
+                                }
+                          } else {
+                              alert('Error: ' + response.error);
+                          }
+                      },
+                      error: function() {
+                          alert('Failed to retrieve PTL name');
+                      }
+                  });
+              });
+            </script>
             <p class="px-2 py-1 bg-custom-blue">Petugas Lapangan</p>
         </div>               
 
@@ -68,7 +93,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="profil_ptl.html">
             <i class="bi bi-person"></i>
             <span>Profil</span>
             </a>
@@ -88,10 +113,35 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="../index.html">
+            <a class="nav-link collapsed" id="logout" href="#">
             <i class="bi bi-box-arrow-right"></i>
             <span>Keluar</span>
             </a>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+              $(document).ready(function() {
+                  $('#logout').click(function(event) {
+                      event.preventDefault(); // Mencegah tautan agar tidak diarahkan ulang
+      
+                      $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogout.php',
+                          type: 'POST',
+                          dataType: 'json',
+                          success: function(response) {
+                              if (response.status === 'success') {
+                                  // Redirect ke halaman login atau halaman lainnya
+                                  window.location.href = '../index.html';
+                              } else {
+                                  alert('Gagal logout. Silakan coba lagi.');
+                              }
+                          },
+                          error: function() {
+                              alert('Terjadi kesalahan. Silakan coba lagi.');
+                          }
+                      });
+                  });
+              });
+          </script>
         </li>
     </ul>
   </aside><!-- End Sidebar-->
@@ -131,21 +181,31 @@
                   <script>
                       $(document).ready(function() {
                           function getDataKunjungan() {
-                              $.ajax({
-                                  url: "/FarmFlock/Controller/Kunjungan.php",
-                                  type: "GET",
-                                  data: { 
-                                      action: "getKunjunganByIdPtlIdStatusBerjalan",
-                                      id_status_berjalan: 1, 
-                                      id_ptl : 1
-                                  },
-                                  success: function(response) {
-                                      updateTable(response);
-                                  },
-                                  error: function(xhr, status, error) {
-                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
-                                  }
-                              });
+                            $.ajax({
+                                url: '/FarmFlock/Controller/sesiLogin.php',
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function(response) {
+                                    $.ajax({
+                                        url: "/FarmFlock/Controller/Kunjungan.php",
+                                        type: "GET",
+                                        data: { 
+                                            action: "getKunjunganByIdPtlIdStatusBerjalan",
+                                            id_status_berjalan: 1, 
+                                            id_ptl : response.id_ptl
+                                        },
+                                        success: function(response) {
+                                            updateTable(response);
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                        }
+                                    });
+                                },
+                                error: function() {
+                                    alert('Failed to retrieve PTL name');
+                                }
+                            });
                           }
 
                           function getKunjunganByIdPtlIdStatusBerjalan($id_status_berjalan, callback) {
@@ -361,22 +421,32 @@
                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                   <script>
                       $(document).ready(function() {
-                          function getDataKunjungan() {
-                              $.ajax({
-                                  url: "/FarmFlock/Controller/Kunjungan.php",
-                                  type: "GET",
-                                  data: { 
-                                      action: "getKunjunganByIdPtlIdStatusBerjalan",
-                                      id_status_berjalan: 2, 
-                                      id_ptl : 1
-                                  },
-                                  success: function(response) {
-                                      updateTable(response);
-                                  },
-                                  error: function(xhr, status, error) {
-                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
-                                  }
-                              });
+                        function getDataKunjungan() {
+                            $.ajax({
+                                url: '/FarmFlock/Controller/sesiLogin.php',
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function(response) {
+                                    $.ajax({
+                                        url: "/FarmFlock/Controller/Kunjungan.php",
+                                        type: "GET",
+                                        data: { 
+                                            action: "getKunjunganByIdPtlIdStatusBerjalan",
+                                            id_status_berjalan: 2, 
+                                            id_ptl : response.id_ptl
+                                        },
+                                        success: function(response) {
+                                            updateTable(response);
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                        }
+                                    });
+                                },
+                                error: function() {
+                                    alert('Failed to retrieve PTL name');
+                                }
+                            });
                           }
 
                           function getDataPengajuan($idPengajuan, callback) {
@@ -568,21 +638,32 @@
                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                   <script>
                       $(document).ready(function() {
-                          function getDataKunjungan() {
-                              $.ajax({
-                                  url: "/FarmFlock/Controller/Kunjungan.php",
-                                  type: "GET",
-                                  data: { 
-                                      action: "getKunjunganByIdStatusBerjalan",
-                                      id_status_berjalan: 3
-                                  },
-                                  success: function(response) {
-                                      updateTable(response);
-                                  },
-                                  error: function(xhr, status, error) {
-                                      console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
-                                  }
-                              });
+                        function getDataKunjungan() {
+                            $.ajax({
+                                url: '/FarmFlock/Controller/sesiLogin.php',
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function(response) {
+                                    $.ajax({
+                                        url: "/FarmFlock/Controller/Kunjungan.php",
+                                        type: "GET",
+                                        data: { 
+                                            action: "getKunjunganByIdPtlIdStatusBerjalan",
+                                            id_status_berjalan: 3, 
+                                            id_ptl : response.id_ptl
+                                        },
+                                        success: function(response) {
+                                            updateTable(response);
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                        }
+                                    });
+                                },
+                                error: function() {
+                                    alert('Failed to retrieve PTL name');
+                                }
+                            });
                           }
 
                           function getDataPengajuan($idPengajuan, callback) {
@@ -852,79 +933,96 @@
     <!-- Modal Tambah Laporan -->
     <div class="modal fade" id="ModalTambahLaporan" tabindex="-1" aria-labelledby="ModalTambahLaporan" aria-hidden="true" data-bs-backdrop="false">
         <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="ModalTambahLaporan">Unggah Bukti Laporan</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <img width="450px" id="img_bukti" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTambahLaporan">Unggah Bukti Laporan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    <input class="form-control" name="foto" type="file" id="formFileLaporanPtl">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <img width="450px" id="img_bukti">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" name="foto" type="file" id="formFileLaporanPtl">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control form-control-xl" id="formTextLaporanPtl" style="height: 300px;"></textarea>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <textarea class="form-control form-control-xl" id="formTextLaporanPtl" style="height: 300px;"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <button class="btn btn-primary" id="btnUpdateLaporan" data-bs-dismiss="modal">Simpan</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                <button class="btn btn-primary" id="btnUpdateLaporan" data-bs-dismiss="modal">Simpan</button>
-            </div>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-            $(document).ready(function() {
-              $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
-              var targetModal = $(this).data('bs-target');
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('tbody').on('click', '[data-bs-toggle="modal"]', function() {
+                var targetModal = $(this).data('bs-target');
 
-              if (targetModal === '#ModalTambahLaporan') {
-                if ($(this).data('bukti') && $(this).data('laporan')) {
-                    var buktiData = $(this).data('bukti');
-                    $('#img_bukti').attr('src', '../assets/img/gambar_laporan_kunjungan/' + buktiData).removeAttr('hidden');
+                if (targetModal === '#ModalTambahLaporan') {
+                    if ($(this).data('bukti') && $(this).data('laporan')) {
+                        var buktiData = $(this).data('bukti');
+                        $('#img_bukti').attr('src', '../assets/img/gambar_laporan_kunjungan/' + buktiData).show();
 
-                    var laporanData = $(this).data('laporan');
-                    $('#formTextLaporanPtl').val(laporanData);
-                }
-
-                var id_kunjungan = $(this).data('kunjungan');
-
-                $('#btnUpdateLaporan').click(function() {
-                    var bukti_kunjungan = $('#formFileLaporanPtl').val();
-                    var laporan_kunjungan = $('#formTextLaporanPtl').val();
-
-                    if (bukti_kunjungan.trim() == '') {
-                      alert('Tambahkan foto bukti laporan kunjungan!');
-                    } else if (laporan_kunjungan.trim() == '') {
-                      alert('Tambahkan keterangan laporan kunjungan!');
-                    } else {
-                        var formData = new FormData();
-                        formData.append('id_kunjungan',id_kunjungan);
-                        formData.append('bukti_kunjungan', $('#formFileLaporanPtl')[0].files[0]);
-                        formData.append('laporan_kunjungan', $('#formTextLaporanPtl').val());
-                        formData.append('action', 'updateLaporanKunjungan');
-                        
-                        $.ajax({
-                            url: '/FarmFlock/Controller/Kunjungan.php',
-                            type: 'POST',
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            success: function(data){
-                                alert("Bukti laporan berhasil ditambahkan!");
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('Kesalahan saat mengunggah file:', error);
-                            }
-                        });
+                        var laporanData = $(this).data('laporan');
+                        $('#formTextLaporanPtl').val(laporanData);
                     }
-                });
-              }})
+
+                    var id_kunjungan = $(this).data('kunjungan');
+
+                    $('#btnUpdateLaporan').off('click').on('click', function() {
+                        var bukti_kunjungan = $('#formFileLaporanPtl').val();
+                        var laporan_kunjungan = $('#formTextLaporanPtl').val();
+
+                        if (bukti_kunjungan.trim() == '' && buktiData == '') {
+                            alert('Tambahkan foto bukti laporan kunjungan!');
+                        } else if (laporan_kunjungan.trim() == '') {
+                            alert('Tambahkan keterangan laporan kunjungan!');
+                        } else {
+                            var formData = new FormData();
+                            formData.append('id_kunjungan', id_kunjungan);
+                            if (bukti_kunjungan.trim() == '' && buktiData != '') {
+                                formData.append('bukti_data', buktiData);
+                            } else {
+                                formData.append('bukti_kunjungan', $('#formFileLaporanPtl')[0].files[0]);
+                            }
+                            formData.append('laporan_kunjungan', laporan_kunjungan);
+                            formData.append('action', 'updateLaporanKunjungan');
+                            
+                            $.ajax({
+                                url: '/FarmFlock/Controller/Kunjungan.php',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(data) {
+                                    alert("Bukti laporan berhasil ditambahkan!");
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Kesalahan saat mengunggah file:', error);
+                                }
+                            });
+                        }
+                    });
+                }
             });
-            </script>
-        </div>
-        </div>
-    </div>
+
+            $('#formFileLaporanPtl').change(function(e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        $('#img_bukti').attr('src', event.target.result).show();
+                    };
+                    reader.readAsDataURL(files[0]);
+                }
+            });
+        });
+    </script>
+    </div>  
 
     <!-- Modal Laporan -->
     <div class="modal fade" id="ModalLaporanText" tabindex="-1" aria-labelledby="ModalLaporanText" aria-hidden="true" data-bs-backdrop="false">

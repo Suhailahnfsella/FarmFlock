@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmFlock</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="../assets/img/FarmFlock.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- FILE CSS -->
+    <link rel="stylesheet" href="../assets/style/style.css">
+  </head>
+  <body id="bodyLogPeternak">
+    <!-- ======= Header ======= -->
+    <header id="header_peternak" class="header fixed-top d-flex">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <div class="d-flex justify-content-between align-items-end">
+                <a href="#" class="logo d-flex">
+                    <span class="d-none d-lg-block mr-3">Farm</span>
+                    <span class="d-none d-lg-block">
+                        <img src="../assets/img/FarmFlock.png" alt="" style="margin-left: 5px; margin-right: 5px; margin-top: -10px;">
+                    </span>
+                    <span class="d-none d-lg-block">Flock</span>
+                </a>
+            </div>
+            
+        </div>
+    </header>
+    <!-- End Header -->
+    <div class="section">
+      <div class="row-12 d-flex justify-content-center text-center">
+        <div class="col-8 colCardRegPeternak">
+            <div class="row-12 d-flex">
+                <div class="col-6" id="LogPeternak1">
+                    <img src="../assets/img/PeternakLog.png" alt="">
+                    <h2>DAFTAR SEBAGAI PETERNAK</h2>
+                </div>
+                <div class="col-6" id="LogPeternak2">
+                    <img src="../assets/img/FarmFlockWarna.png" alt="">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="NamaLengkap" name="NamaLengkap" placeholder="Nama Lengkap"></input>
+                        </div>     
+                        <div class="mb-3">
+                            <input type="number" class="form-control" id="NIK" name="NIK" placeholder="NIK"></input>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" class="form-control" id="NoTelp" name="NoTelp" placeholder="Nomor Telepon"></input>
+                        </div>  
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="Email" name="Email" placeholder="Email"></input>
+                        </div>    
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="UsernameNw" name="UsernameNw" placeholder="Username"></input>
+                        </div>    
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="PasswordNw" name="PasswordNw" placeholder="Password" oninput="enableConfirmPassword()"></input>
+                        </div>  
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="konfirmPassword" name="konfirmPassword" placeholder="Konfirmasi Password" disabled></input>
+                        </div>  
+                        <button class="btn btnRegistPeternak btn-vertical-align" id="btnRegistPeternak" type="button">Daftar</button>
+                        <p id="masuk">Kembali ke <a href="login_peternak.html">Halaman Masuk</a></p> 
+                    </form>
+                </div>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                function enableConfirmPassword() {
+                    var passwordInput = document.getElementById('PasswordNw');
+                    var confirmPasswordInput = document.getElementById('konfirmPassword');
+        
+                    if (passwordInput.value.trim() !== '') {
+                        confirmPasswordInput.disabled = false;
+                    } else {
+                        confirmPasswordInput.disabled = true;
+                        confirmPasswordInput.value = '';
+                    }
+                }
+        
+                $(document).ready(function() {
+                    $('#btnRegistPeternak').on('click', function() {
+                        var namaPeternak = $('#NamaLengkap').val();
+                        var nikPeternak = $('#NIK').val();
+                        var emailPeternak = $('#Email').val();
+                        var noTelpPeternak = $('#NoTelp').val();
+                        var usernamePeternak = $('#UsernameNw').val(); 
+                        var passwordPeternak = $('#PasswordNw').val(); 
+                        var konfirmPasswordPeternak = $('#konfirmPassword').val(); 
+        
+                        function isValidEmail(email) {
+                            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            return emailPattern.test(email);
+                        }
+        
+                        function isValidPhoneNumber(phoneNumber) {
+                            var phonePattern = /^\d{10,13}$/;
+                            return phonePattern.test(phoneNumber);
+                        }
+        
+                        if (namaPeternak.trim() == '') {
+                            alert("Nama tidak boleh kosong!");
+                        } else if (nikPeternak.trim() == '') {
+                            alert("NIK tidak boleh kosong!")
+                        } else if (nikPeternak.trim().length != 16) {
+                            alert("NIK berjumlah 16!")
+                        } else if (noTelpPeternak.trim() == '' || !isValidPhoneNumber(noTelpPeternak)) {
+                            alert('Jumlah nomor telepon tidak sesuai!')
+                        } else if (emailPeternak.trim() == '' || !isValidEmail(emailPeternak)) {
+                            alert('Masukkan Email dengan benar!');
+                        } else if (usernamePeternak.trim().length < 8) {
+                            alert('Karakter minimal username harus 8!')
+                        } else {
+                            if (passwordPeternak.trim() != '') {
+                                if(passwordPeternak.trim().length >= 8 && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(passwordPeternak))  {
+                                    if (passwordPeternak != konfirmPasswordPeternak) {
+                                        alert("Konfirmasi Password Salah!")
+                                    } else {
+                                        var formData = new FormData();
+                                        formData.append('nama_peternak', namaPeternak);
+                                        formData.append('nik_peternak', nikPeternak);
+                                        formData.append('email_peternak', emailPeternak);
+                                        formData.append('no_telp_peternak', noTelpPeternak);
+                                        formData.append('username_peternak', usernamePeternak);
+                                        formData.append('password_peternak', passwordPeternak);
+                                        formData.append('action', 'addPeternak');
+                                        
+                                        $.ajax({
+                                            url: '/FarmFlock/Controller/Peternak.php',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function(data) {
+                                                if (data == '"Peternak berhasil ditambahkan!"') {
+                                                    alert(data);
+                                                    window.location.href = "login_peternak.html";
+                                                } else {
+                                                    alert(data);
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    alert("Password minimal 8 karakter dengan variasi huruf kapital, kecil, angka, dan regex!")
+                                }
+                            } else {
+                                alert("Password tidak boleh kosong!");
+                            }
+                        }
+                    });    
+                });
+            </script>
+        </div>
+      </div>
+      <div class="row-12" id="bgLogPeternak">
+      </div>
+    </div>
+  </body>
+</html>
