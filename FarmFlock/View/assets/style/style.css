@@ -3,6 +3,10 @@
     scroll-behavior: smooth;
   }
 
+  .statusAktifPtl {
+    cursor: pointer;
+  }
+
   * {
     font-family: "Poppins", sans-serif;
   }

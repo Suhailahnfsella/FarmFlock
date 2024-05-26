@@ -99,11 +99,47 @@
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="hewanternak_peternak.html">
-              <i class="bi bi-house-heart"></i>
-              <span>Hewan Ternak</span>
-              </a>
-          </li>
+            <a id="ahewanternak" class="nav-link collapsed" href="hewanternak_peternak.html">
+            <i class="bi bi-house-heart"></i>
+            <span>Hewan Ternak</span>
+            </a>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                  $(document).ready(function() {
+                      function getDataPeternakan($idPeternak) {
+                          $.ajax({
+                              url: "/FarmFlock/Controller/Peternakan.php",
+                              type: "GET",
+                              data: { 
+                                  action: "getPeternakanById",
+                                  id_peternak: $idPeternak,
+                              },
+                              success: function(response) {
+                                  if (response === '[]') {
+                                      $('#ahewanternak').addClass('disabled');
+                                  } else {
+                                      $('#ahewanternak').removeClass('disabled');
+                                  }
+                              },
+                          });
+                      }
+
+                      $.ajax({
+                          url: '/FarmFlock/Controller/sesiLogin.php',
+                          method: 'GET',
+                          dataType: 'json',
+                          success: function(response) {
+                              var id_peternak = response.id_peternak;
+
+                              getDataPeternakan(id_peternak)
+                          },
+                          error: function() {
+                              alert('Failed to retrieve peternak name');
+                          }
+                      });
+                  })
+              </script>
+        </li>
 
           <li class="nav-item">
               <a class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
@@ -171,12 +207,109 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Beranda</h1>
+        </div><!-- End Page Title -->
+    
+        <div class="card">    
+            <div class="card-body pb-0">
+                <h5 class="card-title">Tingkat Keparahan Jenis Penyakit</h5>
+                <div id="trafficChart" style="min-height: 500px;" class="echart"></div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.3.3/echarts.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        function fetchData() {
+                            $.ajax({
+                                url: '/FarmFlock/Controller/Kunjungan.php',
+                                type: 'GET',
+                                data: {
+                                    action: 'getPenyakitData'
+                                },
+                                success: function(response) {
+                                    var data = JSON.parse(response);
+                                    var total = 0;
+                                    var tambahTotal = data.map(item => {
+                                        total += parseInt(item.jumlah);
+                                    });
+                                    var chartData = data.map(item => {
+                                        var persen = ((parseInt(item.jumlah) / total) * 100).toFixed(2);
+                                        return { value: persen, name: item.jenis_penyakit };
+                                    });
+                                    renderChart(chartData);
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error("Terjadi kesalahan: " + error);
+                                }
+                            });
+                        }
+    
+                        function renderChart(data) {
+                            const chartDom = document.querySelector("#trafficChart");
+                            const myChart = echarts.init(chartDom);
 
-      <div class="pagetitle">
-        <h1>Beranda</h1>
-      </div><!-- End Page Title -->
+                            // Hitung total nilai untuk persentase
+                            const total = data.reduce((sum, item) => sum + item.value, 0);
 
+                            const option = {
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: function(params) {
+                                        const percent = ((params.value / total) * 100).toFixed(2);
+                                        return `<b>Jenis Penyakit</b></br> ${params.name}<br/>Jumlah: ${params.value} (%)`;
+                                    }
+                                },
+                                legend: {
+                                    top: '5%',
+                                    left: 'center'
+                                },
+                                series: [{
+                                    name: 'Jenis Penyakit',
+                                    type: 'pie',
+                                    radius: ['40%', '70%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: '18',
+                                            fontWeight: 'bold',
+                                            formatter: function(params) {
+                                                const percent = ((params.value / total) * 100).toFixed(2);
+                                                return `${params.name}\n${params.value} (%)`;
+                                            }
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: data
+                                }]
+                            };
+
+                            myChart.setOption(option);
+
+                            // Make the chart responsive
+                            window.addEventListener('resize', () => {
+                                myChart.resize();
+                            });
+
+                            // Event listener for clicks
+                            myChart.on('click', function(params) {
+                                alert(`You clicked on ${params.name}: ${params.value}`);
+                                // You can add more actions here, such as navigating to another page
+                            });
+                        }
+                        fetchData();
+                    });
+                </script>
+            </div>
+        </div><!-- End Website Traffic -->
     </main><!-- End #main -->
+    
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">

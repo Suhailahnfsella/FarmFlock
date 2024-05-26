@@ -21,6 +21,21 @@ class PTLModel {
         return $ptlArray; // Mengembalikan array asosiatif
     }
 
+    public function getAllPTLAktif() {
+        $sql = "SELECT * FROM tbl_ptl WHERE id_status_aktif = 1";
+        $result = $this->conn->query($sql);
+    
+        $ptlArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $ptlArray[] = $row;
+            }
+        }
+        return $ptlArray; // Mengembalikan array asosiatif
+    }
+
     public function getPTLById($idPTL) {
         $sql = "SELECT * FROM tbl_ptl WHERE id_ptl = $idPTL";
         $result = $this->conn->query($sql);
@@ -68,6 +83,14 @@ class PTLModel {
                 'status' => 'error',
                 'message' => 'Username tidak ditemukan'
             ];
+        }
+    }
+
+    public function updateStatusPTL($idPTL, $idStatusAktif) {
+        $sql = "UPDATE tbl_ptl SET id_status_aktif = $idStatusAktif WHERE id_ptl = $idPTL";
+        
+        if ($this->conn->query($sql) === TRUE) {
+            return true;
         }
     }
 

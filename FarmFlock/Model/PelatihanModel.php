@@ -68,6 +68,42 @@ class PelatihanModel {
         }
         return $pelatihanArray; // Mengembalikan array asosiatif
     }
+
+    public function getJumlahPelatihan() {
+        $sql = "SELECT id_status_berjalan, COUNT(id_status_berjalan) AS jumlah
+        FROM tbl_pelatihan
+        GROUP BY id_status_berjalan";
+        $result = $this->conn->query($sql);
+    
+        $pelatihanArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $pelatihanArray[] = $row;
+            }
+        }
+        return $pelatihanArray; // Mengembalikan array asosiatif
+    }
+
+    public function getJadwalPelatihan() {
+        $sql = "SELECT tbl_pelatihan.judul_pelatihan, CONCAT('Desa', ' ', tbl_desa.desa) AS desa, DATEDIFF(tbl_pelatihan.tanggal_pelatihan, CURDATE()) AS hari 
+        FROM tbl_pelatihan 
+        JOIN tbl_desa ON tbl_desa.id_desa = tbl_pelatihan.id_desa 
+        WHERE tbl_pelatihan.id_status_berjalan = 1 
+        ORDER BY hari ASC;";
+        $result = $this->conn->query($sql);
+    
+        $pelatihanArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $pelatihanArray[] = $row;
+            }
+        }
+        return $pelatihanArray; // Mengembalikan array asosiatif
+    }
 }
 
 ?>

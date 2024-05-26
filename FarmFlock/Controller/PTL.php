@@ -12,6 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         echo json_encode($ptlData);
     }
 
+    if ($_GET['action'] === 'getAllPTLAktif') {
+        $ptlModel = new PTLModel($conn);
+        $ptlData = $ptlModel->getAllPTLAktif();
+    
+        echo json_encode($ptlData);
+    }
+
     if ($_GET['action'] === 'getPTLById' && isset($_GET['id_ptl'])) {
         $id_ptl = $_GET['id_ptl'];
     
@@ -82,6 +89,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         $ptlModel = new PTLModel($conn);
 
         $result = $ptlModel->updateProfilPtl($idPtl, $emailPtl, $noTelpPtl, $usernamePtl, $passwordPtl);
+
+        echo json_encode($result);
+    }
+
+    if ($_POST['action'] === 'updateStatusPTL') {
+        $idPtl = $_POST['id_ptl'];
+        $id_status_aktif = $_POST['id_status_aktif'];
+
+        $ptlModel = new PTLModel($conn);
+
+        $result = $ptlModel->updateStatusPTL($idPtl, $id_status_aktif);
 
         echo json_encode($result);
     }

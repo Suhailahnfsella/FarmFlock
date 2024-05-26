@@ -151,6 +151,133 @@
         <h1>Beranda</h1>
       </div><!-- End Page Title -->
 
+      <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
+                    <!-- Pengajuan Dalam Antrian Card -->
+                    <div class="col-xxl-4 col-md-4">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Kunjungan Dalam Antrian</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-calendar-week"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6 id="antrian-count">Loading...</h6>
+                                        <span id="antrian-percentage" class="text-success small pt-1 fw-bold">Loading...</span>
+                                        <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Pengajuan Dalam Antrian Card -->
+    
+                    <!-- Pengajuan Berjalan Card -->
+                    <div class="col-xxl-4 col-md-4">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Kunjungan Berjalan</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-calendar-range"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6 id="berjalan-count">Loading...</h6>
+                                        <span id="berjalan-percentage" class="text-success small pt-1 fw-bold">Loading...</span>
+                                        <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Pengajuan Berjalan Card -->
+    
+                    <!-- Pengajuan Selesai Card -->
+                    <div class="col-xxl-4 col-md-4">
+                        <div class="card info-card customers-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Kunjungan Selesai</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6 id="selesai-count">Loading...</h6>
+                                        <span id="selesai-percentage" class="text-success small pt-1 fw-bold">Loading...</span>
+                                        <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Pengajuan Selesai Card -->
+                </div>
+            </div><!-- End Left side columns -->
+        </div>
+    </section>
+    
+    <script>
+    $(document).ready(function() {
+      $.ajax({
+          url: '/FarmFlock/Controller/sesiLogin.php',
+          method: 'GET',
+          dataType: 'json',
+          success: function(response1) {
+              $.ajax({
+                url: '/FarmFlock/Controller/Kunjungan.php',
+                type: 'GET',
+                data: {
+                    action: 'getJumlahKunjunganPTL', 
+                    id_ptl: response1.id_ptl
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    var belum = 0;
+                    var jalan = 0;
+                    var selesai = 0;
+
+                    data.forEach(function(dataJumlah) {
+                      if (dataJumlah.id_status_berjalan == 1) {
+                        belum = dataJumlah.jumlah;
+                      }
+                      
+                      if (dataJumlah.id_status_berjalan == 2) {
+                        jalan = dataJumlah.jumlah;
+                      }
+                      
+                      if (dataJumlah.id_status_berjalan == 3) {
+                        selesai = dataJumlah.jumlah;
+                      }
+                    })
+
+                    belum = parseInt(belum, 10);
+                    jalan = parseInt(jalan, 10);
+                    selesai = parseInt(selesai, 10);
+
+                    var total = belum + jalan + selesai;
+
+                    $('#antrian-count').text(belum);
+                    $('#antrian-percentage').text(total ? ((belum / total) * 100).toFixed(2) + '%' : '0.00%');
+
+                    $('#berjalan-count').text(jalan);
+                    $('#berjalan-percentage').text(total ? ((jalan / total) * 100).toFixed(2) + '%' : '0.00%');
+
+                    $('#selesai-count').text(selesai);
+                    $('#selesai-percentage').text(total ? ((selesai / total) * 100).toFixed(2) + '%' : '0.00%');
+                },
+                error: function(xhr, status, error) {
+                    console.error("Terjadi kesalahan: " + error);
+                }
+            });
+          },
+          error: function() {
+              alert('Failed to retrieve PTL name');
+          }
+      });
+    });
+    </script>
+
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->

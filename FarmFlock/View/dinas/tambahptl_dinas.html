@@ -230,12 +230,43 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <h5 class="statusAktifPtl ${statusClass}">${statusText}</h5>
+                                        <h5 class="statusAktifPtl ${statusClass}" data-id="${ptl.id_ptl}">${statusText}</h5>
                                     </div>
                                 </div>
                             `;
                             container.append(card);
                         });
+                        $('.statusAktifPtl').click(function() {
+                            var statusElement = $(this);
+                            var currentStatus = statusElement.text().trim();
+                            var newStatus = currentStatus === 'Aktif' ? 'Non Aktif' : 'Aktif';
+                            var newStatusClass = currentStatus === 'Aktif' ? 'bg-danger' : 'bg-success';
+                            var id_ptl = statusElement.data('id');
+                            var newStatusId = currentStatus === 'Aktif' ? 2 : 1;
+
+                            // Update the text and class immediately for better UX
+                            statusElement.text(newStatus).removeClass('bg-success bg-danger').addClass(newStatusClass);
+
+                            // Send AJAX request to update status in the database
+                            $.ajax({
+                                url: '/FarmFlock/Controller/PTL.php',
+                                type: 'POST',
+                                data: {
+                                    action: 'updateStatusPTL',
+                                    id_ptl: id_ptl,
+                                    id_status_aktif: newStatusId
+                                },
+                                success: function(response) {
+                                    console.log('Status updated successfully');
+                                },
+                                error: function() {
+                                    alert('Failed to update status');
+                                    // Revert the changes if update fails
+                                    statusElement.text(currentStatus).removeClass(newStatusClass).addClass(currentStatus === 'Aktif' ? 'bg-success' : 'bg-danger');
+                                }
+                            });
+                        });
+
                     }
 
                     // Fetch and populate PTL data on page load

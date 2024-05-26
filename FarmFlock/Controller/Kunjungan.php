@@ -13,6 +13,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         echo json_encode($kunjunganData);
     }
 
+    if ($_GET['action'] === 'getPenyakitData') {
+        $kunjunganModel = new KunjunganModel($conn);
+        $kunjunganData = $kunjunganModel->getPenyakitData();
+    
+        echo json_encode($kunjunganData);
+    }
+
+    if ($_GET['action'] === 'getJumlahKunjungan') {
+        $kunjunganModel = new KunjunganModel($conn);
+        $kunjunganData = $kunjunganModel->getJumlahKunjungan();
+    
+        echo json_encode($kunjunganData);
+    }
+
+    if ($_GET['action'] === 'getJumlahKunjunganPTL') {
+        $idPtl = $_GET['id_ptl'];
+
+        $kunjunganModel = new KunjunganModel($conn);
+        $kunjunganData = $kunjunganModel->getJumlahKunjunganPTL($idPtl);
+    
+        echo json_encode($kunjunganData);
+    }
+
     if ($_GET['action'] === 'getKunjunganByIdPtl' && isset($_GET['id_ptl'])) {
         $idPtl = $_GET['id_ptl'];
 

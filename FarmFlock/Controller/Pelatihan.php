@@ -30,6 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
         echo json_encode($pelatihanData);
     }
 
+    if ($_GET['action'] === 'getJumlahPelatihan') {
+        $pelatihanModel = new PelatihanModel($conn);
+        $pelatihanData = $pelatihanModel->getJumlahPelatihan();
+    
+        echo json_encode($pelatihanData);
+    }
+
+    if ($_GET['action'] === 'getJadwalPelatihan') {
+        $pelatihanModel = new PelatihanModel($conn);
+        $pelatihanData = $pelatihanModel->getJadwalPelatihan();
+    
+        echo json_encode($pelatihanData);
+    }
+
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $conn = get_connection();
 

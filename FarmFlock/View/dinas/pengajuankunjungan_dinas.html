@@ -900,28 +900,12 @@
                           });
                       }
 
-                      function getDataPTL() {
+                      function getAllPTLAktif() {
                           $.ajax({
                               url: "/FarmFlock/Controller/PTL.php",
                               type: "GET",
                               data: { 
-                                  action: "getAllPTL"
-                              },
-                              success: function(response) {
-                                updateSelectOption3(response);
-                              },
-                              error: function(xhr, status, error) {
-                                  console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
-                              }
-                          });
-                      }
-
-                      function getDataPTL() {
-                          $.ajax({
-                              url: "/FarmFlock/Controller/PTL.php",
-                              type: "GET",
-                              data: { 
-                                  action: "getAllPTL"
+                                  action: "getAllPTLAktif"
                               },
                               success: function(response) {
                                 updateSelectOption3(response);
@@ -1054,7 +1038,7 @@
                       // Memanggil fungsi untuk mengambil data pengajuan saat dokumen siap
                       getDataPenyakit();
                       getTingkatKeparahan();
-                      getDataPTL();
+                      getAllPTLAktif();
                   });
               </script>
             </div>

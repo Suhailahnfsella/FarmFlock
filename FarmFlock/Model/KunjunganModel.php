@@ -21,6 +21,59 @@ class KunjunganModel {
         return $kunjunganArray; // Mengembalikan array asosiatif
     }
 
+    public function getPenyakitData() {
+        $sql = "SELECT tbl_jenis_penyakit.jenis_penyakit, COUNT(tbl_kunjungan.id_jenis_penyakit) AS jumlah 
+        FROM tbl_kunjungan 
+        JOIN tbl_jenis_penyakit ON tbl_jenis_penyakit.id_jenis_penyakit = tbl_kunjungan.id_jenis_penyakit 
+        GROUP BY tbl_kunjungan.id_jenis_penyakit";
+        $result = $this->conn->query($sql);
+    
+        $kunjunganArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $kunjunganArray[] = $row;
+            }
+        }
+        return $kunjunganArray; // Mengembalikan array asosiatif
+    }
+
+    public function getJumlahKunjunganPTL($idPtl) {
+        $sql = "SELECT id_status_berjalan, COUNT(id_ptl) AS jumlah
+        FROM tbl_kunjungan
+        WHERE id_ptl = $idPtl
+        GROUP BY id_status_berjalan";
+        $result = $this->conn->query($sql);
+    
+        $kunjunganArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $kunjunganArray[] = $row;
+            }
+        }
+        return $kunjunganArray; // Mengembalikan array asosiatif
+    }
+
+    public function getJumlahKunjungan() {
+        $sql = "SELECT id_status_berjalan, COUNT(id_status_berjalan) AS jumlah
+        FROM tbl_kunjungan
+        GROUP BY id_status_berjalan";
+        $result = $this->conn->query($sql);
+    
+        $kunjunganArray = array(); // Inisialisasi array kosong untuk menyimpan hasil
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Menambahkan setiap baris sebagai elemen array asosiatif
+                $kunjunganArray[] = $row;
+            }
+        }
+        return $kunjunganArray; // Mengembalikan array asosiatif
+    }
+
     public function getKunjunganByIdPtl($idPTL) {
         $sql = "SELECT * FROM tbl_kunjungan WHERE id_ptl = $idPTL";
         $result = $this->conn->query($sql);

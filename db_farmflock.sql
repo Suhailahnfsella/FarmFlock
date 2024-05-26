@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: May 24, 2024 at 12:21 AM
--- Server version: 8.0.35-0ubuntu0.22.04.1
--- PHP Version: 8.1.27
+-- Host: 127.0.0.1
+-- Generation Time: May 25, 2024 at 08:05 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_alasan_ditolak` (
-  `id_alasan_ditolak` int NOT NULL,
-  `keterangan_ditolak` text COLLATE utf8mb4_general_ci NOT NULL,
-  `id_pengajuan` int NOT NULL
+  `id_alasan_ditolak` int(11) NOT NULL,
+  `keterangan_ditolak` text NOT NULL,
+  `id_pengajuan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -40,12 +40,36 @@ CREATE TABLE `tbl_alasan_ditolak` (
 --
 
 CREATE TABLE `tbl_antrian_pelatihan` (
-  `id_antrian_pelatihan` int NOT NULL,
-  `id_jenis_pelatihan` int NOT NULL,
-  `id_status_antrian_pelatihan` int NOT NULL,
-  `id_pengajuan` int NOT NULL,
-  `id_desa` int NOT NULL
+  `id_antrian_pelatihan` int(11) NOT NULL,
+  `id_jenis_pelatihan` int(11) NOT NULL,
+  `id_status_antrian_pelatihan` int(11) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `id_desa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_antrian_pelatihan`
+--
+
+INSERT INTO `tbl_antrian_pelatihan` (`id_antrian_pelatihan`, `id_jenis_pelatihan`, `id_status_antrian_pelatihan`, `id_pengajuan`, `id_desa`) VALUES
+(15, 4, 2, 38, 1),
+(16, 4, 2, 39, 1),
+(17, 4, 2, 40, 1),
+(18, 4, 2, 41, 1),
+(19, 4, 2, 42, 1),
+(20, 4, 2, 43, 1),
+(21, 4, 2, 44, 1),
+(22, 4, 2, 45, 1),
+(23, 4, 2, 46, 1),
+(24, 4, 2, 47, 1),
+(26, 4, 2, 48, 1),
+(27, 4, 2, 49, 1),
+(28, 4, 2, 50, 1),
+(29, 4, 2, 51, 1),
+(30, 4, 2, 52, 1),
+(31, 4, 1, 53, 3),
+(32, 4, 1, 55, 3),
+(33, 3, 1, 54, 1);
 
 -- --------------------------------------------------------
 
@@ -54,9 +78,9 @@ CREATE TABLE `tbl_antrian_pelatihan` (
 --
 
 CREATE TABLE `tbl_desa` (
-  `id_desa` int NOT NULL,
-  `desa` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `id_kecamatan` int NOT NULL
+  `id_desa` int(11) NOT NULL,
+  `desa` varchar(125) NOT NULL,
+  `id_kecamatan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -318,10 +342,10 @@ INSERT INTO `tbl_desa` (`id_desa`, `desa`, `id_kecamatan`) VALUES
 --
 
 CREATE TABLE `tbl_dinas_peternakan` (
-  `id_dinas` int NOT NULL,
-  `email_dinas` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `password_dinas` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `foto_dinas` text COLLATE utf8mb4_general_ci
+  `id_dinas` int(11) NOT NULL,
+  `email_dinas` varchar(125) NOT NULL,
+  `password_dinas` varchar(64) NOT NULL,
+  `foto_dinas` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -329,7 +353,113 @@ CREATE TABLE `tbl_dinas_peternakan` (
 --
 
 INSERT INTO `tbl_dinas_peternakan` (`id_dinas`, `email_dinas`, `password_dinas`, `foto_dinas`) VALUES
-(1, 'disptrjember@gmail.com', 'Dinas123*', NULL);
+(1, 'dptrjember@gmail.com', 'Dinas123*', '664f96cbea0dc_1042_blob');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_hewan`
+--
+
+CREATE TABLE `tbl_hewan` (
+  `id_hewan` int(11) NOT NULL,
+  `hewan` varchar(125) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_hewan`
+--
+
+INSERT INTO `tbl_hewan` (`id_hewan`, `hewan`) VALUES
+(2, 'Domba'),
+(3, 'Kambing'),
+(4, 'Kerbau'),
+(1, 'Sapi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_hewan_peternakan`
+--
+
+CREATE TABLE `tbl_hewan_peternakan` (
+  `id_hewan_peternakan` int(11) NOT NULL,
+  `id_peternakan` int(11) NOT NULL,
+  `id_jenis_hewan` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_hewan_peternakan`
+--
+
+INSERT INTO `tbl_hewan_peternakan` (`id_hewan_peternakan`, `id_peternakan`, `id_jenis_hewan`, `jumlah`) VALUES
+(1, 1, 12, 10),
+(2, 4, 43, 7),
+(3, 4, 44, 10),
+(4, 4, 31, 5),
+(5, 4, 25, 2),
+(6, 4, 19, 10),
+(7, 4, 32, 20),
+(8, 4, 24, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_jenis_hewan`
+--
+
+CREATE TABLE `tbl_jenis_hewan` (
+  `id_jenis_hewan` int(11) NOT NULL,
+  `jenis_hewan` varchar(125) NOT NULL,
+  `id_hewan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_jenis_hewan`
+--
+
+INSERT INTO `tbl_jenis_hewan` (`id_jenis_hewan`, `jenis_hewan`, `id_hewan`) VALUES
+(12, 'Brahman', 1),
+(13, 'Simental', 1),
+(14, 'Limosin', 1),
+(15, 'Brahman Cross', 1),
+(16, 'Ongole', 1),
+(17, 'Peranakan Ongole (PO)', 1),
+(18, 'Bali', 1),
+(19, 'Madura', 1),
+(20, 'Aceh', 1),
+(21, 'Angus', 1),
+(22, 'Brangus', 1),
+(24, 'Perah', 1),
+(25, 'Murrah', 4),
+(26, 'Swamp', 4),
+(27, 'Sungai', 4),
+(28, 'Kalang', 4),
+(29, 'Kereman', 4),
+(30, 'Kuning', 4),
+(31, 'Kacang', 3),
+(32, 'Etawa', 3),
+(33, 'Peranakan Etawa (PE)', 3),
+(34, 'Jawarandu', 3),
+(35, 'Boer', 3),
+(36, 'Saanen', 3),
+(37, 'Gembrong', 3),
+(38, 'Boerawa', 3),
+(39, 'Muara', 3),
+(40, 'Kosta', 3),
+(41, 'Marica', 3),
+(42, 'Samosir', 3),
+(43, 'Garut', 2),
+(44, 'Gembel', 2),
+(45, 'Ekor Tebal', 2),
+(46, 'Texel', 2),
+(47, 'Merino', 2),
+(48, 'Suffolk', 2),
+(49, 'Dorper', 2),
+(50, 'Awassi', 2),
+(51, 'Van Rooy', 2),
+(52, 'Gibas', 2);
 
 -- --------------------------------------------------------
 
@@ -338,8 +468,8 @@ INSERT INTO `tbl_dinas_peternakan` (`id_dinas`, `email_dinas`, `password_dinas`,
 --
 
 CREATE TABLE `tbl_jenis_pelatihan` (
-  `id_jenis_pelatihan` int NOT NULL,
-  `jenis_pelatihan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `id_jenis_pelatihan` int(11) NOT NULL,
+  `jenis_pelatihan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -359,8 +489,8 @@ INSERT INTO `tbl_jenis_pelatihan` (`id_jenis_pelatihan`, `jenis_pelatihan`) VALU
 --
 
 CREATE TABLE `tbl_jenis_pengajuan` (
-  `id_jenis_pengajuan` int NOT NULL,
-  `jenis_pengajuan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
+  `id_jenis_pengajuan` int(11) NOT NULL,
+  `jenis_pengajuan` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -378,8 +508,8 @@ INSERT INTO `tbl_jenis_pengajuan` (`id_jenis_pengajuan`, `jenis_pengajuan`) VALU
 --
 
 CREATE TABLE `tbl_jenis_penyakit` (
-  `id_jenis_penyakit` int NOT NULL,
-  `jenis_penyakit` varchar(125) COLLATE utf8mb4_general_ci NOT NULL
+  `id_jenis_penyakit` int(11) NOT NULL,
+  `jenis_penyakit` varchar(125) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -399,8 +529,8 @@ INSERT INTO `tbl_jenis_penyakit` (`id_jenis_penyakit`, `jenis_penyakit`) VALUES
 --
 
 CREATE TABLE `tbl_jenis_persetujuan` (
-  `id_jenis_persetujuan` int NOT NULL,
-  `jenis_persetujuan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
+  `id_jenis_persetujuan` int(11) NOT NULL,
+  `jenis_persetujuan` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -419,8 +549,8 @@ INSERT INTO `tbl_jenis_persetujuan` (`id_jenis_persetujuan`, `jenis_persetujuan`
 --
 
 CREATE TABLE `tbl_kecamatan` (
-  `id_kecamatan` int NOT NULL,
-  `kecamatan` varchar(125) COLLATE utf8mb4_general_ci NOT NULL
+  `id_kecamatan` int(11) NOT NULL,
+  `kecamatan` varchar(125) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -467,15 +597,27 @@ INSERT INTO `tbl_kecamatan` (`id_kecamatan`, `kecamatan`) VALUES
 --
 
 CREATE TABLE `tbl_kunjungan` (
-  `id_kunjungan` int NOT NULL,
-  `id_tingkat_keparahan` int NOT NULL,
-  `bukti_kunjungan` text COLLATE utf8mb4_general_ci,
-  `laporan_kunjungan` text COLLATE utf8mb4_general_ci,
-  `id_pengajuan` int NOT NULL,
-  `id_ptl` int NOT NULL,
-  `id_status_berjalan` int NOT NULL,
-  `id_jenis_penyakit` int NOT NULL
+  `id_kunjungan` int(11) NOT NULL,
+  `id_tingkat_keparahan` int(11) NOT NULL,
+  `bukti_kunjungan` text DEFAULT NULL,
+  `laporan_kunjungan` text DEFAULT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `id_ptl` int(11) NOT NULL,
+  `id_status_berjalan` int(11) NOT NULL,
+  `id_jenis_penyakit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_kunjungan`
+--
+
+INSERT INTO `tbl_kunjungan` (`id_kunjungan`, `id_tingkat_keparahan`, `bukti_kunjungan`, `laporan_kunjungan`, `id_pengajuan`, `id_ptl`, `id_status_berjalan`, `id_jenis_penyakit`) VALUES
+(9, 1, '6649cad0a523a_1734_sapipmk.jpg', 'sapinya udah gpp', 31, 2, 3, 3),
+(10, 3, '663bb0bf90f46_8721_KTMNw.jpg', 'Tes', 32, 1, 3, 1),
+(12, 2, '664ef7dd94333_7419_sapipmk.jpg', 'Sapinya kena pmk, tapi gpp kok', 33, 2, 2, 2),
+(13, 3, NULL, NULL, 34, 1, 1, 1),
+(14, 1, NULL, NULL, 36, 1, 1, 4),
+(15, 1, NULL, NULL, 37, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -484,17 +626,29 @@ CREATE TABLE `tbl_kunjungan` (
 --
 
 CREATE TABLE `tbl_pelatihan` (
-  `id_pelatihan` int NOT NULL,
-  `judul_pelatihan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi_pelatihan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `tempat_pelatihan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_pelatihan` int(11) NOT NULL,
+  `judul_pelatihan` varchar(255) NOT NULL,
+  `deskripsi_pelatihan` text NOT NULL,
+  `tempat_pelatihan` varchar(255) NOT NULL,
   `tanggal_pelatihan` date NOT NULL,
   `waktu_pelatihan` time NOT NULL,
-  `bukti_pelatihan` text COLLATE utf8mb4_general_ci,
-  `laporan_pelatihan` text COLLATE utf8mb4_general_ci,
-  `id_desa` int NOT NULL,
-  `id_status_berjalan` int NOT NULL
+  `bukti_pelatihan` text DEFAULT NULL,
+  `laporan_pelatihan` text DEFAULT NULL,
+  `id_desa` int(11) NOT NULL,
+  `id_status_berjalan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_pelatihan`
+--
+
+INSERT INTO `tbl_pelatihan` (`id_pelatihan`, `judul_pelatihan`, `deskripsi_pelatihan`, `tempat_pelatihan`, `tanggal_pelatihan`, `waktu_pelatihan`, `bukti_pelatihan`, `laporan_pelatihan`, `id_desa`, `id_status_berjalan`) VALUES
+(7, 'Penanganan Hewan Pasca Beranak', 'bajdsklhgjbfndslgbcsmaxmlkkhjbd sdasldjb', 'Balai Desa', '2024-05-10', '10:30:00', '663df79f15612_1513_Pert1_4.jpg', 'Tes', 1, 3),
+(9, 'tes', 'tes', 'tes', '2024-05-23', '17:50:00', NULL, NULL, 3, 1),
+(10, 'tes', 'tes', 'tes', '2024-05-23', '17:50:00', NULL, NULL, 1, 1),
+(11, 'Pelatihan X', 'a', 'a', '2024-05-22', '10:15:00', '664eefb4048c4_3467_logodinas.png', 'akuu', 1, 2),
+(12, 'Pelatihan X', 'a', 'a', '2024-05-22', '05:20:00', NULL, NULL, 1, 1),
+(13, 'Pelatihan X', 'a', 'a', '2024-05-22', '05:20:00', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -503,14 +657,46 @@ CREATE TABLE `tbl_pelatihan` (
 --
 
 CREATE TABLE `tbl_pengajuan` (
-  `id_pengajuan` int NOT NULL,
-  `deskripsi_pengajuan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `deskripsi_pengajuan` text NOT NULL,
   `tanggal_pengajuan` date NOT NULL,
   `waktu_pengajuan` time NOT NULL,
-  `id_jenis_pengajuan` int NOT NULL,
-  `id_peternak` int NOT NULL,
-  `id_jenis_persetujuan` int NOT NULL
+  `id_jenis_pengajuan` int(11) NOT NULL,
+  `id_peternak` int(11) NOT NULL,
+  `id_jenis_persetujuan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_pengajuan`
+--
+
+INSERT INTO `tbl_pengajuan` (`id_pengajuan`, `deskripsi_pengajuan`, `tanggal_pengajuan`, `waktu_pengajuan`, `id_jenis_pengajuan`, `id_peternak`, `id_jenis_persetujuan`) VALUES
+(31, 'Sapi saya sakit pak', '2024-05-05', '13:22:10', 1, 1, 2),
+(32, 'Sapi PMK', '2024-05-05', '14:29:41', 1, 1, 2),
+(33, 'Sapi Struk', '2024-05-05', '14:29:55', 1, 1, 2),
+(34, 'tes', '2024-05-05', '14:51:26', 1, 1, 2),
+(36, 'a', '2024-05-06', '13:58:23', 1, 2, 2),
+(37, '-', '2024-05-06', '15:19:55', 1, 1, 2),
+(38, 'Tes', '2024-05-10', '15:15:01', 2, 1, 2),
+(39, 'Tes', '2024-05-10', '15:15:05', 2, 1, 2),
+(40, 'Tes', '2024-05-10', '15:15:08', 2, 1, 2),
+(41, 'Tes', '2024-05-10', '15:15:11', 2, 1, 2),
+(42, 'Tes', '2024-05-10', '15:15:15', 2, 1, 2),
+(43, 'Tes', '2024-05-10', '15:15:20', 2, 1, 2),
+(44, 'Tes', '2024-05-10', '15:15:33', 2, 1, 2),
+(45, 'Tes', '2024-05-10', '15:15:37', 2, 1, 2),
+(46, 'Tes', '2024-05-10', '15:15:40', 2, 1, 2),
+(47, 'Tes', '2024-05-10', '15:22:49', 2, 1, 2),
+(48, 'Tes', '2024-05-10', '15:22:52', 2, 1, 2),
+(49, 'Tes', '2024-05-10', '15:22:56', 2, 1, 2),
+(50, 'Tes', '2024-05-10', '15:23:00', 2, 1, 2),
+(51, 'Tes', '2024-05-10', '15:23:03', 2, 1, 2),
+(52, 'Tes', '2024-05-10', '15:23:06', 2, 1, 2),
+(53, 'tes', '2024-05-19', '16:48:49', 2, 2, 2),
+(54, 'Adain pelatihan anak sapi', '2024-05-20', '23:42:23', 2, 1, 2),
+(55, 'Adain pelatihan sapi biar bisa balet', '2024-05-20', '23:44:38', 2, 2, 2),
+(56, 'tes', '2024-05-25', '21:59:11', 1, 2, 1),
+(57, 'tes', '2024-05-25', '21:59:17', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -519,16 +705,32 @@ CREATE TABLE `tbl_pengajuan` (
 --
 
 CREATE TABLE `tbl_peternak` (
-  `id_peternak` int NOT NULL,
-  `nama_peternak` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `nik_peternak` varchar(18) COLLATE utf8mb4_general_ci NOT NULL,
-  `email_peternak` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `username_peternak` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `password_peternak` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_telp_peternak` varchar(13) COLLATE utf8mb4_general_ci NOT NULL,
-  `foto_peternak` text COLLATE utf8mb4_general_ci,
-  `id_status_aktif` int NOT NULL
+  `id_peternak` int(11) NOT NULL,
+  `nama_peternak` varchar(125) NOT NULL,
+  `nik_peternak` varchar(18) NOT NULL,
+  `email_peternak` varchar(125) NOT NULL,
+  `username_peternak` varchar(64) NOT NULL,
+  `password_peternak` varchar(64) NOT NULL,
+  `no_telp_peternak` varchar(13) NOT NULL,
+  `foto_peternak` text DEFAULT NULL,
+  `id_status_aktif` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_peternak`
+--
+
+INSERT INTO `tbl_peternak` (`id_peternak`, `nama_peternak`, `nik_peternak`, `email_peternak`, `username_peternak`, `password_peternak`, `no_telp_peternak`, `foto_peternak`, `id_status_aktif`) VALUES
+(1, 'Toni Sapto', '3515062501770002', 'tonisapto@gmail.com', 'toni_sapto25', 'Toni2501*', '083102678834', 'fototoni.jpg', 1),
+(2, 'Supardi Santoso', '3515062501570001', 'supardisantoso@gmail.com', 'supardi21', 'Suppp123', '087656782353', '6651eacd6a16f_8656_blob', 1),
+(3, 'Astoni Zaka', '3515062501770003', 'astonizaka@gmail.com', 'astonizaka11', 'Aston123*', '083102678934', NULL, 1),
+(5, 'Kastono Marson', '3515060501740002', 'kastonomarson@gmail.com', 'kastono_', 'Kastono123*', '083127171267', NULL, 1),
+(6, 'Samiaji Argo', '3517661902730001', 'samiajiargo@gmail.com', 'samiaji_', 'Samiaji123*', '081356278356', NULL, 1),
+(7, 'a', '1234567891234567', 'agusprihandi22@gmail.com', 'toni_sapto22', 'Sella123*', '081332098765', NULL, 1),
+(8, 'Ramadhan', '3515066728937461', 'ramadhani@gmail.com', 'ramadhan12_', 'Rahmad123*', '081332987167', NULL, 1),
+(9, 'Bayu Laksono', '3515066787234001', 'bayulaksono@gmail.com', 'bayyyuuuhh', 'Bayu123*', '083278369182', NULL, 1),
+(10, 'Kartono', '3515087901740001', 'kartono@gmail.com', 'kartono12', 'Kartono123*', '083267836455', NULL, 1),
+(11, 'Mashada Ali', '3515066701890001', 'mashadaali@gmail.com', 'mashadaaa', 'Mashada123*', '081356277733', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -537,12 +739,21 @@ CREATE TABLE `tbl_peternak` (
 --
 
 CREATE TABLE `tbl_peternakan` (
-  `id_peternakan` int NOT NULL,
-  `nama_peternakan` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `jalan_peternakan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `id_desa` int NOT NULL,
-  `id_peternak` int NOT NULL
+  `id_peternakan` int(11) NOT NULL,
+  `nama_peternakan` varchar(125) NOT NULL,
+  `jalan_peternakan` varchar(255) NOT NULL,
+  `id_desa` int(11) NOT NULL,
+  `id_peternak` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_peternakan`
+--
+
+INSERT INTO `tbl_peternakan` (`id_peternakan`, `nama_peternakan`, `jalan_peternakan`, `id_desa`, `id_peternak`) VALUES
+(1, 'Farm Town', 'Jl. Kalimantan 2 No.100', 16, 1),
+(4, 'Sapi Gemilang Kuat', 'Jl. Jawa 2B No.31', 3, 2),
+(5, 'Sapi Gemilang Kuad', 'Jl. Jawa 2B No.32', 19, 3);
 
 -- --------------------------------------------------------
 
@@ -551,16 +762,25 @@ CREATE TABLE `tbl_peternakan` (
 --
 
 CREATE TABLE `tbl_ptl` (
-  `id_ptl` int NOT NULL,
-  `nama_ptl` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `nik_ptl` varchar(18) COLLATE utf8mb4_general_ci NOT NULL,
-  `email_ptl` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `username_ptl` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `password_ptl` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_telp_ptl` varchar(13) COLLATE utf8mb4_general_ci NOT NULL,
-  `foto_ptl` text COLLATE utf8mb4_general_ci,
-  `id_status_aktif` int NOT NULL
+  `id_ptl` int(11) NOT NULL,
+  `nama_ptl` varchar(125) NOT NULL,
+  `nik_ptl` varchar(18) NOT NULL,
+  `email_ptl` varchar(125) NOT NULL,
+  `username_ptl` varchar(64) NOT NULL,
+  `password_ptl` varchar(64) NOT NULL,
+  `no_telp_ptl` varchar(13) NOT NULL,
+  `foto_ptl` text DEFAULT NULL,
+  `id_status_aktif` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_ptl`
+--
+
+INSERT INTO `tbl_ptl` (`id_ptl`, `nama_ptl`, `nik_ptl`, `email_ptl`, `username_ptl`, `password_ptl`, `no_telp_ptl`, `foto_ptl`, `id_status_aktif`) VALUES
+(1, 'Agus Prihandi', '3515062202910001', 'agusprihandi23@gmail.com', 'agusprihandi_', 'Agus123*', '083198761233', 'fotoagus.jpg', 1),
+(2, 'Hendra Pratama', '3515061203890002', 'hendrapratama12@gmail.com', 'hendrapr12', 'Hendra1203*', '083188763134', 'ppptl.png', 1),
+(12, 'Agustus Glob', '3515062202980001', 'agusgloby@gmail.com', 'aguspglobb', 'Agus123*', '083198761234', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -569,8 +789,8 @@ CREATE TABLE `tbl_ptl` (
 --
 
 CREATE TABLE `tbl_status_aktif` (
-  `id_status_aktif` int NOT NULL,
-  `status_aktif` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
+  `id_status_aktif` int(11) NOT NULL,
+  `status_aktif` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -588,8 +808,8 @@ INSERT INTO `tbl_status_aktif` (`id_status_aktif`, `status_aktif`) VALUES
 --
 
 CREATE TABLE `tbl_status_antrian_pelatihan` (
-  `id_status_antrian_pelatihan` int NOT NULL,
-  `status_antrian_pelatihan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
+  `id_status_antrian_pelatihan` int(11) NOT NULL,
+  `status_antrian_pelatihan` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -607,8 +827,8 @@ INSERT INTO `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`, `stat
 --
 
 CREATE TABLE `tbl_status_berjalan` (
-  `id_status_berjalan` int NOT NULL,
-  `status_berjalan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
+  `id_status_berjalan` int(11) NOT NULL,
+  `status_berjalan` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -627,8 +847,8 @@ INSERT INTO `tbl_status_berjalan` (`id_status_berjalan`, `status_berjalan`) VALU
 --
 
 CREATE TABLE `tbl_tingkat_keparahan` (
-  `id_tingkat_keparahan` int NOT NULL,
-  `tingkat_keparahan` varchar(24) COLLATE utf8mb4_general_ci NOT NULL
+  `id_tingkat_keparahan` int(11) NOT NULL,
+  `tingkat_keparahan` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -657,9 +877,9 @@ ALTER TABLE `tbl_alasan_ditolak`
 ALTER TABLE `tbl_antrian_pelatihan`
   ADD PRIMARY KEY (`id_antrian_pelatihan`),
   ADD KEY `id_desa` (`id_desa`),
-  ADD KEY `id_jenis_pelatihan` (`id_jenis_pelatihan`),
   ADD KEY `id_pengajuan` (`id_pengajuan`),
-  ADD KEY `id_status_antrian_pelatihan` (`id_status_antrian_pelatihan`);
+  ADD KEY `id_status_antrian_pelatihan` (`id_status_antrian_pelatihan`),
+  ADD KEY `id_jenis_pelatihan` (`id_jenis_pelatihan`) USING BTREE;
 
 --
 -- Indexes for table `tbl_desa`
@@ -675,6 +895,29 @@ ALTER TABLE `tbl_desa`
 ALTER TABLE `tbl_dinas_peternakan`
   ADD PRIMARY KEY (`id_dinas`),
   ADD UNIQUE KEY `email_dinas` (`email_dinas`);
+
+--
+-- Indexes for table `tbl_hewan`
+--
+ALTER TABLE `tbl_hewan`
+  ADD PRIMARY KEY (`id_hewan`),
+  ADD UNIQUE KEY `hewan` (`hewan`);
+
+--
+-- Indexes for table `tbl_hewan_peternakan`
+--
+ALTER TABLE `tbl_hewan_peternakan`
+  ADD PRIMARY KEY (`id_hewan_peternakan`),
+  ADD KEY `id_jenis_hewan` (`id_jenis_hewan`),
+  ADD KEY `id_peternakan` (`id_peternakan`);
+
+--
+-- Indexes for table `tbl_jenis_hewan`
+--
+ALTER TABLE `tbl_jenis_hewan`
+  ADD PRIMARY KEY (`id_jenis_hewan`),
+  ADD UNIQUE KEY `jenis_hewan` (`jenis_hewan`),
+  ADD KEY `id_hewan` (`id_hewan`);
 
 --
 -- Indexes for table `tbl_jenis_pelatihan`
@@ -716,11 +959,11 @@ ALTER TABLE `tbl_kecamatan`
 --
 ALTER TABLE `tbl_kunjungan`
   ADD PRIMARY KEY (`id_kunjungan`),
+  ADD KEY `id_tingkat_keparahan` (`id_tingkat_keparahan`),
   ADD KEY `id_pengajuan` (`id_pengajuan`),
   ADD KEY `id_status_berjalan` (`id_status_berjalan`),
-  ADD KEY `id_tingkat_keparahan` (`id_tingkat_keparahan`),
-  ADD KEY `id_jenis_penyakit` (`id_jenis_penyakit`),
-  ADD KEY `id_ptl` (`id_ptl`);
+  ADD KEY `id_ptl` (`id_ptl`),
+  ADD KEY `id_jenis_penyakit` (`id_jenis_penyakit`);
 
 --
 -- Indexes for table `tbl_pelatihan`
@@ -735,8 +978,8 @@ ALTER TABLE `tbl_pelatihan`
 --
 ALTER TABLE `tbl_pengajuan`
   ADD PRIMARY KEY (`id_pengajuan`),
-  ADD KEY `id_jenis_persetujuan` (`id_jenis_persetujuan`),
   ADD KEY `id_jenis_pengajuan` (`id_jenis_pengajuan`),
+  ADD KEY `id_jenis_persetujuan` (`id_jenis_persetujuan`),
   ADD KEY `id_peternak` (`id_peternak`);
 
 --
@@ -752,8 +995,8 @@ ALTER TABLE `tbl_peternak`
 --
 ALTER TABLE `tbl_peternakan`
   ADD PRIMARY KEY (`id_peternakan`),
-  ADD KEY `id_desa` (`id_desa`),
-  ADD KEY `id_peternak` (`id_peternak`);
+  ADD UNIQUE KEY `id_peternak` (`id_peternak`),
+  ADD KEY `id_desa` (`id_desa`);
 
 --
 -- Indexes for table `tbl_ptl`
@@ -799,115 +1042,133 @@ ALTER TABLE `tbl_tingkat_keparahan`
 -- AUTO_INCREMENT for table `tbl_alasan_ditolak`
 --
 ALTER TABLE `tbl_alasan_ditolak`
-  MODIFY `id_alasan_ditolak` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_alasan_ditolak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_antrian_pelatihan`
 --
 ALTER TABLE `tbl_antrian_pelatihan`
-  MODIFY `id_antrian_pelatihan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_antrian_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_desa`
 --
 ALTER TABLE `tbl_desa`
-  MODIFY `id_desa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id_desa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `tbl_dinas_peternakan`
 --
 ALTER TABLE `tbl_dinas_peternakan`
-  MODIFY `id_dinas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_dinas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_hewan`
+--
+ALTER TABLE `tbl_hewan`
+  MODIFY `id_hewan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_hewan_peternakan`
+--
+ALTER TABLE `tbl_hewan_peternakan`
+  MODIFY `id_hewan_peternakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tbl_jenis_hewan`
+--
+ALTER TABLE `tbl_jenis_hewan`
+  MODIFY `id_jenis_hewan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_pelatihan`
 --
 ALTER TABLE `tbl_jenis_pelatihan`
-  MODIFY `id_jenis_pelatihan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jenis_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_pengajuan`
 --
 ALTER TABLE `tbl_jenis_pengajuan`
-  MODIFY `id_jenis_pengajuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jenis_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_penyakit`
 --
 ALTER TABLE `tbl_jenis_penyakit`
-  MODIFY `id_jenis_penyakit` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jenis_penyakit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenis_persetujuan`
 --
 ALTER TABLE `tbl_jenis_persetujuan`
-  MODIFY `id_jenis_persetujuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jenis_persetujuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_kecamatan`
 --
 ALTER TABLE `tbl_kecamatan`
-  MODIFY `id_kecamatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_kecamatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_kunjungan`
 --
 ALTER TABLE `tbl_kunjungan`
-  MODIFY `id_kunjungan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kunjungan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_pelatihan`
 --
 ALTER TABLE `tbl_pelatihan`
-  MODIFY `id_pelatihan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_pengajuan`
 --
 ALTER TABLE `tbl_pengajuan`
-  MODIFY `id_pengajuan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tbl_peternak`
 --
 ALTER TABLE `tbl_peternak`
-  MODIFY `id_peternak` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peternak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_peternakan`
 --
 ALTER TABLE `tbl_peternakan`
-  MODIFY `id_peternakan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peternakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_ptl`
 --
 ALTER TABLE `tbl_ptl`
-  MODIFY `id_ptl` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ptl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_aktif`
 --
 ALTER TABLE `tbl_status_aktif`
-  MODIFY `id_status_aktif` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_status_aktif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_antrian_pelatihan`
 --
 ALTER TABLE `tbl_status_antrian_pelatihan`
-  MODIFY `id_status_antrian_pelatihan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_status_antrian_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_berjalan`
 --
 ALTER TABLE `tbl_status_berjalan`
-  MODIFY `id_status_berjalan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_status_berjalan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_tingkat_keparahan`
 --
 ALTER TABLE `tbl_tingkat_keparahan`
-  MODIFY `id_tingkat_keparahan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tingkat_keparahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -917,16 +1178,17 @@ ALTER TABLE `tbl_tingkat_keparahan`
 -- Constraints for table `tbl_alasan_ditolak`
 --
 ALTER TABLE `tbl_alasan_ditolak`
-  ADD CONSTRAINT `tbl_alasan_ditolak_ibfk_1` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_alasan_ditolak_ibfk_1` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`);
 
 --
 -- Constraints for table `tbl_antrian_pelatihan`
 --
 ALTER TABLE `tbl_antrian_pelatihan`
-  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_1` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_2` FOREIGN KEY (`id_jenis_pelatihan`) REFERENCES `tbl_jenis_pelatihan` (`id_jenis_pelatihan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_3` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_4` FOREIGN KEY (`id_status_antrian_pelatihan`) REFERENCES `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_1` FOREIGN KEY (`id_status_antrian_pelatihan`) REFERENCES `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`),
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_2` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`),
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_3` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`),
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_4` FOREIGN KEY (`id_status_antrian_pelatihan`) REFERENCES `tbl_status_antrian_pelatihan` (`id_status_antrian_pelatihan`),
+  ADD CONSTRAINT `tbl_antrian_pelatihan_ibfk_5` FOREIGN KEY (`id_jenis_pelatihan`) REFERENCES `tbl_jenis_pelatihan` (`id_jenis_pelatihan`);
 
 --
 -- Constraints for table `tbl_desa`
@@ -935,48 +1197,61 @@ ALTER TABLE `tbl_desa`
   ADD CONSTRAINT `tbl_desa_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `tbl_kecamatan` (`id_kecamatan`);
 
 --
+-- Constraints for table `tbl_hewan_peternakan`
+--
+ALTER TABLE `tbl_hewan_peternakan`
+  ADD CONSTRAINT `tbl_hewan_peternakan_ibfk_1` FOREIGN KEY (`id_jenis_hewan`) REFERENCES `tbl_jenis_hewan` (`id_jenis_hewan`),
+  ADD CONSTRAINT `tbl_hewan_peternakan_ibfk_2` FOREIGN KEY (`id_peternakan`) REFERENCES `tbl_peternakan` (`id_peternakan`);
+
+--
+-- Constraints for table `tbl_jenis_hewan`
+--
+ALTER TABLE `tbl_jenis_hewan`
+  ADD CONSTRAINT `tbl_jenis_hewan_ibfk_1` FOREIGN KEY (`id_hewan`) REFERENCES `tbl_hewan` (`id_hewan`);
+
+--
 -- Constraints for table `tbl_kunjungan`
 --
 ALTER TABLE `tbl_kunjungan`
-  ADD CONSTRAINT `tbl_kunjungan_ibfk_1` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_kunjungan_ibfk_2` FOREIGN KEY (`id_status_berjalan`) REFERENCES `tbl_status_berjalan` (`id_status_berjalan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_kunjungan_ibfk_3` FOREIGN KEY (`id_tingkat_keparahan`) REFERENCES `tbl_tingkat_keparahan` (`id_tingkat_keparahan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_kunjungan_ibfk_4` FOREIGN KEY (`id_jenis_penyakit`) REFERENCES `tbl_jenis_penyakit` (`id_jenis_penyakit`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_kunjungan_ibfk_5` FOREIGN KEY (`id_ptl`) REFERENCES `tbl_ptl` (`id_ptl`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_kunjungan_ibfk_1` FOREIGN KEY (`id_tingkat_keparahan`) REFERENCES `tbl_tingkat_keparahan` (`id_tingkat_keparahan`),
+  ADD CONSTRAINT `tbl_kunjungan_ibfk_2` FOREIGN KEY (`id_pengajuan`) REFERENCES `tbl_pengajuan` (`id_pengajuan`),
+  ADD CONSTRAINT `tbl_kunjungan_ibfk_3` FOREIGN KEY (`id_status_berjalan`) REFERENCES `tbl_status_berjalan` (`id_status_berjalan`),
+  ADD CONSTRAINT `tbl_kunjungan_ibfk_4` FOREIGN KEY (`id_ptl`) REFERENCES `tbl_ptl` (`id_ptl`),
+  ADD CONSTRAINT `tbl_kunjungan_ibfk_5` FOREIGN KEY (`id_jenis_penyakit`) REFERENCES `tbl_jenis_penyakit` (`id_jenis_penyakit`);
 
 --
 -- Constraints for table `tbl_pelatihan`
 --
 ALTER TABLE `tbl_pelatihan`
-  ADD CONSTRAINT `tbl_pelatihan_ibfk_1` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_pelatihan_ibfk_2` FOREIGN KEY (`id_status_berjalan`) REFERENCES `tbl_status_berjalan` (`id_status_berjalan`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_pelatihan_ibfk_1` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`),
+  ADD CONSTRAINT `tbl_pelatihan_ibfk_2` FOREIGN KEY (`id_status_berjalan`) REFERENCES `tbl_status_berjalan` (`id_status_berjalan`);
 
 --
 -- Constraints for table `tbl_pengajuan`
 --
 ALTER TABLE `tbl_pengajuan`
-  ADD CONSTRAINT `tbl_pengajuan_ibfk_1` FOREIGN KEY (`id_jenis_persetujuan`) REFERENCES `tbl_jenis_persetujuan` (`id_jenis_persetujuan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_pengajuan_ibfk_2` FOREIGN KEY (`id_jenis_pengajuan`) REFERENCES `tbl_jenis_pengajuan` (`id_jenis_pengajuan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_pengajuan_ibfk_3` FOREIGN KEY (`id_peternak`) REFERENCES `tbl_peternak` (`id_peternak`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_pengajuan_ibfk_1` FOREIGN KEY (`id_jenis_pengajuan`) REFERENCES `tbl_jenis_pengajuan` (`id_jenis_pengajuan`),
+  ADD CONSTRAINT `tbl_pengajuan_ibfk_2` FOREIGN KEY (`id_jenis_persetujuan`) REFERENCES `tbl_jenis_persetujuan` (`id_jenis_persetujuan`),
+  ADD CONSTRAINT `tbl_pengajuan_ibfk_3` FOREIGN KEY (`id_peternak`) REFERENCES `tbl_peternak` (`id_peternak`);
 
 --
 -- Constraints for table `tbl_peternak`
 --
 ALTER TABLE `tbl_peternak`
-  ADD CONSTRAINT `tbl_peternak_ibfk_1` FOREIGN KEY (`id_status_aktif`) REFERENCES `tbl_status_aktif` (`id_status_aktif`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_peternak_ibfk_1` FOREIGN KEY (`id_status_aktif`) REFERENCES `tbl_status_aktif` (`id_status_aktif`);
 
 --
 -- Constraints for table `tbl_peternakan`
 --
 ALTER TABLE `tbl_peternakan`
-  ADD CONSTRAINT `tbl_peternakan_ibfk_1` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tbl_peternakan_ibfk_2` FOREIGN KEY (`id_peternak`) REFERENCES `tbl_peternak` (`id_peternak`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_peternakan_ibfk_1` FOREIGN KEY (`id_desa`) REFERENCES `tbl_desa` (`id_desa`),
+  ADD CONSTRAINT `tbl_peternakan_ibfk_3` FOREIGN KEY (`id_peternak`) REFERENCES `tbl_peternak` (`id_peternak`);
 
 --
 -- Constraints for table `tbl_ptl`
 --
 ALTER TABLE `tbl_ptl`
-  ADD CONSTRAINT `tbl_ptl_ibfk_1` FOREIGN KEY (`id_status_aktif`) REFERENCES `tbl_status_aktif` (`id_status_aktif`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tbl_ptl_ibfk_1` FOREIGN KEY (`id_status_aktif`) REFERENCES `tbl_status_aktif` (`id_status_aktif`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

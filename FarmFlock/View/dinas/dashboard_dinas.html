@@ -168,155 +168,263 @@
           <div class="col-lg-8">
             <div class="row">
 
-              <!-- Pengajuan Dalam Antrian Card -->
-              <div class="col-xxl-4 col-md-4">
+            <!-- Pengajuan Dalam Antrian Card -->
+            <div class="col-xxl-4 col-md-4">
                 <div class="card info-card sales-card">
-
-                  <div class="card-body">
-                    <h5 class="card-title">Pengajuan Dalam Antrian</h5>
-
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-calendar-week"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>145</h6>
-                        <span class="text-success small pt-1 fw-bold">20%</span> <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
-
-                      </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Kunjungan Dalam Antrian</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-week"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="antrian-count">Loading...</h6>
+                                <span id="antrian-percentage" class="text-success small pt-1 fw-bold">Loading...</span>
+                                <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-
                 </div>
-              </div><!-- End Pengajuan Dalam Antrian Card -->
+            </div><!-- End Pengajuan Dalam Antrian Card -->
 
-              <!-- Pengajuan Berjalan Card -->
-              <div class="col-xxl-4 col-md-4">
+            <!-- Pengajuan Berjalan Card -->
+            <div class="col-xxl-4 col-md-4">
                 <div class="card info-card revenue-card">
-
-                  <div class="card-body">
-                    <h5 class="card-title">Pengajuan Berjalan</span></h5>
-
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-calendar-range"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>364</h6>
-                        <span class="text-success small pt-1 fw-bold">30%</span> <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
-
-                      </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Kunjungan Berjalan</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-range"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="berjalan-count">Loading...</h6>
+                                <span id="berjalan-percentage" class="text-success small pt-1 fw-bold">Loading...</span>
+                                <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-
                 </div>
-              </div><!-- End Pengajuan Berjalan Card -->
+            </div><!-- End Pengajuan Berjalan Card -->
 
-              <!-- Pengajuan Selesai Card -->
-              <div class="col-xxl-4 col-md-4">
-
+            <!-- Pengajuan Selesai Card -->
+            <div class="col-xxl-4 col-md-4">
                 <div class="card info-card customers-card">
-
-                  <div class="card-body">
-                    <h5 class="card-title">Pengajuan Selesai</span></h5>
-
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-calendar-check"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>1244</h6>
-                        <span class="text-danger small pt-1 fw-bold">50%</span> <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
-
-                      </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Kunjungan Selesai</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="selesai-count">Loading...</h6>
+                                <span id="selesai-percentage" class="text-success small pt-1 fw-bold">Loading...</span>
+                                <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                            </div>
+                        </div>
                     </div>
-
-                  </div>
                 </div>
+            </div><!-- End Pengajuan Selesai Card -->
 
-              </div><!-- End Pengajuan Selesai Card -->
+            <!-- Pengajuan Dalam Antrian Card -->
+            <div class="col-xxl-4 col-md-4">
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pelatihan Dalam Antrian</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-week"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="antrian-count2">Loading...</h6>
+                                <span id="antrian-percentage2" class="text-success small pt-1 fw-bold">Loading...</span>
+                                <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Pengajuan Dalam Antrian Card -->
 
-              <!-- Reports -->
+            <!-- Pengajuan Berjalan Card -->
+            <div class="col-xxl-4 col-md-4">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pelatihan Berjalan</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-range"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="berjalan-count2">Loading...</h6>
+                                <span id="berjalan-percentage2" class="text-success small pt-1 fw-bold">Loading...</span>
+                                <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Pengajuan Berjalan Card -->
+
+            <!-- Pengajuan Selesai Card -->
+            <div class="col-xxl-4 col-md-4">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pelatihan Selesai</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="selesai-count2">Loading...</h6>
+                                <span id="selesai-percentage2" class="text-success small pt-1 fw-bold">Loading...</span>
+                                <span class="text-muted small pt-2 ps-1">dari keseluruhan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Pengajuan Selesai Card -->
+
+            <script>
+              $(document).ready(function() {
+                $.ajax({
+                    url: '/FarmFlock/Controller/Kunjungan.php',
+                    type: 'GET',
+                    data: {
+                        action: 'getJumlahKunjungan'
+                    },
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        var belum = 0;
+                        var jalan = 0;
+                        var selesai = 0;
+    
+                        data.forEach(function(dataJumlah) {
+                          if (dataJumlah.id_status_berjalan == 1) {
+                            belum = dataJumlah.jumlah;
+                          }
+                          
+                          if (dataJumlah.id_status_berjalan == 2) {
+                            jalan = dataJumlah.jumlah;
+                          }
+                          
+                          if (dataJumlah.id_status_berjalan == 3) {
+                            selesai = dataJumlah.jumlah;
+                          }
+                        })
+    
+                        belum = parseInt(belum, 10);
+                        jalan = parseInt(jalan, 10);
+                        selesai = parseInt(selesai, 10);
+    
+                        var total = belum + jalan + selesai;
+    
+                        $('#antrian-count').text(belum);
+                        $('#antrian-percentage').text(total ? ((belum / total) * 100).toFixed(2) + '%' : '0.00%');
+    
+                        $('#berjalan-count').text(jalan);
+                        $('#berjalan-percentage').text(total ? ((jalan / total) * 100).toFixed(2) + '%' : '0.00%');
+    
+                        $('#selesai-count').text(selesai);
+                        $('#selesai-percentage').text(total ? ((selesai / total) * 100).toFixed(2) + '%' : '0.00%');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Terjadi kesalahan: " + error);
+                    }
+                  })
+
+                $.ajax({
+                    url: '/FarmFlock/Controller/Pelatihan.php',
+                    type: 'GET',
+                    data: {
+                        action: 'getJumlahPelatihan'
+                    },
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        var belum2 = 0;
+                        var jalan2 = 0;
+                        var selesai2 = 0;
+    
+                        data.forEach(function(dataJumlah2) {
+                          if (dataJumlah2.id_status_berjalan == 1) {
+                            belum2 = dataJumlah2.jumlah;
+                          }
+                          
+                          if (dataJumlah2.id_status_berjalan == 2) {
+                            jalan2 = dataJumlah2.jumlah;
+                          }
+                          
+                          if (dataJumlah2.id_status_berjalan == 3) {
+                            selesai2 = dataJumlah2.jumlah;
+                          }
+                        })
+    
+                        belum2 = parseInt(belum2, 10);
+                        jalan2 = parseInt(jalan2, 10);
+                        selesai2 = parseInt(selesai2, 10);
+    
+                        var total2 = belum2 + jalan2 + selesai2;
+    
+                        $('#antrian-count2').text(belum2);
+                        $('#antrian-percentage2').text(total2 ? ((belum2 / total2) * 100).toFixed(2) + '%' : '0.00%');
+    
+                        $('#berjalan-count2').text(jalan2);
+                        $('#berjalan-percentage2').text(total2 ? ((jalan2 / total2) * 100).toFixed(2) + '%' : '0.00%');
+    
+                        $('#selesai-count2').text(selesai2);
+                        $('#selesai-percentage2').text(total2 ? ((selesai2 / total2) * 100).toFixed(2) + '%' : '0.00%');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Terjadi kesalahan: " + error);
+                    }
+                  })
+                });
+              </script>
+
               <div class="col-12">
                 <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Persebaran Jenis Hewan Ternak</h5>
 
-                  <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start">
-                        <h6>Filter</h6>
-                      </li>
+                        <div class="table-responsive"> <!-- Agar tabel bisa di-scroll jika konten terlalu panjang -->
+                            <table class="table table-bordered table-striped" style="width: 100%; max-width: 100%;"> <!-- Menetapkan lebar maksimum -->
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="px-3" style="background-color: rgb(213, 255, 190);">Jenis Hewan</th>
+                                        <th scope="col" class="px-3" style="background-color: rgb(255, 235, 146);">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyJenisHewan">
+                                </tbody>
+                            </table>
+                        </div>
 
-                      <li><a class="dropdown-item" href="#">Hari ini</a></li>
-                      <li><a class="dropdown-item" href="#">Bulan ini</a></li>
-                      <li><a class="dropdown-item" href="#">Tahun ini</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="card-body">
-                    <h5 class="card-title">Rekapitulasi Alur Pengajuan <span>/Hari ini</span></h5>
-
-                    <!-- Line Chart -->
-                    <div id="reportsChart"></div>
-
-                    <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#reportsChart"), {
-                          series: [{
-                            name: 'Pengajuan Dalam Antrian',
-                            data: [31, 40, 28, 51, 42, 82, 56],
-                          }, {
-                            name: 'Pengajuan Berjalan',
-                            data: [11, 32, 45, 32, 34, 52, 41]
-                          }, {
-                            name: 'Pengajuan Selesai',
-                            data: [15, 11, 32, 18, 9, 24, 11]
-                          }],
-                          chart: {
-                            height: 350,
-                            type: 'area',
-                            toolbar: {
-                              show: false
+                        <script>
+                          $.ajax({
+                            url: '/FarmFlock/Controller/HewanPeternakan.php',
+                            type: 'GET',
+                            data: {
+                                action: 'getJumlahJenisHewan'
                             },
-                          },
-                          markers: {
-                            size: 4
-                          },
-                          colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                          fill: {
-                            type: "gradient",
-                            gradient: {
-                              shadeIntensity: 1,
-                              opacityFrom: 0.3,
-                              opacityTo: 0.4,
-                              stops: [0, 90, 100]
+                            success: function(response) {
+                                var data = JSON.parse(response);
+                                
+                                $('#tbodyJenisHewan').empty();
+
+                                data.forEach(function(item) {
+                                    var row = `<tr>
+                                                  <td class="px-3">${item.jenis_hewan}</td>
+                                                  <td class="px-3">${item.jumlah}</td>
+                                              </tr>`;
+                                    $('#tbodyJenisHewan').append(row);
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Terjadi kesalahan: " + error);
                             }
-                          },
-                          dataLabels: {
-                            enabled: false
-                          },
-                          stroke: {
-                            curve: 'smooth',
-                            width: 2
-                          },
-                          xaxis: {
-                            type: 'datetime',
-                            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                          },
-                          tooltip: {
-                            x: {
-                              format: 'dd/MM/yy HH:mm'
-                            },
-                          }
-                        }).render();
-                      });
-                    </script>
-                    <!-- End Line Chart -->
-
-                  </div>
-
+                        });
+                        </script>
+                    </div>
                 </div>
-              </div><!-- End Reports -->
+              </div>
+
 
             </div>
           </div><!-- End Left side columns -->
@@ -324,140 +432,161 @@
           <!-- Right side columns -->
           <div class="col-lg-4">
 
-            <!-- Recent Activity -->
-            <div class="card">
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
+          <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Jadwal Pelatihan Mendatang</h5>
 
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
+              <div class="activity" id="activity-list">
+                <!-- Activity items will be inserted here -->
               </div>
 
-              <div class="card-body">
-                <h5 class="card-title">Jadwal Pelatihan Mendatang</span></h5>
+            </div>
+          </div><!-- End Recent Activity -->
 
-                <div class="activity">
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script>
+            $(document).ready(function() {
+              function fetchActivityData() {
+                $.ajax({
+                  url: '/FarmFlock/Controller/Pelatihan.php',
+                  type: 'GET',
+                  data: {
+                    action: 'getJadwalPelatihan'
+                  },
+                  success: function(response) {
+                    var data = JSON.parse(response);
+                    var activityList = $('#activity-list');
+                    activityList.empty(); // Clear existing content
 
-                  <div class="activity-item d-flex">
-                    <div class="activite-label">1 Hari</div>
-                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                    <div class="activity-content">
-                      <b>Penyuluhan Pencegahan PMK</b> | Desa Kaliurang
-                    </div>
-                  </div><!-- End activity item-->
+                    // Array of badge color classes
+                    var badgeColors = ['text-success', 'text-danger', 'text-warning', 'text-info', 'text-primary'];
 
-                  <div class="activity-item d-flex">
-                    <div class="activite-label">3 Hari</div>
-                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                    <div class="activity-content">
-                      <b>Pembagian Vaksin Masal</b> | Desa Sumbersari
-                    </div>
-                  </div><!-- End activity item-->
+                    data.forEach(function(item, index) {
+                      var badgeColor = badgeColors[index % badgeColors.length]; // Cycle through colors
 
-                  <div class="activity-item d-flex">
-                    <div class="activite-label">5 Hari</div>
-                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                    <div class="activity-content">
-                      <b>Pelatihan penanganan pasca hewan ternak lahiran</b> | Desa Kencong
-                    </div>
-                  </div><!-- End activity item-->
-
-                  <div class="activity-item d-flex">
-                    <div class="activite-label">1 Minggu</div>
-                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                    <div class="activity-content">
-                      <b>Pelatihan takar ransum</b> | Desa Kaliwates
-                    </div>
-                  </div><!-- End activity item-->
-
-                </div>
-
-              </div>
-            </div><!-- End Recent Activity -->
-
-            <!-- Website Traffic -->
-            <div class="card">
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
-
-              <div class="card-body pb-0">
-                <h5 class="card-title">Tingkat Keparahan Laporan</span></h5>
-
-                <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-                <script>
-                  document.addEventListener("DOMContentLoaded", () => {
-                    echarts.init(document.querySelector("#trafficChart")).setOption({
-                      tooltip: {
-                        trigger: 'item'
-                      },
-                      legend: {
-                        top: '5%',
-                        left: 'center'
-                      },
-                      series: [{
-                        name: 'Access From',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                          show: false,
-                          position: 'center'
-                        },
-                        emphasis: {
-                          label: {
-                            show: true,
-                            fontSize: '18',
-                            fontWeight: 'bold'
-                          }
-                        },
-                        labelLine: {
-                          show: false
-                        },
-                        data: [{
-                            value: 1048,
-                            name: 'PMK'
-                          },
-                          {
-                            value: 735,
-                            name: 'Cacar'
-                          },
-                          {
-                            value: 580,
-                            name: 'Susah Makan'
-                          },
-                          {
-                            value: 484,
-                            name: 'Demam'
-                          },
-                          {
-                            value: 300,
-                            name: 'Benjol'
-                          }
-                        ]
-                      }]
+                      var activityItem = `
+                        <div class="activity-item d-flex">
+                          <div class="activite-label">${item.hari} Hari</div>
+                          <i class='bi bi-circle-fill activity-badge ${badgeColor} align-self-start'></i>
+                          <div class="activity-content">
+                            <b>${item.judul_pelatihan}</b> | ${item.desa}
+                          </div>
+                        </div>
+                      `;
+                      activityList.append(activityItem);
                     });
-                  });
-                </script>
+                  },
+                  error: function(xhr, status, error) {
+                    console.error("Terjadi kesalahan: " + error);
+                  }
+                });
+              }
 
+              fetchActivityData();
+            });
+          </script>
+
+
+          <div class="card">    
+              <div class="card-body pb-0">
+                  <h5 class="card-title">Tingkat Keparahan Jenis Penyakit</h5>
+                  <div id="trafficChart" style="min-height: 450px;" class="echart"></div>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.3.3/echarts.min.js"></script>
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                          function fetchData() {
+                              $.ajax({
+                                  url: '/FarmFlock/Controller/Kunjungan.php',
+                                  type: 'GET',
+                                  data: {
+                                      action: 'getPenyakitData'
+                                  },
+                                  success: function(response) {
+                                      var data = JSON.parse(response);
+                                      var total = 0;
+                                      var tambahTotal = data.map(item => {
+                                          total += parseInt(item.jumlah);
+                                      });
+                                      var chartData = data.map(item => {
+                                          var persen = ((parseInt(item.jumlah) / total) * 100).toFixed(2);
+                                          return { value: persen, name: item.jenis_penyakit };
+                                      });
+                                      renderChart(chartData);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.error("Terjadi kesalahan: " + error);
+                                  }
+                              });
+                          }
+      
+                          function renderChart(data) {
+                              const chartDom = document.querySelector("#trafficChart");
+                              const myChart = echarts.init(chartDom);
+  
+                              // Hitung total nilai untuk persentase
+                              const total = data.reduce((sum, item) => sum + item.value, 0);
+  
+                              const option = {
+                                  tooltip: {
+                                      trigger: 'item',
+                                      formatter: function(params) {
+                                          const percent = ((params.value / total) * 100).toFixed(2);
+                                          return `<b>Jenis Penyakit</b></br> ${params.name}<br/>Jumlah: ${params.value} (%)`;
+                                      }
+                                  },
+                                  series: [{
+                                      top: '0%',
+                                      bottom: '25%',
+                                      name: 'Jenis Penyakit',
+                                      type: 'pie',
+                                      radius: ['40%', '70%'],
+                                      avoidLabelOverlap: false,
+                                      label: {
+                                          show: false,
+                                          position: 'center'
+                                      },
+                                      emphasis: {
+                                          label: {
+                                              show: true,
+                                              fontSize: '18',
+                                              fontWeight: 'bold',
+                                              formatter: function(params) {
+                                                  const percent = ((params.value / total) * 100).toFixed(2);
+                                                  return `${params.name}\n${params.value} (%)`;
+                                              }
+                                          }
+                                      },
+                                      labelLine: {
+                                          show: false
+                                      },
+                                      data: data
+                                  }],
+                                  legend: {
+                                      bottom: '5%',
+                                      left: 'center'
+                                  },
+                              };
+  
+                              myChart.setOption(option);
+  
+                              // Make the chart responsive
+                              window.addEventListener('resize', () => {
+                                  myChart.resize();
+                              });
+  
+                              // Event listener for clicks
+                              myChart.on('click', function(params) {
+                                  alert(`You clicked on ${params.name}: ${params.value}`);
+                                  // You can add more actions here, such as navigating to another page
+                              });
+                          }
+                          fetchData();
+                      });
+                  </script>
               </div>
-            </div><!-- End Website Traffic -->
+          </div><!-- End Website Traffic -->
 
           </div><!-- End Right side columns -->
 
