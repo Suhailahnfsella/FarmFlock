@@ -12,7 +12,9 @@ if (ini_get("session.use_cookies")) {
 }
 
 // Akhirnya, hancurkan sesi.
-session_destroy();
+if(isset($_SESSION['peternak'])) unset($_SESSION['peternak']);
+if(isset($_SESSION['peternak'])) unset($_SESSION['peternak']);
+if(isset($_SESSION['peternak'])) unset($_SESSION['peternak']);
 
 // Mengirim respons JSON
 echo json_encode(['status' => 'success']);

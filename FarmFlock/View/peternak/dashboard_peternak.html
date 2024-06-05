@@ -142,7 +142,7 @@
         </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
+              <a id="agembalacerdas" class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
                   <i class="bi bi-person-check"></i><span>Gembala Cerdas</span><i class="bi bi-chevron-down ms-auto"></i>
               </a>
               <ul id="gembalacerdas" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -169,6 +169,42 @@
                     </ul>
                 </li>
               </ul>
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                  $(document).ready(function() {
+                      function getDataPeternakan($idPeternak) {
+                          $.ajax({
+                              url: "/FarmFlock/Controller/Peternakan.php",
+                              type: "GET",
+                              data: { 
+                                  action: "getPeternakanById",
+                                  id_peternak: $idPeternak,
+                              },
+                              success: function(response) {
+                                  if (response === '[]') {
+                                      $('#agembalacerdas').addClass('disabled');
+                                  } else {
+                                      $('#agembalacerdas').removeClass('disabled');
+                                  }
+                              },
+                          });
+                      }
+
+                      $.ajax({
+                          url: '/FarmFlock/Controller/sesiLogin.php',
+                          method: 'GET',
+                          dataType: 'json',
+                          success: function(response) {
+                              var id_peternak = response.id_peternak;
+
+                              getDataPeternakan(id_peternak)
+                          },
+                          error: function() {
+                              alert('Failed to retrieve peternak name');
+                          }
+                      });
+                  })
+              </script>
           </li>
 
           <li class="nav-item">
@@ -188,7 +224,6 @@
                         dataType: 'json',
                         success: function(response) {
                             if (response.status === 'success') {
-                                // Redirect ke halaman login atau halaman lainnya
                                 window.location.href = '../index.html';
                             } else {
                                 alert('Gagal logout. Silakan coba lagi.');

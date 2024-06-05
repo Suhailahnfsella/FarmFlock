@@ -144,34 +144,70 @@
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
-                  <i class="bi bi-person-check"></i><span>Gembala Cerdas</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="gembalacerdas" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="pengajuan_peternak.html">
-                      <span>Pengajuan</span>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#penjadwalan" data-bs-toggle="collapse" href="#">
-                        <span>Penjadwalan</span>
+            <a id="agembalacerdas" class="nav-link collapsed" data-bs-target="#gembalacerdas" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person-check"></i><span>Gembala Cerdas</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="gembalacerdas" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="pengajuan_peternak.html">
+                    <span>Pengajuan</span>
                     </a>
-                    <ul id="penjadwalan" class="nav-content-2 collapse " data-bs-parent="#nav-content">
-                        <li>
-                            <a href="penjadwalankunjungan_peternak.html">
-                            <i class="bi bi-circle"></i><span>Kunjungan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="penjadwalanpelatihan_peternak.html">
-                            <i class="bi bi-circle"></i><span>Pelatihan</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-              </ul>
-          </li>
+                <li class="nav-item">
+                  <a class="nav-link collapsed" data-bs-target="#penjadwalan" data-bs-toggle="collapse" href="#">
+                      <span>Penjadwalan</span>
+                  </a>
+                  <ul id="penjadwalan" class="nav-content-2 collapse " data-bs-parent="#nav-content">
+                      <li>
+                          <a href="penjadwalankunjungan_peternak.html">
+                          <i class="bi bi-circle"></i><span>Kunjungan</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="penjadwalanpelatihan_peternak.html">
+                          <i class="bi bi-circle"></i><span>Pelatihan</span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+            </ul>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    function getDataPeternakan($idPeternak) {
+                        $.ajax({
+                            url: "/FarmFlock/Controller/Peternakan.php",
+                            type: "GET",
+                            data: { 
+                                action: "getPeternakanById",
+                                id_peternak: $idPeternak,
+                            },
+                            success: function(response) {
+                                if (response === '[]') {
+                                    $('#agembalacerdas').addClass('disabled');
+                                } else {
+                                    $('#agembalacerdas').removeClass('disabled');
+                                }
+                            },
+                        });
+                    }
+
+                    $.ajax({
+                        url: '/FarmFlock/Controller/sesiLogin.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            var id_peternak = response.id_peternak;
+
+                            getDataPeternakan(id_peternak)
+                        },
+                        error: function() {
+                            alert('Failed to retrieve peternak name');
+                        }
+                    });
+                })
+            </script>
+        </li>
 
           <li class="nav-item">
             <a class="nav-link collapsed" id="logout" href="#">
@@ -445,6 +481,15 @@
                 $('#formFileUbahFoto').change(function(e) {
                     const files = e.target.files;
                     if (files.length > 0) {
+                        const file = files[0];
+                        const fileType = file['type'];
+                        const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                        
+                        if (!validImageTypes.includes(fileType)) {
+                            alert("File yang diunggah bukan gambar. Silakan unggah file gambar (jpeg, png, gif).");
+                            return;
+                        }
+
                         const reader = new FileReader();
                         reader.onload = function(event) {
                             $('#image').attr('src', event.target.result).show();
@@ -456,7 +501,7 @@
                                 viewMode: 1,
                             });
                         };
-                        reader.readAsDataURL(files[0]);
+                        reader.readAsDataURL(file);
                     }
                 });
 
@@ -543,7 +588,7 @@
                 });
             });
         </script>
-    </div>  
+    </div>
 
     <!-- Modal Ubah Profil -->
     <div class="modal fade" id="ModalUbahProfil" tabindex="-1" aria-labelledby="ModalUbahProfil" aria-hidden="true" data-bs-backdrop="false">

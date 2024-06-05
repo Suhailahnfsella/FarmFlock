@@ -210,20 +210,33 @@
 
                           function getKunjunganByIdPtlIdStatusBerjalan($id_status_berjalan, callback) {
                               $.ajax({
-                                  url: "/FarmFlock/Controller/Kunjungan.php",
-                                  type: "GET",
-                                  data: { 
-                                    action: "getKunjunganByIdPtlIdStatusBerjalan",
-                                    id_status_berjalan: $id_status_berjalan, 
-                                    id_ptl : 1
-                                  },
-                                  success: function(response) {
-                                    callback(response);
-                                  }
-                              });
-                          }
+                                url: '/FarmFlock/Controller/sesiLogin.php',
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function(response) {
+                                    $.ajax({
+                                        url: "/FarmFlock/Controller/Kunjungan.php",
+                                        type: "GET",
+                                        data: { 
+                                            action: "getKunjunganByIdPtlIdStatusBerjalan",
+                                            id_status_berjalan: $id_status_berjalan, 
+                                            id_ptl : response.id_ptl
+                                        },
+                                        success: function(response) {
+                                            var pengajuan = JSON.parse(response);
 
-                          getKunjunganByIdPtlIdStatusBerjalan(2);
+                                            callback(pengajuan[0]);
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error("Terjadi kesalahan: " + error); // Memeriksa dan menampilkan kesalahan jika terjadi
+                                        }
+                                    });
+                                },
+                                error: function() {
+                                    alert('Failed to retrieve PTL name');
+                                }
+                            });
+                          }
 
                           function getDataPengajuan($idPengajuan, callback) {
                               $.ajax({
@@ -344,7 +357,7 @@
                               var arrData = JSON.parse(data);
                               langkah = 1;
 
-                              getKunjunganByIdPtlIdStatusBerjalan(2, function(data){
+                              getKunjunganByIdPtlIdStatusBerjalan(2, function(dataKetersediaan){
                                 arrData.forEach(function(kunjungan) {
                                   var row = $('<tr>');
                                   getDataPengajuan(kunjungan.id_pengajuan, function(dataPengajuan){
@@ -364,7 +377,7 @@
                                                                 var TingkatKeparahanBadge = $('<span>').addClass('badge').addClass(TingkatKeparahanClass).text(TingkatKeparahanText);
                                                                 row.append($('<td>').append(TingkatKeparahanBadge));
                                                                 row.append($('<td>').html('<a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ModalDeskripsi" data-deskripsi="'+ dataPengajuan.deskripsi_pengajuan +'"> Lihat Deskripsi </a>'));
-                                                                if (langkah === 1 && data === '[]') {
+                                                                if (langkah === 1 && dataKetersediaan === undefined) {
                                                                     row.append($('<td>').html('<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalDimulai" data-kunjungan="'+ kunjungan.id_kunjungan +'">Mulai</button>'));
                                                                 } else {
                                                                     row.append($('<td>').html('<button class="btn btn-primary" disabled>Mulai</button>'));
